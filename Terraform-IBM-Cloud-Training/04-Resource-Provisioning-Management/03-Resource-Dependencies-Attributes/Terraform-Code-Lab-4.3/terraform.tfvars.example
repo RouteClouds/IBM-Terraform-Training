@@ -1,0 +1,376 @@
+# =============================================================================
+# TERRAFORM VARIABLES EXAMPLE
+# Resource Dependencies and Attributes Lab - Topic 4.3
+# =============================================================================
+
+# =============================================================================
+# BASIC CONFIGURATION
+# =============================================================================
+
+# IBM Cloud resource group ID (replace with your actual resource group ID)
+resource_group_id = "12345678901234567890123456789012"
+
+# Region configuration for multi-region deployment
+primary_region   = "us-south"
+secondary_region = "us-east"
+dr_region       = "eu-gb"
+
+# =============================================================================
+# PROJECT CONFIGURATION
+# =============================================================================
+
+project_configuration = {
+  project_name        = "dependency-lab"
+  project_code        = "DEP-001"
+  project_description = "Resource Dependencies and Attributes Laboratory"
+  project_owner       = "terraform-admin@company.com"
+  
+  organization = {
+    name        = "acme-corp"
+    division    = "engineering"
+    department  = "platform-engineering"
+    cost_center = "eng-001"
+    budget_code = "budget-eng-2024"
+  }
+  
+  environment = {
+    name        = "development"  # Options: development, staging, production
+    tier        = "dev"
+    purpose     = "training-lab"
+    criticality = "low"  # Options: low, medium, high, critical
+  }
+  
+  compliance = {
+    frameworks          = ["iso27001", "soc2"]
+    data_classification = "internal"
+    retention_period    = 90
+    audit_required      = true
+  }
+  
+  dependency_management = {
+    enable_implicit_dependencies = true
+    enable_explicit_dependencies = true
+    enable_data_source_caching   = true
+    enable_dependency_validation = true
+    optimization_level           = "balanced"  # Options: performance, balanced, cost
+  }
+}
+
+# =============================================================================
+# INFRASTRUCTURE CONFIGURATION
+# =============================================================================
+
+infrastructure_configuration = {
+  network = {
+    vpc_cidr_blocks = ["10.0.0.0/16"]
+    subnet_configuration = {
+      public_subnets   = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+      private_subnets  = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"]
+      database_subnets = ["10.0.21.0/24", "10.0.22.0/24", "10.0.23.0/24"]
+    }
+    enable_flow_logs   = true
+    enable_nat_gateway = true
+    dns_configuration = {
+      enable_dns_hostnames = true
+      enable_dns_support   = true
+      custom_dns_servers   = ["8.8.8.8", "8.8.4.4"]
+    }
+  }
+  
+  compute = {
+    instance_types = {
+      web_tier = {
+        instance_profile  = "bx2-2x8"
+        min_instances    = 1
+        max_instances    = 5
+        desired_instances = 2
+      }
+      app_tier = {
+        instance_profile  = "bx2-4x16"
+        min_instances    = 2
+        max_instances    = 10
+        desired_instances = 3
+      }
+      data_tier = {
+        instance_profile  = "bx2-8x32"
+        min_instances    = 1
+        max_instances    = 3
+        desired_instances = 2
+      }
+    }
+    auto_scaling = {
+      enabled               = true
+      scale_up_threshold    = 70
+      scale_down_threshold  = 30
+      scale_up_adjustment   = 1
+      scale_down_adjustment = 1
+    }
+  }
+  
+  storage = {
+    volume_types = {
+      root_volume = {
+        size_gb     = 100
+        volume_type = "general-purpose"
+        encrypted   = true
+      }
+      data_volume = {
+        size_gb     = 500
+        volume_type = "10iops-tier"
+        encrypted   = true
+      }
+    }
+    backup_configuration = {
+      enabled           = true
+      retention_days    = 30
+      backup_schedule   = "daily"
+      cross_region_copy = false
+    }
+  }
+  
+  security = {
+    encryption = {
+      at_rest_enabled       = true
+      in_transit_enabled    = true
+      key_management        = "ibm"
+      customer_managed_keys = false
+    }
+    access_control = {
+      enable_iam_roles = true
+      enable_mfa      = false
+      session_timeout = 3600
+      password_policy = {
+        min_length        = 12
+        require_symbols   = true
+        require_numbers   = true
+        require_uppercase = true
+        require_lowercase = true
+      }
+    }
+  }
+  
+  monitoring = {
+    enabled = true
+    metrics = {
+      detailed_monitoring = true
+      custom_metrics     = true
+      retention_days     = 30
+    }
+    logging = {
+      application_logs = true
+      system_logs     = true
+      audit_logs      = true
+      log_retention   = 30
+    }
+    alerting = {
+      enabled = true
+      notification_channels = ["email", "slack"]
+      alert_thresholds = {
+        cpu_utilization    = 80
+        memory_utilization = 85
+        disk_utilization   = 90
+        network_throughput = 1000
+      }
+    }
+  }
+}
+
+# =============================================================================
+# FEATURE FLAGS
+# =============================================================================
+
+feature_flags = {
+  enable_multi_region      = false  # Set to true for multi-region deployment
+  enable_disaster_recovery = false  # Set to true for DR setup
+  enable_auto_scaling      = true
+  enable_monitoring        = true
+  enable_backup           = true
+  enable_advanced_features = false  # Set to true to use existing VPC
+  enable_cost_optimization = true
+  enable_security_scanning = true
+  enable_compliance_checks = true
+  enable_performance_tuning = false
+  enable_debug_mode          = true
+  enable_provider_validation = true
+  enable_resource_validation = true
+  enable_output_validation   = true
+}
+
+# =============================================================================
+# DEPENDENCY CONFIGURATION
+# =============================================================================
+
+dependency_configuration = {
+  implicit_dependencies = {
+    enable_vpc_to_subnet     = true
+    enable_subnet_to_instance = true
+    enable_sg_cross_reference = true
+    enable_lb_to_instance    = true
+  }
+  
+  explicit_dependencies = {
+    enable_database_first    = true
+    enable_monitoring_first  = true
+    enable_security_first    = true
+    enable_network_first     = true
+  }
+  
+  data_source_strategy = {
+    cache_results           = true
+    enable_conditional_logic = true
+    enable_dynamic_discovery = true
+    refresh_interval        = 300  # seconds
+  }
+  
+  optimization_settings = {
+    enable_parallel_creation = true
+    max_parallelism         = 10
+    enable_dependency_graph  = true
+    enable_performance_monitoring = true
+  }
+}
+
+# =============================================================================
+# GLOBAL TAGS
+# =============================================================================
+
+global_tags = {
+  "managed-by"      = "terraform"
+  "lab-name"        = "dependencies-4.3"
+  "created-by"      = "terraform-training"
+  "purpose"         = "education"
+  "cost-tracking"   = "training-budget"
+  "environment"     = "development"
+  "auto-shutdown"   = "enabled"
+  "backup-required" = "standard"
+}
+
+# =============================================================================
+# ENVIRONMENT-SPECIFIC EXAMPLES
+# =============================================================================
+
+# Development Environment Example
+# Uncomment and modify for development environment
+/*
+project_configuration = {
+  project_name = "dependency-lab-dev"
+  environment = {
+    name        = "development"
+    tier        = "dev"
+    purpose     = "training-lab"
+    criticality = "low"
+  }
+  # ... other configuration
+}
+
+infrastructure_configuration = {
+  compute = {
+    instance_types = {
+      web_tier = {
+        instance_profile  = "bx2-2x8"
+        desired_instances = 1
+      }
+      app_tier = {
+        instance_profile  = "bx2-2x8"
+        desired_instances = 2
+      }
+    }
+  }
+  # ... other configuration
+}
+*/
+
+# Staging Environment Example
+# Uncomment and modify for staging environment
+/*
+project_configuration = {
+  project_name = "dependency-lab-staging"
+  environment = {
+    name        = "staging"
+    tier        = "staging"
+    purpose     = "pre-production"
+    criticality = "medium"
+  }
+  # ... other configuration
+}
+
+infrastructure_configuration = {
+  compute = {
+    instance_types = {
+      web_tier = {
+        instance_profile  = "bx2-4x16"
+        desired_instances = 2
+      }
+      app_tier = {
+        instance_profile  = "bx2-4x16"
+        desired_instances = 3
+      }
+    }
+  }
+  # ... other configuration
+}
+
+feature_flags = {
+  enable_multi_region      = true
+  enable_monitoring        = true
+  enable_backup           = true
+  enable_security_scanning = true
+  # ... other flags
+}
+*/
+
+# Production Environment Example
+# Uncomment and modify for production environment
+/*
+project_configuration = {
+  project_name = "dependency-lab-prod"
+  environment = {
+    name        = "production"
+    tier        = "prod"
+    purpose     = "production-workload"
+    criticality = "critical"
+  }
+  # ... other configuration
+}
+
+infrastructure_configuration = {
+  compute = {
+    instance_types = {
+      web_tier = {
+        instance_profile  = "bx2-8x32"
+        desired_instances = 5
+      }
+      app_tier = {
+        instance_profile  = "bx2-16x64"
+        desired_instances = 10
+      }
+    }
+  }
+  # ... other configuration
+}
+
+feature_flags = {
+  enable_multi_region      = true
+  enable_disaster_recovery = true
+  enable_monitoring        = true
+  enable_backup           = true
+  enable_advanced_features = true
+  enable_security_scanning = true
+  enable_compliance_checks = true
+  enable_performance_tuning = true
+  # ... other flags
+}
+*/
+
+# =============================================================================
+# USAGE NOTES
+# =============================================================================
+
+# 1. Copy this file to terraform.tfvars and modify values as needed
+# 2. Ensure your IBM Cloud API key is set: export IBMCLOUD_API_KEY="your-api-key"
+# 3. Update resource_group_id with your actual resource group ID
+# 4. Modify regions based on your requirements
+# 5. Adjust instance counts and profiles based on your needs
+# 6. Enable/disable features using feature flags
+# 7. Review dependency configuration for your use case
+# 8. Update tags to match your organization's standards

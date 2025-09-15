@@ -1,0 +1,17 @@
+# Python Requirements for HCL Syntax Diagrams Generator
+# ===================================================
+
+# Core plotting and visualization
+matplotlib>=3.7.0
+numpy>=1.24.0
+
+# Optional enhancements (install if needed)
+# pillow>=10.0.0          # For image processing
+# seaborn>=0.12.0         # For enhanced statistical plots
+# plotly>=5.15.0          # For interactive diagrams
+# kaleido>=0.2.1          # For plotly static image export
+
+# Development and testing (optional)
+# pytest>=7.4.0          # For unit testing
+# black>=23.7.0          # For code formatting
+# flake8>=6.0.0          # For code linting

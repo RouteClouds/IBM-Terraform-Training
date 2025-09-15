@@ -1,0 +1,193 @@
+# =============================================================================
+# TERRAFORM GITIGNORE
+# Advanced HCL Configuration Lab - Topic 4.2
+# =============================================================================
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files, which are likely to contain sensitive data
+*.tfvars
+*.tfvars.json
+
+# Ignore override files as they are usually used to override resources locally
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include override files you do wish to add to version control using negated pattern
+# !example_override.tf
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+*tfplan*
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# =============================================================================
+# IBM CLOUD SPECIFIC
+# =============================================================================
+
+# IBM Cloud credentials
+.bluemix/
+.ibmcloud/
+
+# IBM Cloud CLI configuration
+ibmcloud_api_key
+ic_api_key
+
+# =============================================================================
+# GENERATED FILES
+# =============================================================================
+
+# Generated configuration files (from debug mode)
+generated_config.json
+generated_terraform.tfvars.template
+generated_*.json
+generated_*.tf
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# =============================================================================
+# DEVELOPMENT AND TESTING
+# =============================================================================
+
+# Test files
+test_*.tf
+*_test.tf
+test/
+tests/
+
+# Backup files
+*.backup
+*.bak
+*~
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =============================================================================
+# LOGS AND DEBUGGING
+# =============================================================================
+
+# Log files
+*.log
+logs/
+log/
+
+# Debug output
+debug.txt
+debug_*.txt
+terraform-debug.log
+
+# =============================================================================
+# SECURITY AND SENSITIVE DATA
+# =============================================================================
+
+# API keys and secrets
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+.secrets/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# =============================================================================
+# DOCUMENTATION AND REPORTS
+# =============================================================================
+
+# Generated documentation
+docs/generated/
+*.pdf
+*.docx
+
+# Cost reports
+cost_report_*.json
+cost_analysis_*.csv
+
+# =============================================================================
+# TERRAFORM MODULES AND PLUGINS
+# =============================================================================
+
+# Module cache
+.terraform.d/
+.terraform.lock.hcl
+
+# Plugin cache
+terraform.d/
+
+# =============================================================================
+# SCRIPTS AND AUTOMATION
+# =============================================================================
+
+# Script outputs
+script_output/
+automation_logs/
+
+# Deployment artifacts
+deployment_*.zip
+artifacts/
+
+# =============================================================================
+# CUSTOM EXCLUSIONS
+# =============================================================================
+
+# Lab-specific exclusions
+lab_notes.md
+personal_notes.txt
+scratch/
+
+# Custom configurations (keep examples)
+!terraform.tfvars.example
+!*.example
+
+# =============================================================================
+# INCLUDE PATTERNS (NEGATED)
+# =============================================================================
+
+# Include important example files
+!terraform.tfvars.example
+!*.tf.example
+!examples/
+
+# Include documentation
+!README.md
+!CHANGELOG.md
+!LICENSE
+
+# Include scripts (but not their output)
+!scripts/*.sh
+!scripts/*.py
+!scripts/README.md

@@ -1,0 +1,324 @@
+# Example Terraform Variables for IBM Cloud Provider Configuration Lab 2.2
+# Copy this file to terraform.tfvars and customize values for your environment
+
+# =============================================================================
+# AUTHENTICATION CONFIGURATION
+# =============================================================================
+
+# Primary IBM Cloud API Key (REQUIRED)
+# Obtain from: https://cloud.ibm.com/iam/apikeys
+ibmcloud_api_key = "your-primary-api-key-here"
+
+# Enterprise API Key (Optional - for enterprise scenarios)
+# enterprise_api_key = "your-enterprise-api-key-here"
+
+# Development Environment API Key (Optional)
+# dev_api_key = "your-development-api-key-here"
+
+# Staging Environment API Key (Optional)
+# staging_api_key = "your-staging-api-key-here"
+
+# Testing Environment API Key (Optional)
+# testing_api_key = "your-testing-api-key-here"
+
+# Disaster Recovery API Key (Optional)
+# dr_api_key = "your-disaster-recovery-api-key-here"
+
+# =============================================================================
+# REGIONAL CONFIGURATION
+# =============================================================================
+
+# Primary Region Configuration
+ibm_region = "us-south"
+ibm_zone   = "us-south-1"
+
+# Enterprise Environment Configuration
+enterprise_region = "us-south"
+enterprise_zone   = "us-south-1"
+
+# Development Environment Configuration
+dev_region = "us-south"
+dev_zone   = "us-south-2"
+
+# Staging Environment Configuration
+staging_region = "us-east"
+staging_zone   = "us-east-1"
+
+# Testing Environment Configuration
+testing_region = "us-south"
+testing_zone   = "us-south-3"
+
+# Disaster Recovery Configuration
+dr_region = "eu-de"
+dr_zone   = "eu-de-1"
+
+# Specialized Service Regions
+kubernetes_region = "us-south"
+database_region   = "us-south"
+
+# =============================================================================
+# RESOURCE GROUP CONFIGURATION
+# =============================================================================
+
+# Primary Resource Group (Optional - uses default if not specified)
+# resource_group_id = "your-resource-group-id-here"
+
+# Environment-Specific Resource Groups (Optional)
+# enterprise_resource_group_id = "your-enterprise-rg-id"
+# dev_resource_group_id = "your-dev-rg-id"
+# staging_resource_group_id = "your-staging-rg-id"
+# testing_resource_group_id = "your-testing-rg-id"
+# dr_resource_group_id = "your-dr-rg-id"
+# kubernetes_resource_group_id = "your-k8s-rg-id"
+# database_resource_group_id = "your-db-rg-id"
+
+# =============================================================================
+# PROVIDER PERFORMANCE CONFIGURATION
+# =============================================================================
+
+# Provider Timeout Settings (in seconds)
+provider_timeout = 600    # 10 minutes - good for most operations
+# provider_timeout = 900   # 15 minutes - for complex operations
+# provider_timeout = 1800  # 30 minutes - for enterprise operations
+
+# Retry Configuration
+max_retries  = 5          # Standard retry count
+retry_delay  = 30         # 30 seconds between retries
+
+# Alternative Performance Configurations:
+# High Performance (for development/testing)
+# max_retries = 3
+# retry_delay = 15
+
+# High Reliability (for production)
+# max_retries = 10
+# retry_delay = 60
+
+# Enterprise Grade (for critical operations)
+# max_retries = 20
+# retry_delay = 120
+
+# =============================================================================
+# SECURITY AND COMPLIANCE CONFIGURATION
+# =============================================================================
+
+# Network Security Settings
+use_private_endpoints = true    # Recommended for production
+# use_private_endpoints = false  # For development/testing convenience
+
+# Environment-Specific Security Settings
+staging_use_private_endpoints = true
+force_private_endpoints       = false
+
+# Debug and Monitoring Settings
+enable_debug_tracing     = false  # Set to true for troubleshooting
+enterprise_enable_tracing = false  # Enable for enterprise debugging
+staging_enable_tracing   = false  # Enable for staging debugging
+kubernetes_enable_tracing = false  # Enable for K8s debugging
+
+# Audit and Compliance
+enable_audit_logging = true       # Recommended for all environments
+
+# Classic Infrastructure (if needed)
+enable_classic_infrastructure = false
+# classic_username = "your-classic-username"
+# classic_api_key = "your-classic-api-key"
+
+# =============================================================================
+# PROJECT AND ENVIRONMENT CONFIGURATION
+# =============================================================================
+
+# Project Identification
+project_name = "provider-config-lab"
+environment  = "lab"
+owner        = "terraform-student"
+
+# Alternative Environment Configurations:
+# For Development:
+# project_name = "my-dev-project"
+# environment = "dev"
+# owner = "developer-name"
+
+# For Staging:
+# project_name = "my-staging-project"
+# environment = "staging"
+# owner = "staging-team"
+
+# For Production:
+# project_name = "my-prod-project"
+# environment = "prod"
+# owner = "production-team"
+
+# =============================================================================
+# TESTING AND VALIDATION CONFIGURATION
+# =============================================================================
+
+# Provider Testing Options
+enable_provider_testing = true
+test_connectivity       = true
+validate_authentication = true
+
+# Multi-Region Testing (creates resources in multiple regions)
+test_multi_region = false  # Set to true to test multi-region setup
+
+# Performance Testing (creates multiple resources for performance analysis)
+performance_testing_enabled = false  # Set to true for performance testing
+
+# =============================================================================
+# ADVANCED CONFIGURATION OPTIONS
+# =============================================================================
+
+# VPC Configuration
+vpc_generation = 2  # Use VPC Gen 2 (recommended)
+
+# Provider Aliases to Configure
+provider_aliases = [
+  "us_south",
+  "us_east",
+  "eu_de",
+  "jp_tok"
+]
+
+# Custom Endpoints (for specialized environments)
+custom_endpoints = {
+  # iam_url = "https://iam.cloud.ibm.com"
+  # iam_token_url = "https://iam.cloud.ibm.com/identity/token"
+  # api_endpoint = "https://cloud.ibm.com"
+}
+
+# =============================================================================
+# TAGGING STRATEGY CONFIGURATION
+# =============================================================================
+
+# Common Tags (applied to all resources)
+common_tags = {
+  "terraform"   = "managed"
+  "lab"         = "2.2"
+  "purpose"     = "provider-configuration"
+  "training"    = "ibm-cloud-terraform"
+}
+
+# Additional Tags
+additional_tags = [
+  "student:your-name",
+  "session:lab-2-2"
+]
+
+# Environment-Specific Tags
+environment_tags = {
+  "lab_session" = "provider-configuration"
+  "instructor"  = "terraform-training"
+}
+
+# =============================================================================
+# COST MANAGEMENT CONFIGURATION
+# =============================================================================
+
+# Cost Tracking
+enable_cost_tracking    = true
+cost_center            = "training"
+budget_alert_threshold = 100  # USD
+
+# =============================================================================
+# SCENARIO-SPECIFIC CONFIGURATIONS
+# =============================================================================
+
+# SCENARIO 1: Basic Lab Configuration (Recommended for beginners)
+# Use the default values above with:
+# - test_connectivity = true
+# - test_multi_region = false
+# - performance_testing_enabled = false
+# - use_private_endpoints = true
+
+# SCENARIO 2: Advanced Multi-Region Testing
+# Uncomment and modify:
+# test_multi_region = true
+# enterprise_api_key = "your-enterprise-key"
+# staging_api_key = "your-staging-key"
+
+# SCENARIO 3: Enterprise Security Validation
+# Uncomment and modify:
+# enterprise_api_key = "your-enterprise-key"
+# force_private_endpoints = true
+# enable_audit_logging = true
+# enterprise_enable_tracing = true
+
+# SCENARIO 4: Performance Benchmarking
+# Uncomment and modify:
+# performance_testing_enabled = true
+# provider_timeout = 1800
+# max_retries = 20
+# retry_delay = 120
+
+# SCENARIO 5: Development Environment Setup
+# Uncomment and modify:
+# dev_api_key = "your-dev-key"
+# environment = "dev"
+# use_private_endpoints = false
+# enable_debug_tracing = true
+
+# =============================================================================
+# VALIDATION CHECKLIST
+# =============================================================================
+
+# Before running terraform apply, ensure:
+# ✅ IBM Cloud API key is valid and has necessary permissions
+# ✅ Selected regions are available in your IBM Cloud account
+# ✅ Resource groups exist (if specified)
+# ✅ Network connectivity allows access to IBM Cloud APIs
+# ✅ Terraform version is >= 1.5.0
+# ✅ IBM Cloud provider version is compatible (~> 1.60.0)
+
+# =============================================================================
+# QUICK START COMMANDS
+# =============================================================================
+
+# 1. Copy this file:
+#    cp terraform.tfvars.example terraform.tfvars
+
+# 2. Edit terraform.tfvars with your values:
+#    nano terraform.tfvars
+
+# 3. Initialize Terraform:
+#    terraform init
+
+# 4. Validate configuration:
+#    terraform validate
+
+# 5. Plan deployment:
+#    terraform plan
+
+# 6. Apply configuration:
+#    terraform apply
+
+# 7. Review outputs:
+#    terraform output
+
+# 8. Clean up (when done):
+#    terraform destroy
+
+# =============================================================================
+# TROUBLESHOOTING TIPS
+# =============================================================================
+
+# Common Issues and Solutions:
+
+# Issue: "Error: Invalid API Key"
+# Solution: Verify API key is correct and has proper permissions
+
+# Issue: "Error: Region not found"
+# Solution: Check region name spelling and availability
+
+# Issue: "Error: Timeout"
+# Solution: Increase provider_timeout value
+
+# Issue: "Error: Rate limited"
+# Solution: Increase retry_delay value
+
+# Issue: "Error: Network connectivity"
+# Solution: Check firewall rules and proxy settings
+
+# For additional help:
+# - Review the lab documentation
+# - Check IBM Cloud status page
+# - Consult Terraform IBM Cloud provider documentation

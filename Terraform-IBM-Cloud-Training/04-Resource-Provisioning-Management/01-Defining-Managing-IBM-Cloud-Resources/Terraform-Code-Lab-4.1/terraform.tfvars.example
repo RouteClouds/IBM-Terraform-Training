@@ -1,0 +1,333 @@
+# =============================================================================
+# TERRAFORM VARIABLES CONFIGURATION EXAMPLE
+# Topic 4.1: Defining and Managing IBM Cloud Resources
+# =============================================================================
+# 
+# This file provides example values for all configurable variables.
+# Copy this file to terraform.tfvars and update with your specific values.
+# 
+# SECURITY NOTE: Never commit terraform.tfvars to version control as it
+# contains sensitive information like API keys.
+# =============================================================================
+
+# =============================================================================
+# AUTHENTICATION AND REGION CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API key for authentication
+# Obtain from: https://cloud.ibm.com/iam/apikeys
+ibmcloud_api_key = "YOUR_IBM_CLOUD_API_KEY_HERE"
+
+# Primary IBM Cloud region for resource deployment
+# Available regions: us-south, us-east, eu-gb, eu-de, jp-tok, au-syd, jp-osa, br-sao, ca-tor, eu-fr2
+ibm_region = "us-south"
+
+# Secondary region for disaster recovery (optional)
+secondary_region = "us-east"
+
+# Resource group name (must exist in your IBM Cloud account)
+resource_group_name = "default"
+
+# =============================================================================
+# PROJECT AND ENVIRONMENT CONFIGURATION
+# =============================================================================
+
+# Project name for resource naming and organization
+# Must contain only lowercase letters, numbers, and hyphens
+project_name = "terraform-lab-41"
+
+# Environment name for resource lifecycle management
+# Options: development, staging, production, test, demo
+environment = "development"
+
+# Owner of the infrastructure for resource tagging
+owner = "your-name-here"
+
+# Cost center for billing and resource allocation tracking
+cost_center = "training-lab"
+
+# =============================================================================
+# NETWORK CONFIGURATION
+# =============================================================================
+
+# VPC address space (CIDR block)
+# Default provides space for multiple subnets across availability zones
+vpc_address_prefix = "10.240.0.0/16"
+
+# Subnet configurations for multi-tier architecture
+# Modify CIDR blocks and zones as needed for your deployment
+subnet_configurations = {
+  "web-tier-1" = {
+    cidr_block    = "10.240.1.0/24"
+    zone_offset   = 1
+    tier          = "web"
+    public_access = true
+    description   = "Web tier subnet in zone 1 with public access"
+  }
+  "web-tier-2" = {
+    cidr_block    = "10.240.2.0/24"
+    zone_offset   = 2
+    tier          = "web"
+    public_access = true
+    description   = "Web tier subnet in zone 2 with public access"
+  }
+  "app-tier-1" = {
+    cidr_block    = "10.240.11.0/24"
+    zone_offset   = 1
+    tier          = "application"
+    public_access = false
+    description   = "Application tier subnet in zone 1 (private)"
+  }
+  "app-tier-2" = {
+    cidr_block    = "10.240.12.0/24"
+    zone_offset   = 2
+    tier          = "application"
+    public_access = false
+    description   = "Application tier subnet in zone 2 (private)"
+  }
+  "data-tier-1" = {
+    cidr_block    = "10.240.21.0/24"
+    zone_offset   = 1
+    tier          = "database"
+    public_access = false
+    description   = "Database tier subnet in zone 1 (private)"
+  }
+  "data-tier-2" = {
+    cidr_block    = "10.240.22.0/24"
+    zone_offset   = 2
+    tier          = "database"
+    public_access = false
+    description   = "Database tier subnet in zone 2 (private)"
+  }
+}
+
+# Enable VPC flow logs for network monitoring
+enable_flow_logs = true
+
+# =============================================================================
+# COMPUTE CONFIGURATION
+# =============================================================================
+
+# Virtual server instance configurations
+# Adjust counts and profiles based on your requirements and budget
+instance_configurations = {
+  "web-servers" = {
+    count           = 2
+    profile         = "bx2-2x8"    # 2 vCPU, 8 GB RAM
+    image_name      = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+    tier            = "web"
+    boot_volume_size = 100
+    enable_monitoring = true
+    user_data_template = "web-server-init.sh"
+  }
+  "app-servers" = {
+    count           = 2
+    profile         = "bx2-4x16"   # 4 vCPU, 16 GB RAM
+    image_name      = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+    tier            = "application"
+    boot_volume_size = 100
+    enable_monitoring = true
+    user_data_template = "app-server-init.sh"
+  }
+  "db-servers" = {
+    count           = 1
+    profile         = "bx2-8x32"   # 8 vCPU, 32 GB RAM
+    image_name      = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+    tier            = "database"
+    boot_volume_size = 200
+    enable_monitoring = true
+    user_data_template = "db-server-init.sh"
+  }
+}
+
+# SSH key name for instance access (must exist in IBM Cloud)
+# Leave empty if no SSH access is needed
+ssh_key_name = "your-ssh-key-name"
+
+# =============================================================================
+# STORAGE CONFIGURATION
+# =============================================================================
+
+# Storage volume configurations for different tiers
+storage_configurations = {
+  "app-data" = {
+    volume_size_gb = 100
+    profile        = "general-purpose"  # 3 IOPS/GB
+    encrypted      = true
+    tier           = "application"
+    backup_enabled = true
+  }
+  "db-data" = {
+    volume_size_gb = 500
+    profile        = "10iops-tier"      # 10 IOPS/GB for database workloads
+    encrypted      = true
+    tier           = "database"
+    backup_enabled = true
+  }
+  "shared-storage" = {
+    volume_size_gb = 250
+    profile        = "5iops-tier"       # 5 IOPS/GB for shared resources
+    encrypted      = true
+    tier           = "shared"
+    backup_enabled = true
+  }
+}
+
+# =============================================================================
+# SECURITY CONFIGURATION
+# =============================================================================
+
+# Security settings for network access control
+security_configurations = {
+  # CIDR blocks allowed for SSH access (restrict in production)
+  allowed_ssh_cidr_blocks    = ["0.0.0.0/0"]  # Change to your IP range
+  
+  # CIDR blocks allowed for web access
+  allowed_web_cidr_blocks    = ["0.0.0.0/0"]
+  
+  # Enable network ACLs for additional security
+  enable_network_acls        = true
+  
+  # Enable security monitoring and alerting
+  enable_security_monitoring = true
+  
+  # Compliance framework for security configuration
+  # Options: general, hipaa, sox, pci-dss
+  compliance_framework       = "general"
+  
+  # Encryption key management
+  # Options: provider-managed, customer-managed
+  encryption_key_management  = "provider-managed"
+}
+
+# =============================================================================
+# LOAD BALANCER CONFIGURATION
+# =============================================================================
+
+# Application Load Balancer settings
+load_balancer_configuration = {
+  # Load balancer type: public or private
+  type                = "public"
+  
+  # Load balancing algorithm
+  # Options: round_robin, weighted_round_robin, least_connections
+  algorithm          = "round_robin"
+  
+  # Health check configuration
+  health_check_url   = "/health"
+  health_check_interval = 60
+  
+  # Session persistence (sticky sessions)
+  session_persistence = false
+  
+  # SSL certificate CRN (leave empty for HTTP only)
+  ssl_certificate_crn = ""
+}
+
+# =============================================================================
+# MONITORING AND OBSERVABILITY
+# =============================================================================
+
+# Monitoring and observability configuration
+monitoring_configuration = {
+  # Enable IBM Cloud platform metrics
+  enable_platform_metrics = true
+  
+  # Enable IBM Cloud platform logs
+  enable_platform_logs   = true
+  
+  # Log retention period (7-365 days)
+  log_retention_days     = 30
+  
+  # Metrics retention period (7-365 days)
+  metrics_retention_days = 90
+  
+  # Alert notification channels (email addresses, Slack webhooks, etc.)
+  alert_notification_channels = []
+}
+
+# =============================================================================
+# COST OPTIMIZATION
+# =============================================================================
+
+# Cost optimization settings
+cost_optimization = {
+  # Enable auto-scaling (disabled for lab environment)
+  enable_auto_scaling     = false
+  
+  # Enable scheduled scaling for cost savings
+  enable_scheduled_scaling = false
+  
+  # Minimum instances per tier
+  min_instances_per_tier  = 1
+  
+  # Maximum instances per tier
+  max_instances_per_tier  = 5
+  
+  # Scale down schedule (cron format) - 6 PM weekdays
+  scale_down_schedule     = "0 18 * * 1-5"
+  
+  # Scale up schedule (cron format) - 8 AM weekdays
+  scale_up_schedule       = "0 8 * * 1-5"
+}
+
+# =============================================================================
+# RESOURCE TAGGING
+# =============================================================================
+
+# Additional resource tags for organization and cost tracking
+resource_tags = {
+  "managed-by"      = "terraform"
+  "project-type"    = "training-lab"
+  "topic"           = "4.1-resource-provisioning"
+  "learning-path"   = "ibm-cloud-terraform"
+  "auto-cleanup"    = "enabled"
+  "department"      = "engineering"
+  "team"            = "platform"
+}
+
+# =============================================================================
+# FEATURE FLAGS
+# =============================================================================
+
+# Enable detailed monitoring for all resources
+enable_detailed_monitoring = true
+
+# Enable detailed cost tracking and optimization features
+enable_cost_tracking = true
+
+# =============================================================================
+# CONFIGURATION NOTES
+# =============================================================================
+
+# COST ESTIMATION:
+# Based on the default configuration, estimated monthly costs:
+# - Web servers (2x bx2-2x8): ~$146/month
+# - App servers (2x bx2-4x16): ~$292/month  
+# - DB servers (1x bx2-8x32): ~$292/month
+# - Storage volumes: ~$85/month
+# - Load balancer: ~$25/month
+# - Total estimated: ~$840/month
+#
+# For lab/development use, consider:
+# - Reducing instance counts
+# - Using smaller instance profiles
+# - Implementing scheduled shutdown
+
+# SECURITY CONSIDERATIONS:
+# - Change allowed_ssh_cidr_blocks to your specific IP range
+# - Use customer-managed encryption keys for sensitive data
+# - Enable network ACLs for additional security layers
+# - Configure proper IAM policies and access controls
+
+# PERFORMANCE OPTIMIZATION:
+# - Monitor resource utilization and adjust profiles accordingly
+# - Use appropriate storage profiles for workload requirements
+# - Implement caching strategies for better performance
+# - Consider CDN for static content delivery
+
+# DISASTER RECOVERY:
+# - Configure secondary region deployment
+# - Implement automated backup strategies
+# - Test recovery procedures regularly
+# - Document recovery time and point objectives

@@ -1,0 +1,249 @@
+# Provider Configuration and Authentication - Example Variables
+# Copy this file to terraform.tfvars and update with your actual values
+# This file demonstrates comprehensive provider configuration options
+
+# ============================================================================
+# IBM CLOUD AUTHENTICATION
+# ============================================================================
+
+# Primary IBM Cloud API key (recommended to use IC_API_KEY environment variable instead)
+# ibm_api_key = "your-ibm-cloud-api-key-here"
+
+# IBM Cloud region for primary deployment
+ibm_region = "us-south"
+
+# Resource group ID (leave null to use default resource group)
+# resource_group_id = "your-resource-group-id-here"
+
+# ============================================================================
+# MULTI-ENVIRONMENT CONFIGURATION
+# ============================================================================
+
+# Development environment settings
+# dev_api_key = "your-dev-api-key-here"
+dev_region = "us-south"
+# dev_resource_group_id = "your-dev-resource-group-id"
+
+# Staging environment settings
+# staging_api_key = "your-staging-api-key-here"
+staging_region = "us-east"
+# staging_resource_group_id = "your-staging-resource-group-id"
+
+# Production environment settings
+# prod_api_key = "your-prod-api-key-here"
+prod_region = "eu-gb"
+# prod_resource_group_id = "your-prod-resource-group-id"
+
+# ============================================================================
+# PROVIDER PERFORMANCE CONFIGURATION
+# ============================================================================
+
+# Provider timeout in seconds (60-3600)
+provider_timeout = 300
+
+# Maximum number of retries for failed requests (1-10)
+max_retries = 3
+
+# Delay between retries in seconds (1-60)
+retry_delay = 5
+
+# ============================================================================
+# ENTERPRISE SECURITY CONFIGURATION
+# ============================================================================
+
+# Endpoint type: "public" or "private"
+endpoint_type = "public"
+
+# Resource visibility: "public" or "private"
+visibility = "public"
+
+# Enable trace logging for debugging (not recommended for production)
+enable_trace_logging = false
+
+# Security level: "basic", "standard", "high", "maximum"
+security_level = "standard"
+
+# ============================================================================
+# PROJECT AND ENVIRONMENT SETTINGS
+# ============================================================================
+
+# Project name for resource naming (lowercase, numbers, hyphens only)
+project_name = "lab3-provider-config"
+
+# Environment name
+environment = "lab"
+
+# Owner email for resource tagging
+owner = "your-email@company.com"
+
+# ============================================================================
+# EXTERNAL INTEGRATION CONFIGURATION
+# ============================================================================
+
+# HashiCorp Vault integration (optional)
+enable_vault_integration = false
+# vault_address = "https://vault.company.com:8200"
+# vault_token = "your-vault-token-here"
+
+# ============================================================================
+# ADVANCED PROVIDER FEATURES
+# ============================================================================
+
+# Performance mode: "fast", "balanced", "conservative"
+performance_mode = "balanced"
+
+# Feature flags for experimental features
+feature_flags = {
+  vpc_next_generation = false
+  enhanced_security   = false
+  cost_optimization   = false
+  advanced_networking = false
+  beta_features       = false
+}
+
+# Individual feature toggles
+enable_vpc_next_gen = false
+enable_enhanced_security = false
+enable_cost_optimization = false
+
+# ============================================================================
+# TESTING AND VALIDATION CONFIGURATION
+# ============================================================================
+
+# Enable test mode to create validation resources
+test_mode = true
+
+# Enable comprehensive validation
+validation_enabled = true
+
+# Enable monitoring and metrics collection
+monitoring_enabled = true
+
+# Enable debug mode for detailed logging
+debug_mode = false
+
+# ============================================================================
+# RESOURCE NAMING AND TAGGING
+# ============================================================================
+
+# Prefix for all resource names
+resource_prefix = "lab3"
+
+# Common tags to apply to all resources
+common_tags = {
+  "Lab"         = "3.3"
+  "Topic"       = "Provider-Configuration"
+  "Course"      = "IBM-Cloud-Terraform"
+  "Environment" = "lab"
+  "Purpose"     = "training"
+}
+
+# Cost center for billing tracking
+cost_center = "training"
+
+# ============================================================================
+# PROVIDER TESTING CONFIGURATION
+# ============================================================================
+
+# Number of test resources to create for validation (1-20)
+provider_test_resources = 5
+
+# ============================================================================
+# EXAMPLE CONFIGURATIONS FOR DIFFERENT SCENARIOS
+# ============================================================================
+
+# DEVELOPMENT CONFIGURATION EXAMPLE:
+# ibm_region = "us-south"
+# endpoint_type = "public"
+# visibility = "public"
+# enable_trace_logging = true
+# security_level = "basic"
+# performance_mode = "fast"
+# test_mode = true
+# debug_mode = true
+
+# STAGING CONFIGURATION EXAMPLE:
+# ibm_region = "us-east"
+# endpoint_type = "public"
+# visibility = "public"
+# enable_trace_logging = false
+# security_level = "standard"
+# performance_mode = "balanced"
+# test_mode = false
+# debug_mode = false
+
+# PRODUCTION CONFIGURATION EXAMPLE:
+# ibm_region = "eu-gb"
+# endpoint_type = "private"
+# visibility = "private"
+# enable_trace_logging = false
+# security_level = "high"
+# performance_mode = "conservative"
+# test_mode = false
+# debug_mode = false
+# monitoring_enabled = true
+
+# ============================================================================
+# SECURITY BEST PRACTICES
+# ============================================================================
+
+# 1. Use environment variables for API keys:
+#    export IC_API_KEY="your-api-key"
+#    export IC_REGION="us-south"
+#    export IC_RESOURCE_GROUP_ID="your-resource-group-id"
+
+# 2. For production environments:
+#    - Set endpoint_type = "private"
+#    - Set visibility = "private"
+#    - Set enable_trace_logging = false
+#    - Set debug_mode = false
+#    - Use separate API keys for each environment
+
+# 3. For development environments:
+#    - Use public endpoints for easier access
+#    - Enable trace logging for debugging
+#    - Use test_mode = true for validation
+
+# 4. For CI/CD pipelines:
+#    - Store credentials in secure secret management
+#    - Use service IDs with minimal required permissions
+#    - Enable monitoring and alerting
+#    - Implement proper error handling
+
+# ============================================================================
+# TROUBLESHOOTING TIPS
+# ============================================================================
+
+# If you encounter authentication errors:
+# 1. Verify your API key is correct and has proper permissions
+# 2. Check that the region is valid and accessible
+# 3. Ensure resource group exists and is accessible
+# 4. Try enabling debug_mode = true for detailed logging
+
+# If you encounter timeout errors:
+# 1. Increase provider_timeout value
+# 2. Increase max_retries and retry_delay
+# 3. Check network connectivity to IBM Cloud
+# 4. Consider using a different region
+
+# If you encounter permission errors:
+# 1. Verify IAM permissions for your API key
+# 2. Check resource group access permissions
+# 3. Ensure VPC service permissions are granted
+# 4. Review security group and network ACL settings
+
+# ============================================================================
+# COST CONSIDERATIONS
+# ============================================================================
+
+# Test mode resources (when test_mode = true):
+# - Creates 5 VPCs by default (provider_test_resources = 5)
+# - Creates security groups and rules
+# - Estimated cost: ~$50-100 USD per month
+# - Remember to run 'terraform destroy' after testing
+
+# Production considerations:
+# - Use private endpoints to avoid data transfer charges
+# - Implement proper resource tagging for cost tracking
+# - Enable cost optimization features when available
+# - Monitor resource usage and costs regularly

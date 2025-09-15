@@ -1,0 +1,274 @@
+# Core Terraform Commands Lab - Example Variables Configuration
+# Copy this file to terraform.tfvars and customize for your environment
+
+# ============================================================================
+# IBM Cloud Authentication and Configuration
+# ============================================================================
+
+# IBM Cloud API Key (REQUIRED)
+# Get your API key from: https://cloud.ibm.com/iam/apikeys
+# SECURITY: Never commit this file with real API key to version control
+ibm_api_key = "your-ibm-cloud-api-key-here"
+
+# IBM Cloud Region
+# Available regions: us-south, us-east, eu-gb, eu-de, jp-tok, jp-osa, au-syd, ca-tor, br-sao, eu-es
+ibm_region = "us-south"
+
+# Resource Group ID (optional)
+# Leave as null to use default resource group
+# Get resource group ID from: ibmcloud resource groups
+resource_group_id = null
+
+# ============================================================================
+# Project Configuration
+# ============================================================================
+
+# Project name for resource naming and organization
+# Must be 3-30 characters, lowercase letters, numbers, and hyphens only
+project_name = "lab32-core-commands"
+
+# Environment designation
+# Options: dev, development, test, testing, stage, staging, prod, production, lab, demo, sandbox
+environment = "lab"
+
+# Owner email for resource tagging and management
+# Must be a valid email address
+owner = "your-email@company.com"
+
+# ============================================================================
+# Command Workflow Configuration
+# ============================================================================
+
+# Enable detailed command execution logging
+# Recommended: true for learning and troubleshooting
+enable_command_logging = true
+
+# Command execution timeout in seconds (60-3600)
+# Recommended: 300 seconds for most operations
+command_timeout = 300
+
+# Enable plan validation before apply operations
+# Recommended: true for safety and best practices
+enable_plan_validation = true
+
+# Enable auto-approval for destroy operations
+# WARNING: Use with extreme caution, recommended: false for learning
+auto_approve_destroy = false
+
+# ============================================================================
+# Infrastructure Configuration
+# ============================================================================
+
+# VPC address prefix (CIDR block)
+# Must be a valid CIDR block, recommended: /16 for flexibility
+vpc_address_prefix = "10.240.0.0/16"
+
+# Subnet configurations for multi-tier architecture
+# Customize CIDR blocks and zones as needed
+subnet_configurations = {
+  "web" = {
+    cidr_block = "10.240.1.0/24"
+    zone       = "us-south-1"
+    public     = true
+  }
+  "app" = {
+    cidr_block = "10.240.2.0/24"
+    zone       = "us-south-2"
+    public     = false
+  }
+  "data" = {
+    cidr_block = "10.240.3.0/24"
+    zone       = "us-south-3"
+    public     = false
+  }
+}
+
+# Enable public gateway for internet access
+# Cost: $45/month per gateway
+# Recommended: true for web tier, false for cost optimization
+enable_public_gateway = true
+
+# Security group rules configuration
+# Customize based on your security requirements
+security_group_rules = [
+  {
+    name      = "ssh-inbound"
+    direction = "inbound"
+    protocol  = "tcp"
+    port_min  = 22
+    port_max  = 22
+    source    = "0.0.0.0/0"  # Restrict to your IP for better security
+  },
+  {
+    name      = "http-inbound"
+    direction = "inbound"
+    protocol  = "tcp"
+    port_min  = 80
+    port_max  = 80
+    source    = "0.0.0.0/0"
+  },
+  {
+    name      = "https-inbound"
+    direction = "inbound"
+    protocol  = "tcp"
+    port_min  = 443
+    port_max  = 443
+    source    = "0.0.0.0/0"
+  },
+  {
+    name      = "all-outbound"
+    direction = "outbound"
+    protocol  = "all"
+    port_min  = 1
+    port_max  = 65535
+    source    = "0.0.0.0/0"
+  }
+]
+
+# ============================================================================
+# Testing and Validation Configuration
+# ============================================================================
+
+# Enable resource validation after deployment
+# Recommended: true for learning and verification
+enable_resource_validation = true
+
+# Validation timeout in seconds (30-600)
+# Recommended: 120 seconds for most validations
+validation_timeout = 120
+
+# Enable cost estimation calculations
+# Recommended: true for cost awareness
+enable_cost_estimation = true
+
+# ============================================================================
+# Tagging and Metadata
+# ============================================================================
+
+# Additional custom tags for resources
+# Add any organization-specific tags here
+additional_tags = {
+  "department"    = "training"
+  "course"       = "terraform-ibm-cloud"
+  "lab"          = "core-commands"
+  "instructor"   = "your-instructor-name"
+  "session"      = "2024-q1"
+}
+
+# Cost center for billing and resource tracking
+# Customize based on your organization's cost centers
+cost_center = "training"
+
+# ============================================================================
+# Advanced Configuration
+# ============================================================================
+
+# Enable monitoring and logging for resources
+# Note: May incur additional costs
+enable_monitoring = false
+
+# Backup retention period in days (1-365)
+# Recommended: 7 days for lab environments
+backup_retention_days = 7
+
+# Enable encryption for supported resources
+# Recommended: true for security best practices
+enable_encryption = true
+
+# ============================================================================
+# Configuration Examples and Tips
+# ============================================================================
+
+# Example 1: Minimal Cost Configuration
+# Set enable_public_gateway = false to avoid $45/month charge
+# Use only one subnet to minimize complexity
+# Set enable_monitoring = false to avoid additional costs
+
+# Example 2: Production-like Configuration
+# Use multiple subnets across different zones
+# Enable encryption and monitoring
+# Set stricter security group rules
+# Use meaningful project and environment names
+
+# Example 3: Development Configuration
+# Enable all logging and validation options
+# Use auto_approve_destroy = false for safety
+# Set shorter timeouts for faster feedback
+# Use descriptive tags for resource organization
+
+# ============================================================================
+# Security Best Practices
+# ============================================================================
+
+# 1. API Key Security:
+#    - Never commit terraform.tfvars with real API key to version control
+#    - Use environment variables: export IC_API_KEY="your-api-key"
+#    - Rotate API keys regularly
+#    - Use least-privilege access
+
+# 2. Network Security:
+#    - Restrict SSH access to your IP address only
+#    - Use private subnets for application and data tiers
+#    - Implement proper security group rules
+#    - Consider using VPN for private access
+
+# 3. Resource Management:
+#    - Use meaningful names and tags
+#    - Set appropriate timeouts
+#    - Enable validation and logging
+#    - Regular cleanup of unused resources
+
+# ============================================================================
+# Cost Optimization Tips
+# ============================================================================
+
+# 1. Public Gateway:
+#    - Only enable if internet access is required
+#    - Consider using NAT gateway for private subnet internet access
+#    - Cost: $45/month per gateway
+
+# 2. Resource Cleanup:
+#    - Use terraform destroy when lab is complete
+#    - Monitor IBM Cloud billing dashboard
+#    - Set up billing alerts
+
+# 3. Resource Sizing:
+#    - Start with minimal configurations
+#    - Scale up as needed
+#    - Use appropriate instance types for workloads
+
+# ============================================================================
+# Troubleshooting Common Issues
+# ============================================================================
+
+# Issue: Authentication failures
+# Solution: Verify API key and permissions
+# Check: ibmcloud iam api-keys
+
+# Issue: Quota exceeded errors
+# Solution: Check IBM Cloud quotas and limits
+# Check: IBM Cloud console -> Manage -> Account -> Account settings
+
+# Issue: Network connectivity issues
+# Solution: Verify CIDR blocks don't overlap
+# Check: Subnet configurations and routing
+
+# Issue: Resource creation timeouts
+# Solution: Increase timeout values
+# Check: Network connectivity and IBM Cloud status
+
+# ============================================================================
+# Next Steps After Configuration
+# ============================================================================
+
+# 1. Copy this file to terraform.tfvars
+# 2. Update the values with your specific configuration
+# 3. Ensure your IBM Cloud API key is set
+# 4. Run terraform init to initialize the project
+# 5. Run terraform validate to check configuration
+# 6. Run terraform plan to review planned changes
+# 7. Run terraform apply to deploy infrastructure
+# 8. Practice command workflows as outlined in Lab 4
+# 9. Run terraform destroy when lab is complete
+
+# Remember: This is a learning environment - experiment safely!

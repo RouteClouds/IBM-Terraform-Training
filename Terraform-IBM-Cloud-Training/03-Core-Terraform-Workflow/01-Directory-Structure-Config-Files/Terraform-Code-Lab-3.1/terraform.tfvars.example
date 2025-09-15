@@ -1,0 +1,206 @@
+# =============================================================================
+# TERRAFORM VARIABLES EXAMPLE FILE
+# Lab 3.1: Directory Structure and Configuration Files
+# =============================================================================
+# 
+# This file provides example values for all variables used in this Terraform
+# configuration. Copy this file to terraform.tfvars and modify the values
+# according to your specific requirements.
+#
+# IMPORTANT: Never commit terraform.tfvars to version control as it may
+# contain sensitive information like API keys.
+#
+# Usage:
+#   1. Copy this file: cp terraform.tfvars.example terraform.tfvars
+#   2. Edit terraform.tfvars with your actual values
+#   3. Run: terraform plan
+#   4. Run: terraform apply
+# =============================================================================
+
+# =============================================================================
+# IBM CLOUD AUTHENTICATION AND CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API Key (Required)
+# Obtain from: https://cloud.ibm.com/iam/apikeys
+# Set as environment variable: export IC_API_KEY="your-api-key-here"
+# Or uncomment and set the value below:
+# ibmcloud_api_key = "your-ibm-cloud-api-key-here"
+
+# IBM Cloud Region (Required)
+# Available regions: us-south, us-east, eu-gb, eu-de, eu-es, jp-tok, jp-osa, au-syd, br-sao, ca-tor
+# Choose the region closest to your users or based on compliance requirements
+ibm_region = "us-south"
+
+# Resource Group (Required)
+# Must exist in your IBM Cloud account
+# Use "default" if you haven't created custom resource groups
+resource_group_name = "default"
+
+# =============================================================================
+# PROJECT CONFIGURATION
+# =============================================================================
+
+# Project name for resource naming and tagging
+# Used as prefix for all resource names
+# Must contain only lowercase letters, numbers, and hyphens
+# Length: 3-20 characters
+project_name = "terraform-lab"
+
+# Environment designation
+# Valid values: dev, test, staging, prod, production
+# Used for resource organization and lifecycle management
+environment = "dev"
+
+# Owner information for resource tagging and accountability
+# Can be email address or team name
+# Used for resource ownership tracking and billing
+owner = "your-email@company.com"
+
+# Cost center or department code for billing and resource allocation
+# Used for cost tracking and departmental billing
+cost_center = "engineering"
+
+# =============================================================================
+# NETWORK CONFIGURATION
+# =============================================================================
+
+# VPC CIDR block (adjust if conflicts with existing networks)
+# Must be a valid IPv4 CIDR with /16 or larger prefix
+# Default provides ~65,000 IP addresses
+vpc_cidr_block = "10.240.0.0/16"
+
+# Subnet CIDR blocks (must be within VPC CIDR)
+# Each subnet will be created in a different availability zone
+# Default provides ~250 IP addresses per subnet
+subnet_cidr_blocks = [
+  "10.240.1.0/24",  # Subnet 1 - Zone 1
+  "10.240.2.0/24",  # Subnet 2 - Zone 2
+  "10.240.3.0/24"   # Subnet 3 - Zone 3
+]
+
+# Enable public gateway for internet access
+# Set to false if you don't need internet access from private subnets
+# Note: Public gateways incur charges ($45/month per gateway)
+enable_public_gateway = true
+
+# Enable VPC flow logs for network monitoring and security analysis
+# Set to true for production environments or security compliance
+# Note: Flow logs incur storage charges
+enable_flow_logs = false
+
+# =============================================================================
+# SECURITY CONFIGURATION
+# =============================================================================
+
+# CIDR blocks allowed for SSH access (port 22)
+# Use specific IP ranges for better security
+# Example: ["203.0.113.0/24", "198.51.100.0/24"]
+# Use ["0.0.0.0/0"] for open access (not recommended for production)
+allowed_ssh_cidr_blocks = ["0.0.0.0/0"]
+
+# CIDR blocks allowed for HTTP/HTTPS access (ports 80/443)
+# Use specific IP ranges for better security
+# Use ["0.0.0.0/0"] for public web access
+allowed_http_cidr_blocks = ["0.0.0.0/0"]
+
+# Enable logging for security group rules
+# Useful for compliance and security monitoring
+enable_security_group_logging = false
+
+# =============================================================================
+# TAGGING AND METADATA
+# =============================================================================
+
+# Additional resource tags for organization and cost tracking
+# Maximum 50 tags per resource
+# Use consistent tagging strategy across your organization
+resource_tags = {
+  "managed-by"    = "terraform"
+  "project-type"  = "infrastructure-automation"
+  "training-lab"  = "directory-structure"
+  "cost-center"   = "engineering"
+  "team"          = "devops"
+  "environment"   = "development"
+}
+
+# Enable detailed monitoring and logging for all resources
+# Useful for production environments and troubleshooting
+# May incur additional charges for monitoring services
+enable_detailed_monitoring = false
+
+# Number of days to retain backups and snapshots
+# Adjust based on your backup and compliance requirements
+# Valid range: 1-365 days
+backup_retention_days = 7
+
+# =============================================================================
+# ADVANCED CONFIGURATION
+# =============================================================================
+
+# Specific availability zones to use (optional)
+# If empty, will use all available zones in the region
+# Example: ["us-south-1", "us-south-2"]
+# Leave empty to automatically distribute across all zones
+availability_zones = []
+
+# Enable classic infrastructure access for hybrid connectivity
+# Set to true if you need to connect to classic infrastructure
+# Most new deployments should leave this as false
+enable_classic_access = false
+
+# Custom DNS servers for the VPC (optional)
+# If empty, will use IBM Cloud default DNS servers
+# Example: ["8.8.8.8", "8.8.4.4"]
+# Maximum 3 DNS servers
+dns_servers = []
+
+# =============================================================================
+# EXAMPLE CONFIGURATIONS FOR DIFFERENT SCENARIOS
+# =============================================================================
+
+# DEVELOPMENT ENVIRONMENT EXAMPLE:
+# project_name = "myapp-dev"
+# environment = "dev"
+# enable_public_gateway = true
+# allowed_ssh_cidr_blocks = ["0.0.0.0/0"]
+# enable_detailed_monitoring = false
+
+# STAGING ENVIRONMENT EXAMPLE:
+# project_name = "myapp-staging"
+# environment = "staging"
+# enable_public_gateway = true
+# allowed_ssh_cidr_blocks = ["203.0.113.0/24"]
+# enable_detailed_monitoring = true
+
+# PRODUCTION ENVIRONMENT EXAMPLE:
+# project_name = "myapp-prod"
+# environment = "production"
+# enable_public_gateway = false
+# allowed_ssh_cidr_blocks = ["203.0.113.0/24", "198.51.100.0/24"]
+# enable_detailed_monitoring = true
+# enable_flow_logs = true
+# enable_security_group_logging = true
+
+# =============================================================================
+# COST OPTIMIZATION TIPS
+# =============================================================================
+
+# To minimize costs:
+# - Set enable_public_gateway = false if internet access is not needed
+# - Use specific CIDR blocks instead of 0.0.0.0/0 for better security
+# - Set enable_detailed_monitoring = false for development environments
+# - Use smaller subnet CIDR blocks if you don't need many IP addresses
+# - Consider using reserved capacity for predictable workloads
+
+# =============================================================================
+# SECURITY BEST PRACTICES
+# =============================================================================
+
+# For production environments:
+# - Use specific IP ranges for SSH and HTTP access
+# - Enable flow logs and security group logging
+# - Use strong, unique project names
+# - Implement proper tagging strategy
+# - Regular review and update of security group rules
+# - Use IBM Cloud Security and Compliance Center for monitoring

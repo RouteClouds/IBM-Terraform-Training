@@ -1,0 +1,63 @@
+# IBM Cloud Resource Provisioning Diagrams - Python Dependencies
+# Topic 4.1: Defining and Managing IBM Cloud Resources
+# 
+# This file specifies the Python packages required for generating
+# professional diagrams for the resource provisioning subtopic.
+
+# Core plotting and visualization
+matplotlib>=3.6.0
+numpy>=1.21.0
+
+# Additional visualization enhancements
+seaborn>=0.11.0
+plotly>=5.10.0
+
+# Image processing and manipulation
+Pillow>=9.0.0
+
+# Data handling and analysis
+pandas>=1.4.0
+
+# Color palette and design utilities
+colorcet>=3.0.0
+
+# Font and typography support
+fonttools>=4.33.0
+
+# Export and file format support
+kaleido>=0.2.1
+
+# Development and testing utilities
+pytest>=7.0.0
+black>=22.0.0
+flake8>=4.0.0
+
+# Documentation generation
+sphinx>=4.5.0
+sphinx-rtd-theme>=1.0.0
+
+# Version information
+# matplotlib: Core plotting library for creating professional diagrams
+# numpy: Numerical computing for data manipulation and calculations
+# seaborn: Statistical visualization enhancements
+# plotly: Interactive plotting capabilities for advanced visualizations
+# Pillow: Image processing for diagram post-processing
+# pandas: Data manipulation for complex diagram data
+# colorcet: Extended color palettes for professional design
+# fonttools: Typography and font management
+# kaleido: Static image export for plotly diagrams
+# pytest: Testing framework for diagram generation validation
+# black: Code formatting for maintainable scripts
+# flake8: Code quality and style checking
+# sphinx: Documentation generation for diagram specifications
+# sphinx-rtd-theme: Professional documentation theme
+
+# Installation instructions:
+# pip install -r requirements.txt
+#
+# For development environment:
+# pip install -r requirements.txt
+# pip install -e .
+#
+# For production deployment:
+# pip install --no-dev -r requirements.txt

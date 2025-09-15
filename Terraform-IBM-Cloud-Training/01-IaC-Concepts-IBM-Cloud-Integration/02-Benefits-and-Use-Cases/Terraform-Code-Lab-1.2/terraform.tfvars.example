@@ -1,0 +1,260 @@
+# Terraform Variables Configuration Examples for IaC Benefits and Cost Optimization Lab
+# Copy this file to terraform.tfvars and customize for your environment
+
+# =============================================================================
+# IBM CLOUD AUTHENTICATION AND BASIC CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API Key (Required)
+# Obtain from: https://cloud.ibm.com/iam/apikeys
+ibmcloud_api_key = "your-ibm-cloud-api-key-here"
+
+# IBM Cloud Region (Required)
+# Available regions: us-south, us-east, eu-gb, eu-de, jp-tok, au-syd, etc.
+ibm_region = "us-south"
+
+# IBM Cloud Zone (Required)
+# Must be within the specified region
+ibm_zone = "us-south-1"
+
+# Resource Group Name (Required)
+# Use "default" or specify your resource group
+resource_group_name = "default"
+
+# =============================================================================
+# PROJECT AND ENVIRONMENT CONFIGURATION
+# =============================================================================
+
+# Project identification
+project_name = "iac-cost-optimization"
+environment = "lab"
+owner = "your-email@company.com"
+
+# Cost center and billing information
+cost_center = "training"
+billing_code = "TRAIN-001"
+department = "IT-Training"
+
+# =============================================================================
+# COST OPTIMIZATION CONFIGURATION
+# =============================================================================
+
+# Enable comprehensive cost optimization features
+enable_cost_optimization = true
+
+# Auto-shutdown configuration for cost savings
+enable_auto_shutdown = true
+auto_shutdown_schedule = "0 18 * * 1-5"  # 6 PM weekdays
+auto_startup_schedule = "0 8 * * 1-5"    # 8 AM weekdays
+
+# Weekend and holiday scheduling
+enable_weekend_shutdown = true
+enable_holiday_shutdown = true
+
+# Right-sizing and performance optimization
+enable_auto_scaling = true
+enable_right_sizing = true
+performance_monitoring = true
+
+# Storage lifecycle management
+storage_lifecycle_enabled = true
+backup_retention_days = 30
+archive_after_days = 90
+
+# Reserved instance management
+reserved_instance_eligible = true
+reserved_instance_term = "1-year"
+
+# =============================================================================
+# BUDGET AND COST CONTROLS
+# =============================================================================
+
+# Budget configuration
+budget_enabled = true
+monthly_budget_limit = 100  # USD
+budget_alert_threshold = 80  # Percentage
+
+# Cost tracking and tagging
+enable_detailed_billing = true
+cost_allocation_tags = {
+  "cost-center"    = "training"
+  "project"        = "iac-lab"
+  "environment"    = "lab"
+  "auto-shutdown"  = "enabled"
+}
+
+# =============================================================================
+# INFRASTRUCTURE SIZING CONFIGURATION
+# =============================================================================
+
+# Virtual Server Instance configuration
+vsi_profile = "bx2-2x8"  # Cost-optimized profile
+vsi_image_name = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+
+# Storage configuration
+boot_volume_size = 25  # GB - Minimal for cost optimization
+data_volume_size = 10  # GB - Small for lab purposes
+
+# Network configuration
+enable_public_gateway = false  # Disable for cost savings in lab
+enable_floating_ip = false     # Disable for cost savings
+
+# =============================================================================
+# SCENARIO-SPECIFIC CONFIGURATIONS
+# =============================================================================
+
+# Development Environment Example
+# Uncomment and modify for development scenario
+# environment = "development"
+# enable_auto_shutdown = true
+# auto_shutdown_schedule = "0 17 * * 1-5"  # 5 PM weekdays
+# auto_startup_schedule = "0 9 * * 1-5"    # 9 AM weekdays
+# vsi_profile = "bx2-2x8"
+# monthly_budget_limit = 50
+
+# Staging Environment Example
+# Uncomment and modify for staging scenario
+# environment = "staging"
+# enable_auto_shutdown = true
+# auto_shutdown_schedule = "0 20 * * 1-5"  # 8 PM weekdays
+# auto_startup_schedule = "0 7 * * 1-5"    # 7 AM weekdays
+# vsi_profile = "bx2-4x16"
+# monthly_budget_limit = 200
+
+# Production Environment Example
+# Uncomment and modify for production scenario
+# environment = "production"
+# enable_auto_shutdown = false
+# enable_auto_scaling = true
+# reserved_instance_eligible = true
+# vsi_profile = "bx2-8x32"
+# monthly_budget_limit = 1000
+
+# Training/Lab Environment (Default)
+# Optimized for maximum cost savings
+# environment = "lab"
+# enable_auto_shutdown = true
+# auto_shutdown_schedule = "0 18 * * *"     # 6 PM daily
+# auto_startup_schedule = "0 8 * * 1-5"     # 8 AM weekdays only
+# enable_weekend_shutdown = true
+# vsi_profile = "bx2-2x8"
+# monthly_budget_limit = 25
+
+# =============================================================================
+# ADVANCED COST OPTIMIZATION FEATURES
+# =============================================================================
+
+# Automated cost reporting
+enable_cost_reporting = true
+cost_report_frequency = "weekly"
+cost_report_recipients = ["your-email@company.com"]
+
+# Cost anomaly detection
+enable_cost_anomaly_detection = true
+anomaly_threshold_percentage = 25
+
+# Resource utilization monitoring
+enable_utilization_monitoring = true
+utilization_report_frequency = "daily"
+
+# Automated recommendations
+enable_optimization_recommendations = true
+recommendation_frequency = "weekly"
+
+# =============================================================================
+# COMPLIANCE AND GOVERNANCE
+# =============================================================================
+
+# Compliance requirements
+compliance_framework = "general"  # Options: general, pci-dss, sox, hipaa
+enable_audit_logging = true
+audit_log_retention_days = 90
+
+# Governance policies
+enforce_tagging_policy = true
+require_cost_center = true
+require_owner_tag = true
+
+# =============================================================================
+# MONITORING AND ALERTING
+# =============================================================================
+
+# Monitoring configuration
+enable_monitoring = true
+monitoring_frequency = "5-minutes"
+
+# Alert configuration
+enable_cost_alerts = true
+enable_performance_alerts = true
+enable_security_alerts = true
+
+# Notification settings
+notification_email = "your-email@company.com"
+notification_slack_webhook = ""  # Optional Slack integration
+
+# =============================================================================
+# INTEGRATION SETTINGS
+# =============================================================================
+
+# IBM Cloud Schematics integration
+use_schematics = false  # Set to true for managed Terraform execution
+schematics_location = "us-south"
+
+# External integrations
+enable_external_monitoring = false
+external_monitoring_endpoint = ""
+
+# CI/CD integration
+enable_cicd_integration = false
+cicd_webhook_url = ""
+
+# =============================================================================
+# TESTING AND VALIDATION
+# =============================================================================
+
+# Testing configuration
+enable_testing_mode = true
+test_budget_alerts = false
+test_auto_shutdown = false
+
+# Validation settings
+validate_cost_optimization = true
+validate_performance_metrics = true
+validate_compliance = true
+
+# =============================================================================
+# CUSTOM TAGS FOR COST ALLOCATION
+# =============================================================================
+
+# Additional custom tags for detailed cost tracking
+custom_tags = [
+  "lab:iac-benefits",
+  "training:terraform",
+  "cost-optimization:enabled",
+  "auto-managed:true"
+]
+
+# =============================================================================
+# NOTES AND DOCUMENTATION
+# =============================================================================
+
+# Configuration notes:
+# 1. Adjust budget limits based on your organization's requirements
+# 2. Modify auto-shutdown schedules to match your business hours
+# 3. Enable reserved instances for long-running production workloads
+# 4. Customize tags for your organization's cost allocation needs
+# 5. Review and adjust monitoring frequencies based on requirements
+
+# Cost optimization tips:
+# - Use smaller instance profiles for development and testing
+# - Enable auto-shutdown for non-production environments
+# - Implement storage lifecycle policies for long-term cost savings
+# - Monitor and adjust based on actual usage patterns
+# - Consider reserved instances for stable, long-running workloads
+
+# Security considerations:
+# - Never commit actual API keys to version control
+# - Use environment variables or secure credential management
+# - Regularly rotate API keys and access credentials
+# - Implement least-privilege access principles
+# - Enable audit logging for compliance requirements

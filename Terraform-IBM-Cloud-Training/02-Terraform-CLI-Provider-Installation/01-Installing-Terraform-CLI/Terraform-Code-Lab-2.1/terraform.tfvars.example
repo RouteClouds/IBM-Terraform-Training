@@ -1,0 +1,348 @@
+# Example Terraform Variables for CLI Installation Verification Lab 2.1
+# Copy this file to terraform.tfvars and customize values for your environment
+
+# =============================================================================
+# AUTHENTICATION CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API Key (REQUIRED)
+# Obtain from: https://cloud.ibm.com/iam/apikeys
+ibmcloud_api_key = "your-api-key-here"
+
+# =============================================================================
+# REGIONAL CONFIGURATION
+# =============================================================================
+
+# Primary Region and Zone
+ibm_region = "us-south"
+ibm_zone   = "us-south-1"
+
+# Alternative Regional Configurations:
+# For US East:
+# ibm_region = "us-east"
+# ibm_zone = "us-east-1"
+
+# For EU Germany:
+# ibm_region = "eu-de"
+# ibm_zone = "eu-de-1"
+
+# For Japan Tokyo:
+# ibm_region = "jp-tok"
+# ibm_zone = "jp-tok-1"
+
+# =============================================================================
+# PROJECT CONFIGURATION
+# =============================================================================
+
+# Project Identification
+project_name = "cli-verification-lab"
+environment  = "lab"
+owner        = "terraform-student"
+
+# Alternative Project Configurations:
+# For Development:
+# project_name = "dev-cli-testing"
+# environment = "dev"
+# owner = "developer-name"
+
+# For Training:
+# project_name = "terraform-training"
+# environment = "training"
+# owner = "instructor-name"
+
+# =============================================================================
+# CLI TESTING CONFIGURATION
+# =============================================================================
+
+# Enable CLI Functionality Testing
+enable_cli_testing = true
+
+# CLI Testing Options:
+# Basic testing (recommended for beginners):
+# enable_cli_testing = true
+
+# Skip testing (for CLI verification only):
+# enable_cli_testing = false
+
+# =============================================================================
+# PERFORMANCE TESTING CONFIGURATION
+# =============================================================================
+
+# Performance Testing Settings
+enable_performance_testing = false
+performance_test_count     = 3
+
+# Performance Testing Scenarios:
+# Light performance testing:
+# enable_performance_testing = true
+# performance_test_count = 3
+
+# Moderate performance testing:
+# enable_performance_testing = true
+# performance_test_count = 5
+
+# Heavy performance testing:
+# enable_performance_testing = true
+# performance_test_count = 10
+
+# Disable performance testing:
+# enable_performance_testing = false
+
+# =============================================================================
+# VALIDATION AND AUTOMATION
+# =============================================================================
+
+# Script Generation
+generate_validation_scripts = true
+
+# Validation Options:
+# Generate all scripts (recommended):
+# generate_validation_scripts = true
+
+# Skip script generation:
+# generate_validation_scripts = false
+
+# =============================================================================
+# COST MANAGEMENT CONFIGURATION
+# =============================================================================
+
+# Cost Tracking
+enable_cost_tracking    = true
+cost_center            = "training"
+budget_alert_threshold = 50
+
+# Cost Management Options:
+# Enable comprehensive cost tracking:
+# enable_cost_tracking = true
+# cost_center = "your-department"
+# budget_alert_threshold = 100
+
+# Disable cost tracking:
+# enable_cost_tracking = false
+
+# =============================================================================
+# TAGGING STRATEGY
+# =============================================================================
+
+# Common Tags
+common_tags = {
+  "terraform"   = "managed"
+  "lab"         = "2.1"
+  "purpose"     = "cli-verification"
+  "training"    = "ibm-cloud-terraform"
+}
+
+# Additional Tags (customize as needed)
+# common_tags = {
+#   "terraform"   = "managed"
+#   "lab"         = "2.1"
+#   "purpose"     = "cli-verification"
+#   "training"    = "ibm-cloud-terraform"
+#   "department"  = "your-department"
+#   "team"        = "your-team"
+#   "instructor"  = "instructor-name"
+# }
+
+# =============================================================================
+# SCENARIO-SPECIFIC CONFIGURATIONS
+# =============================================================================
+
+# SCENARIO 1: Basic CLI Verification (Recommended for beginners)
+# Use the default values above with:
+# enable_cli_testing = true
+# enable_performance_testing = false
+# generate_validation_scripts = true
+
+# SCENARIO 2: Comprehensive CLI Testing
+# Uncomment and modify:
+# enable_cli_testing = true
+# enable_performance_testing = true
+# performance_test_count = 5
+# generate_validation_scripts = true
+
+# SCENARIO 3: CLI Verification Only (No Resource Creation)
+# Uncomment and modify:
+# enable_cli_testing = false
+# enable_performance_testing = false
+# generate_validation_scripts = true
+
+# SCENARIO 4: Performance Benchmarking
+# Uncomment and modify:
+# enable_cli_testing = true
+# enable_performance_testing = true
+# performance_test_count = 10
+# generate_validation_scripts = true
+
+# SCENARIO 5: Development Environment Setup
+# Uncomment and modify:
+# project_name = "dev-environment"
+# environment = "dev"
+# enable_cli_testing = true
+# enable_performance_testing = false
+
+# SCENARIO 6: Training Classroom Setup
+# Uncomment and modify:
+# project_name = "terraform-class"
+# environment = "training"
+# owner = "instructor-name"
+# enable_cli_testing = true
+# enable_performance_testing = false
+# generate_validation_scripts = true
+
+# =============================================================================
+# VALIDATION CHECKLIST
+# =============================================================================
+
+# Before running terraform apply, ensure:
+# ✅ IBM Cloud API key is valid and has necessary permissions
+# ✅ Selected region is available in your IBM Cloud account
+# ✅ Terraform CLI is installed (this lab will verify installation)
+# ✅ Network connectivity allows access to IBM Cloud APIs
+# ✅ Sufficient permissions to create VPC resources
+
+# =============================================================================
+# QUICK START COMMANDS
+# =============================================================================
+
+# 1. Copy this file:
+#    cp terraform.tfvars.example terraform.tfvars
+
+# 2. Edit terraform.tfvars with your values:
+#    nano terraform.tfvars
+
+# 3. Initialize Terraform:
+#    terraform init
+
+# 4. Validate configuration:
+#    terraform validate
+
+# 5. Plan deployment:
+#    terraform plan
+
+# 6. Apply configuration:
+#    terraform apply
+
+# 7. Review CLI verification results:
+#    terraform output cli_installation_status
+
+# 8. Review comprehensive results:
+#    terraform output lab_completion_assessment
+
+# 9. Run generated validation scripts (if enabled):
+#    ./cli-validation.sh
+#    ./performance-test.sh
+
+# 10. Clean up (when done):
+#     terraform destroy
+
+# =============================================================================
+# TROUBLESHOOTING CONFIGURATION
+# =============================================================================
+
+# Common Configuration Issues and Solutions:
+
+# Issue: "terraform: command not found"
+# Solution: Install Terraform CLI or add to PATH
+# Verification: Run 'which terraform'
+
+# Issue: "Error: Invalid API Key"
+# Solution: Verify API key in IBM Cloud console
+# Check: https://cloud.ibm.com/iam/apikeys
+
+# Issue: "Error: Region not available"
+# Solution: Check region spelling and availability
+# Verify: IBM Cloud console regions list
+
+# Issue: "Error: Insufficient permissions"
+# Solution: Ensure API key has VPC and IAM permissions
+# Check: IBM Cloud IAM policies
+
+# Issue: "Error: Network connectivity"
+# Solution: Check firewall and proxy settings
+# Verify: Can access cloud.ibm.com
+
+# =============================================================================
+# ADVANCED CONFIGURATION OPTIONS
+# =============================================================================
+
+# For advanced users, you can customize additional settings:
+
+# Custom Resource Group (if not using default):
+# resource_group_id = "your-resource-group-id"
+
+# Custom VPC CIDR (for subnet testing):
+# vpc_cidr_block = "10.240.0.0/16"
+
+# Custom Timeout Settings:
+# resource_timeout = "15m"
+
+# Custom Naming Patterns:
+# resource_name_prefix = "custom-prefix"
+
+# =============================================================================
+# ENVIRONMENT-SPECIFIC EXAMPLES
+# =============================================================================
+
+# DEVELOPMENT ENVIRONMENT
+# project_name = "dev-cli-test"
+# environment = "development"
+# owner = "developer-team"
+# enable_cli_testing = true
+# enable_performance_testing = false
+# cost_center = "development"
+
+# STAGING ENVIRONMENT
+# project_name = "staging-cli-test"
+# environment = "staging"
+# owner = "qa-team"
+# enable_cli_testing = true
+# enable_performance_testing = true
+# performance_test_count = 5
+# cost_center = "qa"
+
+# PRODUCTION VALIDATION
+# project_name = "prod-cli-validation"
+# environment = "production"
+# owner = "ops-team"
+# enable_cli_testing = false
+# enable_performance_testing = false
+# generate_validation_scripts = true
+# cost_center = "operations"
+
+# TRAINING ENVIRONMENT
+# project_name = "terraform-training"
+# environment = "training"
+# owner = "training-team"
+# enable_cli_testing = true
+# enable_performance_testing = false
+# generate_validation_scripts = true
+# cost_center = "education"
+
+# =============================================================================
+# COST ESTIMATION
+# =============================================================================
+
+# Estimated costs for this lab:
+# - VPC resources: Free tier (no charges)
+# - Subnet resources: Free tier (no charges)
+# - Local files/scripts: No charges
+# - Total estimated cost: $0.00 USD/month
+
+# Note: All resources in this lab are designed to use IBM Cloud free tier
+# services to minimize costs while providing comprehensive CLI verification.
+
+# =============================================================================
+# SUPPORT AND DOCUMENTATION
+# =============================================================================
+
+# For additional help and documentation:
+# - Terraform Documentation: https://terraform.io/docs
+# - IBM Cloud Provider: https://registry.terraform.io/providers/IBM-Cloud/ibm
+# - IBM Cloud Documentation: https://cloud.ibm.com/docs/terraform
+# - Community Support: https://discuss.hashicorp.com/c/terraform-providers
+
+# Lab-specific documentation:
+# - Review generated cli-validation-report.json for detailed results
+# - Check cost-tracking-report.json for resource usage
+# - Execute validation scripts for comprehensive testing
+# - Consult troubleshooting output for common issues and solutions

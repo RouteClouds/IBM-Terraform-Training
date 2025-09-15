@@ -1,0 +1,242 @@
+# =============================================================================
+# TERRAFORM VARIABLES CONFIGURATION
+# Subtopic 6.1: Local and Remote State Files
+# Example configuration file - copy to terraform.tfvars and customize
+# =============================================================================
+
+# =============================================================================
+# REQUIRED VARIABLES
+# =============================================================================
+
+# IBM Cloud API key for authentication
+# Obtain from: https://cloud.ibm.com/iam/apikeys
+ibm_api_key = "your-ibm-cloud-api-key-here"
+
+# =============================================================================
+# CORE CONFIGURATION
+# =============================================================================
+
+# Primary IBM Cloud region for resource deployment
+primary_region = "us-south"  # Options: us-south, us-east, eu-gb, eu-de, jp-tok, au-syd
+
+# IBM Cloud resource group name
+resource_group_name = "default"  # Use existing resource group
+
+# Project identification
+project_name = "state-management-lab"  # Must be lowercase with hyphens only
+environment  = "development"           # Options: development, staging, production
+
+# =============================================================================
+# STATE MANAGEMENT CONFIGURATION
+# =============================================================================
+
+# Enable remote state backend (set to true after completing Exercise 2)
+enable_remote_state = false
+
+# State bucket name (leave empty for auto-generation)
+state_bucket_name = ""
+
+# State management features
+enable_state_versioning = true
+enable_state_encryption = true
+state_backup_retention_days = 30
+
+# =============================================================================
+# INFRASTRUCTURE CONFIGURATION
+# =============================================================================
+
+# Network configuration
+vpc_address_prefix    = "10.240.0.0/16"
+subnet_address_prefix = "10.240.1.0/24"
+enable_public_gateway = true
+enable_floating_ip    = false  # Set to true if you need public IP access
+
+# Compute configuration
+vsi_profile     = "bx2-2x8"                              # Cost-optimized profile
+vsi_image_name  = "ibm-ubuntu-22-04-1-minimal-amd64-1"   # Ubuntu 22.04 LTS
+ssh_key_name    = ""                                     # Name of existing SSH key (optional)
+auto_delete_volume = true                                # Delete volumes with VSI
+
+# =============================================================================
+# MONITORING AND COMPLIANCE
+# =============================================================================
+
+# Monitoring services
+enable_activity_tracker = true
+enable_monitoring       = true
+enable_key_protect      = false  # Set to false to avoid additional costs
+
+# Activity Tracker plan
+activity_tracker_plan = "lite"  # Options: lite, 7-day, 14-day, 30-day
+
+# =============================================================================
+# TEAM COLLABORATION
+# =============================================================================
+
+# Team access configuration
+enable_team_access = false  # Set to true to enable team collaboration features
+
+# Team member email addresses
+team_members = [
+  # "developer1@company.com",
+  # "developer2@company.com",
+  # "operator1@company.com"
+]
+
+# Role permissions
+developer_role_permissions = ["Reader"]   # Read-only access for developers
+operator_role_permissions  = ["Writer"]  # Read-write access for operators
+
+# =============================================================================
+# COST OPTIMIZATION
+# =============================================================================
+
+# Cost tracking and management
+enable_cost_tracking     = true
+cost_center              = "training"
+budget_alert_threshold   = 50  # USD
+
+# =============================================================================
+# PROVIDER CONFIGURATION
+# =============================================================================
+
+# Provider timeout and retry settings
+provider_timeout = 300  # seconds
+max_retries     = 3
+
+# =============================================================================
+# SCENARIO-SPECIFIC CONFIGURATIONS
+# =============================================================================
+
+# Scenario 1: Local State Development
+# Use this configuration for Exercise 1 (Local State Analysis)
+# enable_remote_state = false
+# enable_team_access = false
+# enable_floating_ip = false
+
+# Scenario 2: Remote State Migration
+# Use this configuration for Exercise 2-3 (Remote State Setup and Migration)
+# enable_remote_state = true
+# enable_team_access = false
+# state_bucket_name = ""  # Auto-generated
+
+# Scenario 3: Team Collaboration
+# Use this configuration for Exercise 4 (Team Collaboration)
+# enable_remote_state = true
+# enable_team_access = true
+# team_members = ["developer@company.com", "operator@company.com"]
+
+# Scenario 4: Production-Ready
+# Use this configuration for production deployment
+# environment = "production"
+# enable_remote_state = true
+# enable_team_access = true
+# enable_key_protect = true
+# activity_tracker_plan = "7-day"
+# budget_alert_threshold = 500
+
+# =============================================================================
+# REGIONAL CONFIGURATIONS
+# =============================================================================
+
+# US South (Dallas) - Default
+# primary_region = "us-south"
+# provider_timeout = 180
+
+# US East (Washington DC)
+# primary_region = "us-east"
+# provider_timeout = 200
+
+# EU Great Britain (London)
+# primary_region = "eu-gb"
+# provider_timeout = 300
+
+# EU Germany (Frankfurt)
+# primary_region = "eu-de"
+# provider_timeout = 320
+
+# Asia Pacific Japan (Tokyo)
+# primary_region = "jp-tok"
+# provider_timeout = 360
+
+# Asia Pacific Australia (Sydney)
+# primary_region = "au-syd"
+# provider_timeout = 360
+
+# =============================================================================
+# COST ESTIMATION GUIDE
+# =============================================================================
+
+# Estimated monthly costs (USD):
+# 
+# Basic Configuration (development):
+# - VPC and Subnet: Free
+# - VSI (bx2-2x8): $30-50/month
+# - COS (lite): Free (5GB included)
+# - Activity Tracker (lite): Free
+# - Monitoring: $20-50/month
+# Total: $50-100/month
+#
+# Production Configuration:
+# - VPC and Subnet: Free
+# - VSI (bx2-4x16): $60-100/month
+# - COS (standard): $5-20/month
+# - Activity Tracker (7-day): $50-100/month
+# - Monitoring: $50-100/month
+# - Key Protect: $1-5/month
+# Total: $166-325/month
+#
+# Cost optimization tips:
+# 1. Use lite plans for development and testing
+# 2. Enable auto_delete_volume to avoid orphaned storage costs
+# 3. Set appropriate budget_alert_threshold
+# 4. Use lifecycle policies for COS storage optimization
+# 5. Monitor usage through Activity Tracker and Monitoring
+
+# =============================================================================
+# VALIDATION NOTES
+# =============================================================================
+
+# Before applying:
+# 1. Ensure IBM Cloud API key has appropriate permissions
+# 2. Verify resource group exists and is accessible
+# 3. Check regional availability of selected services
+# 4. Review cost estimates and set budget alerts
+# 5. Validate SSH key exists if ssh_key_name is specified
+#
+# After applying:
+# 1. Verify all resources are created successfully
+# 2. Test connectivity to VSI if floating IP is enabled
+# 3. Validate state backend configuration if remote state is enabled
+# 4. Test team access credentials if team collaboration is enabled
+# 5. Monitor costs and resource usage
+
+# =============================================================================
+# TROUBLESHOOTING
+# =============================================================================
+
+# Common issues and solutions:
+#
+# 1. Authentication errors:
+#    - Verify IBM Cloud API key is correct and has permissions
+#    - Check resource group access permissions
+#
+# 2. Resource creation failures:
+#    - Verify regional service availability
+#    - Check quota limits for VSI profiles
+#    - Ensure unique naming (project_name should be unique)
+#
+# 3. State backend issues:
+#    - Verify COS bucket permissions
+#    - Check S3 endpoint accessibility
+#    - Validate HMAC credentials
+#
+# 4. Network connectivity issues:
+#    - Verify security group rules
+#    - Check public gateway configuration
+#    - Validate floating IP assignment
+#
+# 5. Cost management:
+#    - Monitor resource usage regularly
+#    - Set up budget alerts
+#    - Use cost tracking tags

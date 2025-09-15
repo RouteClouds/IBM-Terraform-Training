@@ -1,0 +1,338 @@
+# Provider Configuration and Authentication - Git Ignore
+# Comprehensive .gitignore for Terraform provider configuration lab
+
+# ============================================================================
+# TERRAFORM FILES
+# ============================================================================
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Terraform variable files with sensitive data
+terraform.tfvars
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Terraform plan files
+*.tfplan
+*.tfplan.*
+
+# Terraform lock files (comment out if you want to commit lock files)
+.terraform.lock.hcl
+
+# Terraform directories
+.terraform/
+.terraform.d/
+
+# Terraform crash log files
+crash.log
+crash.*.log
+
+# ============================================================================
+# SENSITIVE CONFIGURATION FILES
+# ============================================================================
+
+# API keys and credentials
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+
+# Vault tokens and secrets
+.vault-token
+vault-token
+secrets.json
+credentials.json
+
+# ============================================================================
+# PROVIDER-SPECIFIC FILES
+# ============================================================================
+
+# IBM Cloud CLI configuration
+.bluemix/
+.ibmcloud/
+
+# Provider debug and trace files
+terraform.log
+*.trace
+provider-debug.log
+ibm-provider.log
+
+# Provider cache and temporary files
+.provider-cache/
+provider-temp/
+
+# ============================================================================
+# GENERATED DOCUMENTATION AND REPORTS
+# ============================================================================
+
+# Generated configuration reports
+provider-configuration-report.json
+provider-diagnostic-report.txt
+provider-performance-metrics.json
+
+# Generated monitoring configurations
+provider-monitoring-config.yaml
+monitoring-config.yml
+
+# Test result files
+test-results.json
+validation-results.json
+performance-test-results.json
+
+# ============================================================================
+# LOGS AND DEBUG FILES
+# ============================================================================
+
+# Application logs
+*.log
+logs/
+log/
+
+# Debug output files
+debug.txt
+debug-output.txt
+trace-output.txt
+
+# Error logs
+error.log
+errors.txt
+
+# ============================================================================
+# TEMPORARY AND CACHE FILES
+# ============================================================================
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Cache directories
+.cache/
+cache/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# ============================================================================
+# OPERATING SYSTEM FILES
+# ============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+# ============================================================================
+# IDE AND EDITOR FILES
+# ============================================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ============================================================================
+# DEVELOPMENT AND BUILD FILES
+# ============================================================================
+
+# Node.js (if using for tooling)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if using for tooling)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ============================================================================
+# SECURITY AND COMPLIANCE FILES
+# ============================================================================
+
+# Security scan results
+security-scan-results.json
+vulnerability-report.json
+compliance-report.json
+
+# Audit logs
+audit.log
+audit-*.log
+
+# Certificate files
+*.csr
+*.key
+*.pem
+*.p7b
+*.p7c
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# ============================================================================
+# TESTING AND VALIDATION FILES
+# ============================================================================
+
+# Test output files
+test-output.txt
+test-results.xml
+junit.xml
+
+# Coverage reports
+coverage.xml
+coverage.html
+.coverage
+
+# Performance test results
+performance-*.json
+load-test-results.json
+
+# ============================================================================
+# DOCUMENTATION BUILD FILES
+# ============================================================================
+
+# Generated documentation
+docs/_build/
+docs/build/
+site/
+
+# Markdown temporary files
+*.md.tmp
+*.md.bak
+
+# ============================================================================
+# CUSTOM LAB-SPECIFIC IGNORES
+# ============================================================================
+
+# Lab-specific generated files
+lab-*.json
+lab-*.yaml
+lab-*.txt
+
+# Provider test artifacts
+provider-test-*
+test-vpc-*
+test-sg-*
+
+# Monitoring and metrics files
+metrics-*.json
+monitoring-*.yaml
+
+# Configuration backup files
+config-backup-*
+provider-config-backup-*
+
+# ============================================================================
+# COMMENTS AND NOTES
+# ============================================================================
+
+# Personal notes and comments
+notes.txt
+notes.md
+TODO.txt
+NOTES.md
+
+# Lab progress tracking
+progress.txt
+checklist.md
+
+# ============================================================================
+# ALLOW SPECIFIC FILES
+# ============================================================================
+
+# Force include important example files
+!terraform.tfvars.example
+!*.example
+!README.md
+!*.md
+
+# Force include configuration templates
+!templates/
+!examples/
+
+# ============================================================================
+# FINAL NOTES
+# ============================================================================
+
+# This .gitignore is designed for the Provider Configuration and Authentication lab
+# It protects sensitive credentials while allowing educational content to be shared
+# Always review files before committing to ensure no sensitive data is included
+# 
+# For production use:
+# 1. Never commit actual API keys or credentials
+# 2. Use environment variables or external secret management
+# 3. Regularly rotate credentials and access keys
+# 4. Implement proper access controls and monitoring
+# 5. Follow your organization's security policies

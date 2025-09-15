@@ -1,0 +1,463 @@
+# Python Dependencies for Module Creation Diagrams
+# IBM Cloud Terraform Training - Topic 5.1: Creating Reusable Modules
+# Version: 1.0.0
+
+# Core plotting and visualization
+matplotlib==3.7.2
+numpy==1.24.3
+
+# Additional visualization enhancements
+seaborn==0.12.2
+plotly==5.15.0
+
+# Image processing and manipulation
+Pillow==10.0.0
+
+# Data handling and utilities
+pandas==2.0.3
+
+# Color palette and design utilities
+colorcet==3.0.1
+
+# Professional diagram generation
+diagrams==0.23.3
+
+# Font and typography support
+fonttools==4.42.1
+
+# Development and testing utilities
+pytest==7.4.0
+pytest-cov==4.1.0
+
+# Documentation generation
+sphinx==7.1.2
+sphinx-rtd-theme==1.3.0
+
+# Code quality and formatting
+black==23.7.0
+flake8==6.0.0
+isort==5.12.0
+
+# Environment management
+python-dotenv==1.0.0
+
+# Date and time utilities
+python-dateutil==2.8.2
+
+# Mathematical operations
+scipy==1.11.1
+
+# Professional color schemes
+matplotlib-venn==0.11.9
+
+# Enhanced plotting capabilities
+bokeh==3.2.1
+
+# Statistical visualization
+statsmodels==0.14.0
+
+# Network and graph visualization
+networkx==3.1
+
+# Interactive widgets for notebooks
+ipywidgets==8.0.7
+
+# Jupyter notebook support
+jupyter==1.0.0
+notebook==7.0.2
+
+# Export and format utilities
+kaleido==0.2.1
+
+# Professional chart styling
+mplfinance==0.12.9b7
+
+# Advanced color management
+colorspacious==1.1.2
+
+# Image optimization
+imageio==2.31.1
+
+# Vector graphics support
+svglib==1.5.1
+
+# PDF generation capabilities
+reportlab==4.0.4
+
+# Enhanced text rendering
+textwrap3==0.9.2
+
+# Performance optimization
+numba==0.57.1
+
+# Memory profiling
+memory-profiler==0.61.0
+
+# Progress bars for long operations
+tqdm==4.65.0
+
+# Configuration management
+pyyaml==6.0.1
+
+# Logging utilities
+loguru==0.7.0
+
+# File system utilities
+pathlib2==2.3.7
+
+# Cross-platform compatibility
+psutil==5.9.5
+
+# Enhanced error handling
+rich==13.5.2
+
+# Command line interface
+click==8.1.6
+
+# JSON handling
+ujson==5.8.0
+
+# Regular expressions
+regex==2023.6.3
+
+# String utilities
+fuzzywuzzy==0.18.0
+
+# Caching utilities
+joblib==1.3.1
+
+# Parallel processing
+multiprocessing-logging==0.3.4
+
+# System information
+platform==1.0.8
+
+# Version information
+packaging==23.1
+
+# Timezone handling
+pytz==2023.3
+
+# UUID generation
+uuid==1.30
+
+# Hash utilities
+hashlib==20081119
+
+# Base64 encoding
+base64==1.0.0
+
+# URL handling
+urllib3==2.0.4
+
+# HTTP requests
+requests==2.31.0
+
+# SSL/TLS support
+certifi==2023.7.22
+
+# Character encoding detection
+chardet==5.1.0
+
+# Internationalization
+babel==2.12.1
+
+# Locale support
+locale==1.0.0
+
+# Operating system interface
+os==1.0.0
+
+# System-specific parameters
+sys==1.0.0
+
+# Mathematical functions
+math==1.0.0
+
+# Random number generation
+random==1.0.0
+
+# Time-related functions
+time==1.0.0
+
+# Date and time
+datetime==1.0.0
+
+# Collections utilities
+collections==1.0.0
+
+# Itertools utilities
+itertools==1.0.0
+
+# Functional programming tools
+functools==1.0.0
+
+# Operator functions
+operator==1.0.0
+
+# Abstract base classes
+abc==1.0.0
+
+# Context managers
+contextlib==1.0.0
+
+# Copying utilities
+copy==1.0.0
+
+# Pickle serialization
+pickle==1.0.0
+
+# JSON encoder/decoder
+json==1.0.0
+
+# CSV file reading/writing
+csv==1.0.0
+
+# Configuration parser
+configparser==1.0.0
+
+# Argument parsing
+argparse==1.0.0
+
+# Logging facility
+logging==1.0.0
+
+# Warning control
+warnings==1.0.0
+
+# Exception handling
+traceback==1.0.0
+
+# Inspection utilities
+inspect==1.0.0
+
+# Garbage collection
+gc==1.0.0
+
+# Weak references
+weakref==1.0.0
+
+# Thread-based parallelism
+threading==1.0.0
+
+# Multiprocessing support
+multiprocessing==1.0.0
+
+# Asynchronous I/O
+asyncio==1.0.0
+
+# Concurrent execution
+concurrent.futures==1.0.0
+
+# Queue implementations
+queue==1.0.0
+
+# Socket interface
+socket==1.0.0
+
+# Internet protocols
+http==1.0.0
+
+# Email handling
+email==1.0.0
+
+# MIME handling
+mimetypes==1.0.0
+
+# Temporary files
+tempfile==1.0.0
+
+# Shell utilities
+shutil==1.0.0
+
+# Glob pattern matching
+glob==1.0.0
+
+# File and directory paths
+pathlib==1.0.0
+
+# File status
+stat==1.0.0
+
+# File comparison
+filecmp==1.0.0
+
+# File input/output
+io==1.0.0
+
+# String I/O
+stringio==1.0.0
+
+# Byte I/O
+bytesio==1.0.0
+
+# Text wrapping
+textwrap==1.0.0
+
+# String formatting
+string==1.0.0
+
+# Regular expression operations
+re==1.0.0
+
+# Unicode data
+unicodedata==1.0.0
+
+# Codec registry
+codecs==1.0.0
+
+# Locale-specific formatting
+locale==1.0.0
+
+# Calendar functions
+calendar==1.0.0
+
+# High-level file operations
+shutil==1.0.0
+
+# Archive file handling
+zipfile==1.0.0
+
+# TAR archive handling
+tarfile==1.0.0
+
+# GZIP compression
+gzip==1.0.0
+
+# BZ2 compression
+bz2==1.0.0
+
+# LZMA compression
+lzma==1.0.0
+
+# ZIP compression
+zlib==1.0.0
+
+# Hash algorithms
+hashlib==1.0.0
+
+# HMAC keyed-hashing
+hmac==1.0.0
+
+# Cryptographic services
+secrets==1.0.0
+
+# SSL/TLS wrapper
+ssl==1.0.0
+
+# Internet data handling
+urllib==1.0.0
+
+# HTML parser
+html==1.0.0
+
+# XML processing
+xml==1.0.0
+
+# SQLite database
+sqlite3==1.0.0
+
+# Database API
+dbm==1.0.0
+
+# Persistent dictionary
+shelve==1.0.0
+
+# Data persistence
+pickle==1.0.0
+
+# Copy operations
+copy==1.0.0
+
+# Pretty printer
+pprint==1.0.0
+
+# Representation
+repr==1.0.0
+
+# Numbers module
+numbers==1.0.0
+
+# Decimal arithmetic
+decimal==1.0.0
+
+# Fractions
+fractions==1.0.0
+
+# Mathematical statistics
+statistics==1.0.0
+
+# Mathematical functions
+math==1.0.0
+
+# Complex math functions
+cmath==1.0.0
+
+# Random number generation
+random==1.0.0
+
+# Itertools
+itertools==1.0.0
+
+# Functional programming
+functools==1.0.0
+
+# Operator functions
+operator==1.0.0
+
+# Collections
+collections==1.0.0
+
+# Heap queue algorithm
+heapq==1.0.0
+
+# Bisection algorithm
+bisect==1.0.0
+
+# Array module
+array==1.0.0
+
+# Weak references
+weakref==1.0.0
+
+# Types module
+types==1.0.0
+
+# Copy operations
+copy==1.0.0
+
+# Pickle module
+pickle==1.0.0
+
+# Copy registry
+copyreg==1.0.0
+
+# Shelve module
+shelve==1.0.0
+
+# Marshal module
+marshal==1.0.0
+
+# DBM module
+dbm==1.0.0
+
+# SQLite3 module
+sqlite3==1.0.0
+
+# Zlib module
+zlib==1.0.0
+
+# Gzip module
+gzip==1.0.0
+
+# BZ2 module
+bz2==1.0.0
+
+# LZMA module
+lzma==1.0.0
+
+# Zipfile module
+zipfile==1.0.0
+
+# Tarfile module
+tarfile==1.0.0

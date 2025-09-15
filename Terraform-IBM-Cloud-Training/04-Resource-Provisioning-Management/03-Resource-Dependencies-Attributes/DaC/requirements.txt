@@ -1,0 +1,19 @@
+# Requirements for Resource Dependencies and Attributes Diagram Generation
+# Topic 4.3: Advanced Dependency Management in IBM Cloud Terraform
+
+# Core plotting and visualization
+matplotlib>=3.6.0
+numpy>=1.21.0
+
+# Optional: Enhanced diagram capabilities
+seaborn>=0.11.0
+plotly>=5.10.0
+
+# Development and testing
+pytest>=7.0.0
+black>=22.0.0
+flake8>=4.0.0
+
+# Documentation
+sphinx>=4.5.0
+sphinx-rtd-theme>=1.0.0

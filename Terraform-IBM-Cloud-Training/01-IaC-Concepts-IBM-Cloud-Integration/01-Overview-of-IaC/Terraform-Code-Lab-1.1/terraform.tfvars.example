@@ -1,0 +1,148 @@
+# Example Terraform Variables File for IBM Cloud IaC Training Lab 1.1
+# Copy this file to terraform.tfvars and update the values according to your environment
+
+# IBM Cloud Authentication and Configuration
+# REQUIRED: Get your API key from https://cloud.ibm.com/iam/apikeys
+ibmcloud_api_key = "YOUR_IBM_CLOUD_API_KEY_HERE"
+
+# IBM Cloud region where resources will be created
+# Available regions: us-south, us-east, eu-gb, eu-de, jp-tok, au-syd, jp-osa, br-sao, ca-tor
+ibm_region = "us-south"
+
+# Resource group name (must exist in your IBM Cloud account)
+resource_group_name = "default"
+
+# Project and Environment Configuration
+project_name = "iac-training"
+environment  = "lab"
+owner        = "your-name-or-email"
+
+# VPC Configuration (optional - will use defaults if not specified)
+# vpc_name = "custom-vpc-name"
+# vpc_address_prefix_management = "auto"  # or "manual"
+# vpc_classic_access = false
+
+# Subnet Configuration (optional - will use defaults if not specified)
+# subnet_name = "custom-subnet-name"
+# subnet_zone = "us-south-1"  # Will auto-select if not specified
+# subnet_cidr = "10.240.0.0/24"
+# subnet_public_gateway = true
+
+# Virtual Server Instance Configuration
+# vsi_name = "custom-vsi-name"
+vsi_image_name = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+vsi_profile    = "bx2-2x8"  # 2 vCPUs, 8 GB RAM
+
+# SSH Key Configuration (optional but recommended)
+# Create an SSH key in IBM Cloud first: https://cloud.ibm.com/vpc-ext/compute/sshKeys
+# vsi_ssh_key_name = "your-ssh-key-name"
+
+# Security Group Rules (optional - will use defaults if not specified)
+# Uncomment and modify to customize security group rules
+# security_group_rules = [
+#   {
+#     direction   = "inbound"
+#     ip_version  = "ipv4"
+#     protocol    = "tcp"
+#     port_min    = 22
+#     port_max    = 22
+#     remote      = "0.0.0.0/0"
+#     description = "Allow SSH access"
+#   },
+#   {
+#     direction   = "inbound"
+#     ip_version  = "ipv4"
+#     protocol    = "tcp"
+#     port_min    = 80
+#     port_max    = 80
+#     remote      = "0.0.0.0/0"
+#     description = "Allow HTTP access"
+#   },
+#   {
+#     direction   = "inbound"
+#     ip_version  = "ipv4"
+#     protocol    = "tcp"
+#     port_min    = 443
+#     port_max    = 443
+#     remote      = "0.0.0.0/0"
+#     description = "Allow HTTPS access"
+#   },
+#   {
+#     direction   = "inbound"
+#     ip_version  = "ipv4"
+#     protocol    = "icmp"
+#     remote      = "0.0.0.0/0"
+#     description = "Allow ICMP (ping)"
+#   },
+#   {
+#     direction   = "outbound"
+#     ip_version  = "ipv4"
+#     protocol    = "all"
+#     remote      = "0.0.0.0/0"
+#     description = "Allow all outbound traffic"
+#   }
+# ]
+
+# Resource Tagging
+tags = ["iac-training", "terraform", "lab-1.1"]
+
+# Additional custom tags
+additional_tags = {
+  "cost-center" = "training"
+  "department"  = "it"
+  "purpose"     = "learning"
+}
+
+# Network and Access Configuration
+create_public_gateway = true   # Enable internet access for the subnet
+create_floating_ip    = false  # Set to true if you need a public IP for the VSI
+enable_ip_spoofing    = false  # Usually keep false for security
+
+# Volume and Storage Configuration
+auto_delete_volume = true  # Delete boot volume when VSI is deleted (recommended for training)
+# volume_encryption_key = ""  # CRN of encryption key (optional)
+
+# Monitoring and Logging (optional features)
+enable_monitoring = false  # Set to true to enable monitoring
+enable_logging    = false  # Set to true to enable logging
+
+# Example configurations for different scenarios:
+
+# Scenario 1: Minimal setup for basic learning
+# Use all defaults, just provide API key and basic info
+
+# Scenario 2: Development environment
+# project_name = "dev-project"
+# environment = "dev"
+# vsi_profile = "bx2-2x8"
+# create_floating_ip = true
+
+# Scenario 3: Production-like environment
+# project_name = "prod-project"
+# environment = "prod"
+# vsi_profile = "bx2-4x16"
+# enable_monitoring = true
+# enable_logging = true
+# volume_encryption_key = "crn:v1:bluemix:public:kms:us-south:a/..."
+
+# Scenario 4: Multi-zone setup (for advanced labs)
+# subnet_zone = "us-south-2"
+# Additional subnets would require separate resource blocks
+
+# Cost Management Notes:
+# - bx2-2x8 profile costs approximately $0.10-0.15 per hour
+# - Remember to run 'terraform destroy' after lab completion
+# - Monitor your IBM Cloud billing dashboard
+# - Set up billing alerts if desired
+
+# Security Notes:
+# - Never commit terraform.tfvars with real API keys to version control
+# - Use environment variables for sensitive values in CI/CD pipelines
+# - Regularly rotate API keys
+# - Review security group rules for production environments
+
+# Troubleshooting:
+# - If resources fail to create, check IAM permissions
+# - Verify resource group exists and you have access
+# - Ensure region supports the selected VSI profile
+# - Check IBM Cloud service status if experiencing issues

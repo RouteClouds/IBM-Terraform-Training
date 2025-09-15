@@ -1,0 +1,538 @@
+# =============================================================================
+# TERRAFORM VARIABLES EXAMPLE CONFIGURATION
+# Advanced HCL Configuration Lab - Topic 4.2
+# =============================================================================
+#
+# This file demonstrates sophisticated variable patterns and provides examples
+# for different deployment scenarios. Copy this file to terraform.tfvars and
+# modify the values according to your specific requirements.
+#
+# USAGE:
+#   cp terraform.tfvars.example terraform.tfvars
+#   # Edit terraform.tfvars with your specific values
+#   terraform plan
+#   terraform apply
+#
+# =============================================================================
+
+# =============================================================================
+# AUTHENTICATION AND PROVIDER CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API Key (set via environment variable for security)
+# export IBMCLOUD_API_KEY="your-api-key-here"
+# ibmcloud_api_key = "your-api-key-here"  # Not recommended - use environment variable
+
+# Resource Group ID (obtain from: ibmcloud resource groups)
+resource_group_id = "12345678901234567890123456789012"
+
+# =============================================================================
+# REGION CONFIGURATION
+# =============================================================================
+
+# Primary region for main deployment
+primary_region = "us-south"
+
+# Secondary region for multi-region deployments
+secondary_region = "us-east"
+
+# Disaster recovery region
+disaster_recovery_region = "eu-gb"
+
+# =============================================================================
+# PROJECT CONFIGURATION - DEVELOPMENT ENVIRONMENT
+# =============================================================================
+
+project_configuration = {
+  # Project identification
+  project_name        = "hcl-advanced-lab"
+  project_code        = "HCL-001"
+  project_description = "Advanced HCL Configuration Laboratory for Terraform Training"
+  project_owner       = "terraform-admin@company.com"
+  
+  # Organizational metadata
+  organization = {
+    name        = "acme-corp"
+    division    = "engineering"
+    department  = "platform-engineering"
+    cost_center = "eng-001"
+    budget_code = "budget-eng-2024"
+  }
+  
+  # Environment configuration - DEVELOPMENT
+  environment = {
+    name        = "development"
+    tier        = "dev"
+    purpose     = "training-lab"
+    criticality = "low"
+  }
+  
+  # Compliance and governance
+  compliance = {
+    frameworks          = ["iso27001"]
+    data_classification = "internal"
+    retention_period    = 90
+    audit_required      = false
+  }
+  
+  # Technical specifications
+  technical = {
+    architecture_pattern = "multi-tier"
+    deployment_model     = "cloud-native"
+    scaling_strategy     = "horizontal"
+    backup_strategy      = "automated"
+  }
+}
+
+# =============================================================================
+# INFRASTRUCTURE CONFIGURATION - DEVELOPMENT
+# =============================================================================
+
+infrastructure_configuration = {
+  # Network configuration
+  network = {
+    vpc_cidr_blocks = ["10.0.0.0/16"]
+    subnet_configuration = {
+      public_subnets   = ["10.0.1.0/24", "10.0.2.0/24"]
+      private_subnets  = ["10.0.10.0/24", "10.0.20.0/24"]
+      database_subnets = ["10.0.100.0/24", "10.0.200.0/24"]
+    }
+    enable_flow_logs   = false  # Disabled for cost savings in dev
+    enable_nat_gateway = true
+    dns_configuration = {
+      enable_dns_hostnames = true
+      enable_dns_support   = true
+      custom_dns_servers   = ["8.8.8.8", "8.8.4.4"]
+    }
+  }
+  
+  # Compute configuration - Development sizing
+  compute = {
+    instance_types = {
+      web_tier = {
+        instance_profile  = "bx2-2x8"    # Small instances for dev
+        min_instances    = 1
+        max_instances    = 2
+        desired_instances = 1
+      }
+      app_tier = {
+        instance_profile  = "bx2-2x8"    # Small instances for dev
+        min_instances    = 1
+        max_instances    = 2
+        desired_instances = 1
+      }
+      data_tier = {
+        instance_profile  = "bx2-4x16"   # Slightly larger for database
+        min_instances    = 1
+        max_instances    = 1
+        desired_instances = 1
+      }
+    }
+    auto_scaling = {
+      enabled               = false  # Disabled for predictable dev costs
+      scale_up_threshold    = 70
+      scale_down_threshold  = 30
+      scale_up_adjustment   = 1
+      scale_down_adjustment = 1
+    }
+  }
+  
+  # Storage configuration - Development
+  storage = {
+    volume_types = {
+      root_volume = {
+        size_gb     = 50      # Smaller for dev
+        volume_type = "general-purpose"
+        encrypted   = true
+      }
+      data_volume = {
+        size_gb     = 100     # Smaller for dev
+        volume_type = "general-purpose"
+        encrypted   = true
+      }
+    }
+    backup_configuration = {
+      enabled           = true
+      retention_days    = 7     # Shorter retention for dev
+      backup_schedule   = "daily"
+      cross_region_copy = false # Disabled for cost savings
+    }
+  }
+  
+  # Security configuration - Development
+  security = {
+    encryption = {
+      at_rest_enabled       = true
+      in_transit_enabled    = true
+      key_management        = "ibm"     # IBM-managed keys for dev
+      customer_managed_keys = false
+    }
+    access_control = {
+      enable_iam_roles = true
+      enable_mfa      = false   # Simplified for dev
+      session_timeout = 3600
+      password_policy = {
+        min_length        = 8   # Relaxed for dev
+        require_symbols   = false
+        require_numbers   = true
+        require_uppercase = true
+        require_lowercase = true
+      }
+    }
+  }
+  
+  # Monitoring and logging - Development
+  monitoring = {
+    enabled = true
+    metrics = {
+      detailed_monitoring = false  # Basic monitoring for dev
+      custom_metrics     = false
+      retention_days     = 7
+    }
+    logging = {
+      application_logs = true
+      system_logs     = true
+      audit_logs      = false   # Disabled for dev
+      log_retention   = 7
+    }
+    alerting = {
+      enabled = false  # Disabled for dev
+      notification_channels = []
+      alert_thresholds = {
+        cpu_utilization    = 90   # Higher thresholds for dev
+        memory_utilization = 90
+        disk_utilization   = 95
+        network_throughput = 1000
+      }
+    }
+  }
+}
+
+# =============================================================================
+# FEATURE FLAGS - DEVELOPMENT CONFIGURATION
+# =============================================================================
+
+feature_flags = {
+  # Core features
+  enable_multi_region      = false  # Single region for dev
+  enable_disaster_recovery = false  # Not needed for dev
+  enable_auto_scaling      = false  # Disabled for predictable costs
+  enable_monitoring        = true   # Basic monitoring enabled
+  enable_backup           = true   # Enabled for data protection
+  
+  # Advanced features
+  enable_advanced_features = false  # Simplified for dev
+  enable_cost_optimization = true   # Enabled to minimize dev costs
+  enable_security_scanning = false  # Optional for dev
+  enable_compliance_checks = false  # Simplified for dev
+  enable_performance_tuning = false # Not needed for dev
+  
+  # Development features
+  enable_debug_mode          = true   # Enabled for learning
+  enable_provider_validation = true   # Enabled for validation
+  enable_resource_validation = true   # Enabled for validation
+  enable_output_validation   = true   # Enabled for validation
+}
+
+# =============================================================================
+# GLOBAL TAGS
+# =============================================================================
+
+global_tags = {
+  "managed-by"      = "terraform"
+  "lab-name"        = "hcl-advanced-4.2"
+  "created-by"      = "terraform-training"
+  "purpose"         = "education"
+  "cost-tracking"   = "training-budget"
+  "environment"     = "development"
+  "auto-shutdown"   = "enabled"     # For cost control
+  "backup-required" = "basic"
+}
+
+# =============================================================================
+# ADVANCED CONFIGURATION - DEVELOPMENT
+# =============================================================================
+
+advanced_configuration = {
+  # Performance configuration - Development
+  performance = {
+    enable_performance_mode = false
+    cpu_optimization       = "cost"      # Cost-optimized for dev
+    memory_optimization    = "cost"
+    network_optimization   = "balanced"
+    storage_optimization   = "cost"
+  }
+  
+  # Cost optimization - Development
+  cost_optimization = {
+    enable_cost_controls = true
+    budget_alerts       = true
+    resource_scheduling = {
+      enable_scheduling = true      # Auto start/stop for dev
+      start_schedule   = "08:00"
+      stop_schedule    = "18:00"
+      timezone        = "UTC"
+    }
+    rightsizing = {
+      enable_rightsizing = true     # Monitor for optimization
+      analysis_period   = 7         # Weekly analysis
+      threshold_cpu     = 10        # Low utilization threshold
+      threshold_memory  = 20
+    }
+  }
+  
+  # Operational configuration - Development
+  operations = {
+    maintenance_window = {
+      enabled     = true
+      day_of_week = "saturday"      # Weekend maintenance
+      start_time  = "02:00"
+      duration    = 2               # Shorter window for dev
+    }
+    change_management = {
+      require_approval = false      # Simplified for dev
+      approval_timeout = 1
+      rollback_enabled = true
+    }
+    incident_response = {
+      enable_auto_response  = false
+      escalation_timeout   = 60
+      notification_channels = ["email"]
+    }
+  }
+}
+
+# =============================================================================
+# ALTERNATIVE CONFIGURATIONS
+# =============================================================================
+
+# Uncomment and modify the sections below for different environments:
+
+# =============================================================================
+# PRODUCTION CONFIGURATION EXAMPLE
+# =============================================================================
+#
+# project_configuration = {
+#   project_name        = "hcl-advanced-lab"
+#   project_code        = "HCL-001"
+#   project_description = "Advanced HCL Configuration Laboratory - Production"
+#   project_owner       = "terraform-admin@company.com"
+#   
+#   organization = {
+#     name        = "acme-corp"
+#     division    = "engineering"
+#     department  = "platform-engineering"
+#     cost_center = "eng-001"
+#     budget_code = "budget-eng-2024"
+#   }
+#   
+#   environment = {
+#     name        = "production"
+#     tier        = "prod"
+#     purpose     = "production-workload"
+#     criticality = "critical"
+#   }
+#   
+#   compliance = {
+#     frameworks          = ["sox", "iso27001", "pci-dss"]
+#     data_classification = "confidential"
+#     retention_period    = 2555  # 7 years
+#     audit_required      = true
+#   }
+#   
+#   technical = {
+#     architecture_pattern = "multi-tier"
+#     deployment_model     = "hybrid-cloud"
+#     scaling_strategy     = "auto-scaling"
+#     backup_strategy      = "cross-region"
+#   }
+# }
+#
+# infrastructure_configuration = {
+#   network = {
+#     vpc_cidr_blocks = ["10.0.0.0/16"]
+#     subnet_configuration = {
+#       public_subnets   = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+#       private_subnets  = ["10.0.10.0/24", "10.0.20.0/24", "10.0.30.0/24"]
+#       database_subnets = ["10.0.100.0/24", "10.0.200.0/24", "10.0.300.0/24"]
+#     }
+#     enable_flow_logs   = true   # Enabled for security
+#     enable_nat_gateway = true
+#     dns_configuration = {
+#       enable_dns_hostnames = true
+#       enable_dns_support   = true
+#       custom_dns_servers   = ["161.26.0.10", "161.26.0.11"]  # IBM DNS
+#     }
+#   }
+#   
+#   compute = {
+#     instance_types = {
+#       web_tier = {
+#         instance_profile  = "bx2-4x16"   # Larger for production
+#         min_instances    = 3
+#         max_instances    = 10
+#         desired_instances = 5
+#       }
+#       app_tier = {
+#         instance_profile  = "bx2-8x32"   # Larger for production
+#         min_instances    = 3
+#         max_instances    = 15
+#         desired_instances = 5
+#       }
+#       data_tier = {
+#         instance_profile  = "bx2-16x64"  # Large for production database
+#         min_instances    = 2
+#         max_instances    = 3
+#         desired_instances = 2
+#       }
+#     }
+#     auto_scaling = {
+#       enabled               = true   # Enabled for production
+#       scale_up_threshold    = 70
+#       scale_down_threshold  = 30
+#       scale_up_adjustment   = 2
+#       scale_down_adjustment = 1
+#     }
+#   }
+#   
+#   storage = {
+#     volume_types = {
+#       root_volume = {
+#         size_gb     = 200     # Larger for production
+#         volume_type = "10iops-tier"
+#         encrypted   = true
+#       }
+#       data_volume = {
+#         size_gb     = 2000    # Much larger for production
+#         volume_type = "10iops-tier"
+#         encrypted   = true
+#       }
+#     }
+#     backup_configuration = {
+#       enabled           = true
+#       retention_days    = 90    # Longer retention
+#       backup_schedule   = "daily"
+#       cross_region_copy = true  # Enabled for DR
+#     }
+#   }
+#   
+#   security = {
+#     encryption = {
+#       at_rest_enabled       = true
+#       in_transit_enabled    = true
+#       key_management        = "customer"  # Customer-managed keys
+#       customer_managed_keys = true
+#     }
+#     access_control = {
+#       enable_iam_roles = true
+#       enable_mfa      = true    # Required for production
+#       session_timeout = 1800    # Shorter timeout
+#       password_policy = {
+#         min_length        = 16  # Stronger for production
+#         require_symbols   = true
+#         require_numbers   = true
+#         require_uppercase = true
+#         require_lowercase = true
+#       }
+#     }
+#   }
+#   
+#   monitoring = {
+#     enabled = true
+#     metrics = {
+#       detailed_monitoring = true   # Comprehensive monitoring
+#       custom_metrics     = true
+#       retention_days     = 365
+#     }
+#     logging = {
+#       application_logs = true
+#       system_logs     = true
+#       audit_logs      = true      # Required for compliance
+#       log_retention   = 365
+#     }
+#     alerting = {
+#       enabled = true
+#       notification_channels = ["email", "slack", "pagerduty"]
+#       alert_thresholds = {
+#         cpu_utilization    = 70   # Lower thresholds for production
+#         memory_utilization = 75
+#         disk_utilization   = 80
+#         network_throughput = 800
+#       }
+#     }
+#   }
+# }
+#
+# feature_flags = {
+#   enable_multi_region      = true   # Enabled for production
+#   enable_disaster_recovery = true   # Critical for production
+#   enable_auto_scaling      = true   # Enabled for production
+#   enable_monitoring        = true   # Comprehensive monitoring
+#   enable_backup           = true   # Critical for production
+#   enable_advanced_features = true   # All features enabled
+#   enable_cost_optimization = false  # Performance over cost
+#   enable_security_scanning = true   # Required for production
+#   enable_compliance_checks = true   # Required for production
+#   enable_performance_tuning = true  # Optimized for production
+#   enable_debug_mode          = false # Disabled for production
+#   enable_provider_validation = true
+#   enable_resource_validation = true
+#   enable_output_validation   = true
+# }
+
+# =============================================================================
+# STAGING CONFIGURATION EXAMPLE
+# =============================================================================
+#
+# feature_flags = {
+#   enable_multi_region      = true   # Test multi-region in staging
+#   enable_disaster_recovery = false  # Optional for staging
+#   enable_auto_scaling      = true   # Test auto-scaling
+#   enable_monitoring        = true   # Full monitoring
+#   enable_backup           = true   # Data protection
+#   enable_advanced_features = true   # Test advanced features
+#   enable_cost_optimization = true   # Balance cost and performance
+#   enable_security_scanning = true   # Security testing
+#   enable_compliance_checks = true   # Compliance validation
+#   enable_performance_tuning = false # Standard performance
+#   enable_debug_mode          = false # Production-like
+#   enable_provider_validation = true
+#   enable_resource_validation = true
+#   enable_output_validation   = true
+# }
+
+# =============================================================================
+# USAGE NOTES
+# =============================================================================
+#
+# 1. ENVIRONMENT SELECTION:
+#    - Copy this file to terraform.tfvars
+#    - Uncomment the appropriate configuration section
+#    - Modify values according to your requirements
+#
+# 2. VALIDATION:
+#    - All variables include comprehensive validation rules
+#    - Invalid values will be caught during terraform plan
+#    - Review validation error messages for guidance
+#
+# 3. COST CONSIDERATIONS:
+#    - Development configuration optimized for cost
+#    - Production configuration optimized for performance
+#    - Use cost_optimization features for development
+#
+# 4. SECURITY:
+#    - Never commit actual API keys to version control
+#    - Use environment variables for sensitive data
+#    - Review security configurations for compliance
+#
+# 5. MONITORING:
+#    - Enable monitoring for all environments
+#    - Adjust alert thresholds based on environment
+#    - Configure appropriate notification channels
+#
+# 6. TESTING:
+#    - Use terraform plan to validate configurations
+#    - Test variable validation with invalid values
+#    - Review outputs for configuration verification
+#
+# =============================================================================

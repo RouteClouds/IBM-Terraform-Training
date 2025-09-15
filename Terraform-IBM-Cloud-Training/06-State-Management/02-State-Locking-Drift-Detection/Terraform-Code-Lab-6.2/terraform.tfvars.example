@@ -1,0 +1,337 @@
+# =============================================================================
+# TERRAFORM VARIABLES EXAMPLE CONFIGURATION
+# Subtopic 6.2: State Locking and Drift Detection
+# Copy this file to terraform.tfvars and customize for your environment
+# =============================================================================
+
+# =============================================================================
+# CORE CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API key for authentication
+# Obtain from: https://cloud.ibm.com/iam/apikeys
+ibm_api_key = "your-ibm-cloud-api-key-here"
+
+# Primary IBM Cloud region for resource deployment
+# Options: us-south, us-east, eu-gb, eu-de, jp-tok, au-syd
+primary_region = "us-south"
+
+# IBM Cloud resource group name
+# Use existing resource group or create new one
+resource_group_name = "default"
+
+# Project name for resource naming and tagging
+# Must contain only lowercase letters, numbers, and hyphens
+project_name = "state-locking-lab"
+
+# Environment name for resource organization
+# Options: development, staging, production
+environment = "development"
+
+# =============================================================================
+# STATE LOCKING CONFIGURATION
+# =============================================================================
+
+# Enable state locking with Cloudant backend
+# Set to true to activate distributed state locking
+enable_state_locking = true
+
+# Name of the lock table/database in Cloudant
+# Default is suitable for most use cases
+lock_table_name = "terraform-locks"
+
+# Lock timeout in minutes (1-60)
+# How long to wait for a lock before timing out
+lock_timeout_minutes = 10
+
+# Number of lock retry attempts (1-10)
+# How many times to retry acquiring a lock
+lock_retry_attempts = 3
+
+# Delay between lock retry attempts in seconds (1-30)
+# Wait time between retry attempts
+lock_retry_delay_seconds = 5
+
+# =============================================================================
+# DRIFT DETECTION CONFIGURATION
+# =============================================================================
+
+# Enable automated drift detection
+# Set to true to activate scheduled drift monitoring
+enable_drift_detection = true
+
+# Cron schedule for drift detection (every 6 hours by default)
+# Format: "minute hour day month day-of-week"
+# Examples:
+#   "0 */6 * * *"  - Every 6 hours
+#   "0 9,17 * * *" - At 9 AM and 5 PM daily
+#   "0 2 * * 1"    - Every Monday at 2 AM
+drift_check_schedule = "0 */6 * * *"
+
+# List of alert channels for drift notifications
+# Options: email, slack, webhook, sms
+drift_alert_channels = ["email", "slack"]
+
+# Severity threshold for drift alerts (1-10)
+# Only alert on drift above this severity level
+drift_severity_threshold = 3
+
+# Enable automatic drift remediation for low-risk changes
+# Set to true to allow automatic fixes for minor drift
+enable_auto_remediation = false
+
+# Maximum severity score for automatic remediation (1-5)
+# Changes above this threshold require manual approval
+auto_remediation_threshold = 3
+
+# =============================================================================
+# NOTIFICATION CONFIGURATION
+# =============================================================================
+
+# Slack webhook URL for notifications
+# Obtain from: https://api.slack.com/messaging/webhooks
+slack_webhook_url = "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+
+# List of email addresses for notifications
+# Add team members who should receive drift alerts
+email_recipients = [
+  "devops-team@company.com",
+  "infrastructure@company.com"
+]
+
+# List of webhook endpoints for custom notifications
+# Add custom webhook URLs for integration with other systems
+webhook_endpoints = [
+  "https://your-monitoring-system.com/webhook",
+  "https://your-ticketing-system.com/api/alerts"
+]
+
+# =============================================================================
+# INFRASTRUCTURE CONFIGURATION
+# =============================================================================
+
+# VPC address prefix (CIDR block)
+# Ensure this doesn't conflict with existing networks
+vpc_address_prefix = "10.241.0.0/16"
+
+# Subnet address prefix (CIDR block)
+# Must be within the VPC address prefix
+subnet_address_prefix = "10.241.1.0/24"
+
+# Enable public gateway for internet access
+# Set to true if VSI needs internet connectivity
+enable_public_gateway = true
+
+# Enable floating IP for VSI
+# Set to true for direct internet access to VSI
+enable_floating_ip = false
+
+# VSI profile for compute instances
+# Options: bx2-2x8, bx2-4x16, bx2-8x32, cx2-2x4, cx2-4x8
+vsi_profile = "bx2-2x8"
+
+# VSI image name for compute instances
+# Use latest Ubuntu LTS image
+vsi_image_name = "ibm-ubuntu-22-04-1-minimal-amd64-1"
+
+# Name of existing SSH key for VSI access
+# Create SSH key in IBM Cloud console first
+ssh_key_name = "your-ssh-key-name"
+
+# =============================================================================
+# MONITORING AND COMPLIANCE
+# =============================================================================
+
+# Enable Activity Tracker for audit logging
+# Recommended for production environments
+enable_activity_tracker = true
+
+# Enable monitoring for infrastructure and state management
+# Provides metrics and alerting capabilities
+enable_monitoring = true
+
+# Enable Key Protect for encryption
+# Additional security for sensitive data
+enable_key_protect = false
+
+# Activity Tracker service plan
+# Options: lite, 7-day, 14-day, 30-day
+activity_tracker_plan = "7-day"
+
+# Monitoring service plan
+# Options: lite, graduated-tier
+monitoring_plan = "graduated-tier"
+
+# =============================================================================
+# CLOUDANT CONFIGURATION
+# =============================================================================
+
+# Cloudant service plan for state locking
+# Options: lite (free), standard (paid)
+cloudant_plan = "lite"
+
+# Cloudant capacity throughput units (for standard plan only)
+# Number of throughput units for performance scaling
+cloudant_capacity_throughput = 1
+
+# =============================================================================
+# CLOUD FUNCTIONS CONFIGURATION
+# =============================================================================
+
+# Enable IBM Cloud Functions for automation
+# Required for drift detection and remediation
+enable_cloud_functions = true
+
+# Cloud Functions namespace for drift detection
+# Logical grouping for automation functions
+functions_namespace = "terraform-automation"
+
+# Memory limit for Cloud Functions (MB)
+# Options: 128, 256, 512, 1024, 2048
+function_memory_limit = 256
+
+# Timeout for Cloud Functions (seconds)
+# Maximum execution time (1-600 seconds)
+function_timeout = 300
+
+# =============================================================================
+# PROVIDER CONFIGURATION
+# =============================================================================
+
+# Timeout for IBM Cloud provider operations (seconds)
+# Increase for slow network connections
+provider_timeout = 300
+
+# Maximum number of retries for IBM Cloud provider
+# Number of retry attempts for failed operations
+max_retries = 3
+
+# =============================================================================
+# COST OPTIMIZATION
+# =============================================================================
+
+# Enable cost tracking and tagging
+# Helps with cost allocation and optimization
+enable_cost_tracking = true
+
+# Cost center for billing allocation
+# Used for cost tracking and reporting
+cost_center = "training"
+
+# Budget alert threshold in USD
+# Alert when estimated costs exceed this amount
+budget_alert_threshold = 100
+
+# =============================================================================
+# TESTING AND VALIDATION
+# =============================================================================
+
+# Enable testing mode with additional validation
+# Adds extra checks and validation steps
+enable_testing_mode = false
+
+# Simulate drift for testing purposes
+# Creates resources that can be manually modified for testing
+simulate_drift = false
+
+# Enable conflict testing scenarios
+# Adds resources for testing lock conflicts
+test_conflict_scenarios = false
+
+# =============================================================================
+# EXAMPLE CONFIGURATIONS FOR DIFFERENT ENVIRONMENTS
+# =============================================================================
+
+# DEVELOPMENT ENVIRONMENT EXAMPLE:
+# environment = "development"
+# enable_state_locking = true
+# enable_drift_detection = true
+# enable_auto_remediation = false
+# cloudant_plan = "lite"
+# activity_tracker_plan = "lite"
+# monitoring_plan = "lite"
+# enable_testing_mode = true
+# simulate_drift = true
+
+# STAGING ENVIRONMENT EXAMPLE:
+# environment = "staging"
+# enable_state_locking = true
+# enable_drift_detection = true
+# enable_auto_remediation = true
+# auto_remediation_threshold = 2
+# cloudant_plan = "standard"
+# activity_tracker_plan = "7-day"
+# monitoring_plan = "graduated-tier"
+# enable_testing_mode = false
+
+# PRODUCTION ENVIRONMENT EXAMPLE:
+# environment = "production"
+# enable_state_locking = true
+# enable_drift_detection = true
+# enable_auto_remediation = true
+# auto_remediation_threshold = 1
+# cloudant_plan = "standard"
+# cloudant_capacity_throughput = 5
+# activity_tracker_plan = "30-day"
+# monitoring_plan = "graduated-tier"
+# enable_key_protect = true
+# drift_check_schedule = "0 */2 * * *"  # Every 2 hours
+# budget_alert_threshold = 500
+
+# =============================================================================
+# SECURITY CONSIDERATIONS
+# =============================================================================
+
+# IMPORTANT SECURITY NOTES:
+# 1. Never commit terraform.tfvars to version control
+# 2. Use environment variables for sensitive values:
+#    export TF_VAR_ibm_api_key="your-api-key"
+#    export TF_VAR_slack_webhook_url="your-webhook-url"
+# 3. Rotate API keys regularly
+# 4. Use least privilege access for service credentials
+# 5. Enable encryption for all storage services
+# 6. Monitor access logs through Activity Tracker
+# 7. Implement proper backup and disaster recovery procedures
+
+# =============================================================================
+# COST ESTIMATION
+# =============================================================================
+
+# ESTIMATED MONTHLY COSTS (USD):
+# Cloudant Lite: Free
+# Cloudant Standard (1 unit): ~$75
+# Activity Tracker (7-day): ~$50
+# Monitoring (graduated-tier): ~$20-50
+# Cloud Functions: ~$5-15 (pay-per-use)
+# Cloud Object Storage: ~$5-10
+# VPC Infrastructure: ~$20-40
+# Total Development: ~$100-170
+# Total Production: ~$175-245
+
+# =============================================================================
+# TROUBLESHOOTING
+# =============================================================================
+
+# COMMON ISSUES AND SOLUTIONS:
+# 1. API Key Issues:
+#    - Verify API key has correct permissions
+#    - Check resource group access
+#    - Ensure key is not expired
+# 
+# 2. Region Availability:
+#    - Some services may not be available in all regions
+#    - Check service availability before deployment
+# 
+# 3. Resource Limits:
+#    - Verify account limits for resources
+#    - Check quota usage in IBM Cloud console
+# 
+# 4. Network Connectivity:
+#    - Ensure proper VPC and subnet configuration
+#    - Verify security group rules
+#    - Check public gateway settings
+# 
+# 5. State Locking Issues:
+#    - Verify Cloudant instance is accessible
+#    - Check lock table creation
+#    - Validate credentials and permissions

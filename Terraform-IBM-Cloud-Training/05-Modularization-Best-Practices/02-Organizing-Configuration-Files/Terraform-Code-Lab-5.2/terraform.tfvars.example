@@ -1,0 +1,427 @@
+# Terraform Configuration Organization Lab - Example Variables
+# Copy this file to terraform.tfvars and customize for your environment
+
+# ============================================================================
+# ORGANIZATIONAL CONFIGURATION
+# ============================================================================
+
+organization_config = {
+  name         = "ACME Corporation"
+  division     = "Engineering"
+  cost_center  = "CC-ENG-001"
+  environment  = "development"  # Options: development, staging, production, sandbox
+  project_name = "config-organization-lab"
+  owner        = "platform-team"
+  contact      = "platform-team@acme.com"
+}
+
+# ============================================================================
+# REGIONAL CONFIGURATION
+# ============================================================================
+
+# Primary region for resource deployment
+primary_region = "us-south"
+
+# Secondary region for multi-region deployments (if enabled)
+secondary_region = "us-east"
+
+# Disaster recovery region
+dr_region = "eu-gb"
+
+# Enable multi-region deployment
+enable_multi_region = false
+
+# ============================================================================
+# RESOURCE GROUP CONFIGURATION
+# ============================================================================
+
+# Resource group name (will be looked up)
+resource_group_name = "default"
+
+# Resource group ID (optional - will be looked up if not provided)
+# resource_group_id = "your-resource-group-id"
+
+# ============================================================================
+# NAMING CONVENTION CONFIGURATION
+# ============================================================================
+
+naming_convention = {
+  separator     = "-"
+  max_length    = 63
+  prefix        = ""
+  suffix        = ""
+  use_random    = true
+  random_length = 4
+}
+
+# ============================================================================
+# NETWORK CONFIGURATION
+# ============================================================================
+
+network_configuration = {
+  vpc_name                   = "main-vpc"
+  address_prefix_management = "auto"
+  enable_public_gateway     = true
+  
+  # Subnet configuration
+  subnets = [
+    {
+      name                    = "subnet-1"
+      zone                    = "us-south-1"
+      cidr_block             = "10.240.0.0/24"
+      public_gateway_enabled = true
+      acl_rules = [
+        {
+          name        = "allow-ssh"
+          action      = "allow"
+          direction   = "inbound"
+          source      = "0.0.0.0/0"
+          destination = "10.240.0.0/24"
+          protocol    = "tcp"
+          port_min    = 22
+          port_max    = 22
+        },
+        {
+          name        = "allow-http"
+          action      = "allow"
+          direction   = "inbound"
+          source      = "0.0.0.0/0"
+          destination = "10.240.0.0/24"
+          protocol    = "tcp"
+          port_min    = 80
+          port_max    = 80
+        }
+      ]
+    },
+    {
+      name                    = "subnet-2"
+      zone                    = "us-south-2"
+      cidr_block             = "10.240.1.0/24"
+      public_gateway_enabled = true
+      acl_rules              = []
+    }
+  ]
+  
+  # Security group configuration
+  security_groups = [
+    {
+      name        = "web-sg"
+      description = "Security group for web servers"
+      rules = [
+        {
+          direction   = "inbound"
+          protocol    = "tcp"
+          port_min    = 80
+          port_max    = 80
+          source_type = "cidr_block"
+          source      = "0.0.0.0/0"
+        },
+        {
+          direction   = "inbound"
+          protocol    = "tcp"
+          port_min    = 443
+          port_max    = 443
+          source_type = "cidr_block"
+          source      = "0.0.0.0/0"
+        },
+        {
+          direction   = "inbound"
+          protocol    = "tcp"
+          port_min    = 22
+          port_max    = 22
+          source_type = "cidr_block"
+          source      = "10.240.0.0/16"
+        }
+      ]
+    },
+    {
+      name        = "app-sg"
+      description = "Security group for application servers"
+      rules = [
+        {
+          direction   = "inbound"
+          protocol    = "tcp"
+          port_min    = 8080
+          port_max    = 8080
+          source_type = "security_group"
+          source      = "web-sg"
+        },
+        {
+          direction   = "inbound"
+          protocol    = "tcp"
+          port_min    = 22
+          port_max    = 22
+          source_type = "cidr_block"
+          source      = "10.240.0.0/16"
+        }
+      ]
+    }
+  ]
+}
+
+# ============================================================================
+# COMPUTE CONFIGURATION
+# ============================================================================
+
+compute_configuration = {
+  instance_profile = "cx2-2x4"
+  instance_count   = 1
+  image_name       = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+  
+  # Instance settings
+  user_data_template = ""
+  enable_monitoring  = false
+  enable_backup     = false
+  
+  # Storage configuration
+  boot_volume_size    = 100
+  boot_volume_profile = "general-purpose"
+  
+  # Additional data volumes
+  data_volumes = [
+    {
+      name      = "data-vol-1"
+      size      = 50
+      profile   = "general-purpose"
+      encrypted = true
+    }
+  ]
+  
+  # SSH configuration
+  ssh_key_name   = "lab-ssh-key"
+  create_ssh_key = true
+}
+
+# ============================================================================
+# SECURITY CONFIGURATION
+# ============================================================================
+
+security_configuration = {
+  enable_flow_logs         = false
+  enable_activity_tracker = false
+  enable_key_management   = false
+  
+  # Encryption settings
+  encryption_at_rest    = true
+  encryption_in_transit = true
+  
+  # Compliance framework
+  compliance_framework = "none"  # Options: SOC2, ISO27001, HIPAA, PCI-DSS, GDPR, none
+  data_classification  = "internal"  # Options: public, internal, confidential, restricted
+  
+  # Access control
+  enable_iam_policies              = false
+  enable_context_based_restrictions = false
+  
+  # Monitoring and alerting
+  enable_security_monitoring   = false
+  alert_notification_channels = []
+}
+
+# ============================================================================
+# COST MANAGEMENT CONFIGURATION
+# ============================================================================
+
+cost_configuration = {
+  monthly_budget_limit = 500.00
+  cost_center         = "CC-ENG-001"
+  billing_account_id  = "your-billing-account-id"
+  
+  # Cost optimization
+  enable_auto_scaling       = false
+  enable_scheduled_shutdown = false
+  
+  # Shutdown schedule (optional)
+  shutdown_schedule = {
+    weekdays = {
+      start_time = "18:00"
+      end_time   = "08:00"
+    }
+    weekends = {
+      enabled = true
+    }
+  }
+  
+  # Cost tracking
+  cost_allocation_tags = {
+    "Department"    = "Engineering"
+    "Team"         = "Platform"
+    "Environment"  = "Development"
+    "CostCenter"   = "CC-ENG-001"
+  }
+  
+  enable_cost_alerts    = true
+  cost_alert_thresholds = [50.0, 75.0, 90.0]  # Percentage thresholds
+}
+
+# ============================================================================
+# ENVIRONMENT-SPECIFIC CONFIGURATION
+# ============================================================================
+
+environment_specific_config = {
+  development = {
+    instance_count        = 1
+    enable_monitoring     = false
+    backup_retention_days = 7
+  }
+  
+  staging = {
+    instance_count        = 2
+    enable_monitoring     = true
+    backup_retention_days = 14
+    enable_load_testing   = true
+  }
+  
+  production = {
+    instance_count           = 3
+    enable_monitoring        = true
+    backup_retention_days    = 30
+    enable_high_availability = true
+    enable_disaster_recovery = true
+  }
+}
+
+# ============================================================================
+# TAGGING CONFIGURATION
+# ============================================================================
+
+# Standard tags applied to all resources
+standard_tags = {
+  "Purpose"     = "terraform-lab"
+  "Lab"         = "configuration-organization"
+  "Topic"       = "5.2"
+  "Terraform"   = "managed"
+  "CreatedBy"   = "terraform-lab"
+}
+
+# Custom tags for specific use cases
+custom_tags = {
+  "ExperimentalFeature" = "configuration-patterns"
+  "LearningObjective"   = "enterprise-organization"
+  "LabDuration"         = "90-minutes"
+}
+
+# ============================================================================
+# FEATURE FLAGS
+# ============================================================================
+
+feature_flags = {
+  enable_advanced_networking = true
+  enable_container_registry  = false
+  enable_database_services   = false
+  enable_ai_services         = false
+  enable_edge_computing      = false
+  enable_quantum_services    = false
+}
+
+# ============================================================================
+# EXAMPLE CONFIGURATIONS FOR DIFFERENT ENVIRONMENTS
+# ============================================================================
+
+# Uncomment and modify one of the following configurations based on your target environment
+
+# DEVELOPMENT ENVIRONMENT EXAMPLE
+# organization_config = {
+#   name         = "ACME Corporation"
+#   division     = "Engineering"
+#   cost_center  = "CC-DEV-001"
+#   environment  = "development"
+#   project_name = "config-org-dev"
+#   owner        = "dev-team"
+#   contact      = "dev-team@acme.com"
+# }
+# 
+# compute_configuration = {
+#   instance_profile    = "cx2-2x4"
+#   instance_count      = 1
+#   image_name          = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+#   enable_monitoring   = false
+#   enable_backup       = false
+#   boot_volume_size    = 100
+#   boot_volume_profile = "general-purpose"
+#   data_volumes        = []
+#   ssh_key_name        = "dev-ssh-key"
+#   create_ssh_key      = true
+# }
+
+# STAGING ENVIRONMENT EXAMPLE
+# organization_config = {
+#   name         = "ACME Corporation"
+#   division     = "Engineering"
+#   cost_center  = "CC-STG-001"
+#   environment  = "staging"
+#   project_name = "config-org-staging"
+#   owner        = "qa-team"
+#   contact      = "qa-team@acme.com"
+# }
+# 
+# compute_configuration = {
+#   instance_profile    = "cx2-4x8"
+#   instance_count      = 2
+#   image_name          = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+#   enable_monitoring   = true
+#   enable_backup       = true
+#   boot_volume_size    = 200
+#   boot_volume_profile = "general-purpose"
+#   data_volumes = [
+#     {
+#       name      = "staging-data"
+#       size      = 100
+#       profile   = "general-purpose"
+#       encrypted = true
+#     }
+#   ]
+#   ssh_key_name   = "staging-ssh-key"
+#   create_ssh_key = true
+# }
+
+# PRODUCTION ENVIRONMENT EXAMPLE
+# organization_config = {
+#   name         = "ACME Corporation"
+#   division     = "Engineering"
+#   cost_center  = "CC-PROD-001"
+#   environment  = "production"
+#   project_name = "config-org-prod"
+#   owner        = "ops-team"
+#   contact      = "ops-team@acme.com"
+# }
+# 
+# compute_configuration = {
+#   instance_profile    = "cx2-8x16"
+#   instance_count      = 3
+#   image_name          = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+#   enable_monitoring   = true
+#   enable_backup       = true
+#   boot_volume_size    = 500
+#   boot_volume_profile = "10iops-tier"
+#   data_volumes = [
+#     {
+#       name      = "prod-data-1"
+#       size      = 500
+#       profile   = "10iops-tier"
+#       encrypted = true
+#     },
+#     {
+#       name      = "prod-data-2"
+#       size      = 1000
+#       profile   = "10iops-tier"
+#       encrypted = true
+#     }
+#   ]
+#   ssh_key_name   = "prod-ssh-key"
+#   create_ssh_key = false  # Use existing key in production
+# }
+# 
+# security_configuration = {
+#   enable_flow_logs         = true
+#   enable_activity_tracker = true
+#   enable_key_management   = true
+#   encryption_at_rest      = true
+#   encryption_in_transit   = true
+#   compliance_framework    = "SOC2"
+#   data_classification     = "confidential"
+#   enable_iam_policies     = true
+#   enable_context_based_restrictions = true
+#   enable_security_monitoring = true
+#   alert_notification_channels = ["security-alerts@acme.com"]
+# }

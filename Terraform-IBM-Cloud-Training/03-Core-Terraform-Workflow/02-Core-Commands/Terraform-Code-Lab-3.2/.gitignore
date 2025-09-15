@@ -1,0 +1,305 @@
+# Core Terraform Commands Lab - Git Ignore Configuration
+# Prevents sensitive and temporary files from being committed to version control
+
+# ============================================================================
+# Terraform State and Plan Files
+# ============================================================================
+
+# Terraform state files contain sensitive information about your infrastructure
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Terraform plan files may contain sensitive information
+*.tfplan
+*.tfplan.*
+
+# Terraform lock file for provider versions (commit this file)
+# .terraform.lock.hcl
+
+# ============================================================================
+# Terraform Working Directory
+# ============================================================================
+
+# Terraform working directory contains downloaded providers and modules
+.terraform/
+.terraform.d/
+
+# Terraform crash log files
+crash.log
+crash.*.log
+
+# ============================================================================
+# Variable Files with Sensitive Information
+# ============================================================================
+
+# Variable files that may contain sensitive information
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Keep example files for reference
+!terraform.tfvars.example
+!*.tfvars.example
+
+# ============================================================================
+# Generated Files and Logs
+# ============================================================================
+
+# Command lab generated files
+command-lab-log.txt
+command-lab-deployment-summary.json
+terraform-commands-reference.md
+
+# Terraform log files
+*.log
+terraform.log
+
+# Override files for local development
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ============================================================================
+# IDE and Editor Files
+# ============================================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# ============================================================================
+# Operating System Files
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================================
+# Backup and Temporary Files
+# ============================================================================
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# ============================================================================
+# Security and Credentials
+# ============================================================================
+
+# API keys and credentials
+.env
+.env.local
+.env.*.local
+secrets.txt
+credentials.json
+api-keys.txt
+
+# SSH keys
+id_rsa
+id_rsa.pub
+*.pem
+*.key
+
+# Certificate files
+*.crt
+*.cert
+*.p12
+*.pfx
+
+# ============================================================================
+# Lab-Specific Files
+# ============================================================================
+
+# Lab validation results
+validation-results.json
+lab-completion.txt
+
+# Student submission files
+submission/
+student-work/
+
+# Instructor notes and solutions
+instructor-notes.md
+solutions/
+answer-key.txt
+
+# ============================================================================
+# CI/CD and Automation Files
+# ============================================================================
+
+# GitHub Actions
+.github/workflows/local-*
+
+# GitLab CI
+.gitlab-ci-local.yml
+
+# Jenkins
+Jenkinsfile.local
+
+# Terraform Cloud/Enterprise
+.terraformrc
+terraform.rc
+
+# ============================================================================
+# Documentation Build Files
+# ============================================================================
+
+# Generated documentation
+docs/_build/
+docs/build/
+site/
+
+# Markdown temporary files
+*.md.tmp
+
+# ============================================================================
+# Package Manager Files
+# ============================================================================
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# ============================================================================
+# Custom Lab Patterns
+# ============================================================================
+
+# Student customizations
+my-*
+student-*
+custom-*
+
+# Lab variations
+lab-variant-*
+exercise-*
+
+# Performance testing
+benchmark-*
+performance-*
+
+# ============================================================================
+# Comments and Documentation
+# ============================================================================
+
+# This .gitignore file is specifically designed for the Core Terraform Commands Lab
+# It ensures that:
+# 1. Sensitive information (API keys, state files) is never committed
+# 2. Temporary and generated files don't clutter the repository
+# 3. IDE and OS-specific files are excluded
+# 4. Lab-specific artifacts are properly managed
+#
+# Important Notes:
+# - Always review files before committing
+# - Use 'git status' to verify what will be committed
+# - Consider using 'git add -p' for selective staging
+# - Keep terraform.tfvars.example for team reference
+#
+# Security Reminder:
+# - Never commit real API keys or credentials
+# - Use environment variables for sensitive data
+# - Regularly rotate access keys and tokens
+# - Review commit history for accidentally committed secrets

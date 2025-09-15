@@ -1,0 +1,470 @@
+# =============================================================================
+# TERRAFORM VARIABLES EXAMPLE CONFIGURATION
+# =============================================================================
+# Terraform Code Lab 5.1: Creating Reusable Modules
+# This file provides example values for all variables used in the module
+# development and testing lab.
+#
+# INSTRUCTIONS:
+# 1. Copy this file to terraform.tfvars
+# 2. Update the values according to your environment
+# 3. Ensure your IBM Cloud API key is set as an environment variable:
+#    export IBMCLOUD_API_KEY="your-api-key-here"
+
+# =============================================================================
+# AUTHENTICATION AND PROVIDER CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API key (recommended to use environment variable IBMCLOUD_API_KEY)
+# ibmcloud_api_key = "your-ibm-cloud-api-key-here"
+
+# IBM Cloud account ID (optional, for enterprise features)
+# account_id = "your-account-id-here"
+
+# =============================================================================
+# REGIONAL CONFIGURATION
+# =============================================================================
+
+# Primary region for resource deployment
+primary_region = "us-south"
+
+# Secondary region for multi-region deployments
+secondary_region = "us-east"
+
+# Enable multi-region deployment
+enable_multi_region = false
+
+# Enable cross-region networking
+enable_cross_region_networking = false
+
+# =============================================================================
+# RESOURCE GROUP AND ORGANIZATION
+# =============================================================================
+
+# Resource group name
+resource_group_name = "default"
+
+# Organization configuration for enterprise governance
+organization_config = {
+  name        = "IBM Cloud Training"
+  division    = "Education"
+  cost_center = "CC-EDU-001"
+  environment = "development"
+  project     = "terraform-training"
+  owner       = "platform-team"
+  contact     = "platform-team@company.com"
+}
+
+# =============================================================================
+# MODULE CONFIGURATION
+# =============================================================================
+
+# Module-specific configuration
+module_config = {
+  name_prefix          = "module-lab"
+  version             = "1.0.0"
+  enable_testing      = true
+  enable_validation   = true
+  enable_documentation = true
+  
+  # Development settings
+  development = {
+    enable_debug_mode    = true
+    enable_verbose_logs  = false
+    enable_dry_run      = false
+    enable_force_update = false
+  }
+  
+  # Testing settings
+  testing = {
+    enable_unit_tests        = true
+    enable_integration_tests = true
+    enable_e2e_tests        = false
+    test_timeout_minutes    = 30
+    parallel_test_execution = true
+  }
+}
+
+# =============================================================================
+# VPC MODULE CONFIGURATION
+# =============================================================================
+
+# Comprehensive VPC configuration
+vpc_configuration = {
+  # Basic VPC settings
+  name                      = "lab-vpc"
+  address_prefix_management = "auto"
+  classic_access           = false
+  enable_public_gateway    = true
+  
+  # Advanced VPC settings (optional)
+  # default_network_acl_name    = "custom-acl"
+  # default_routing_table_name  = "custom-rt"
+  # default_security_group_name = "custom-sg"
+  
+  # Subnet configuration
+  subnets = [
+    {
+      name                    = "subnet-1"
+      zone                    = "us-south-1"
+      cidr_block             = "10.240.0.0/24"
+      public_gateway_enabled = true
+    },
+    {
+      name                    = "subnet-2"
+      zone                    = "us-south-2"
+      cidr_block             = "10.240.1.0/24"
+      public_gateway_enabled = true
+    },
+    {
+      name                    = "subnet-3"
+      zone                    = "us-south-3"
+      cidr_block             = "10.240.2.0/24"
+      public_gateway_enabled = false
+    }
+  ]
+  
+  # Security group configuration
+  security_groups = [
+    {
+      name        = "web-sg"
+      description = "Security group for web servers"
+      
+      rules = [
+        {
+          direction   = "inbound"
+          protocol    = "tcp"
+          port_min    = 80
+          port_max    = 80
+          source_type = "cidr_block"
+          source      = "0.0.0.0/0"
+          description = "Allow HTTP traffic"
+        },
+        {
+          direction   = "inbound"
+          protocol    = "tcp"
+          port_min    = 443
+          port_max    = 443
+          source_type = "cidr_block"
+          source      = "0.0.0.0/0"
+          description = "Allow HTTPS traffic"
+        }
+      ]
+    }
+  ]
+  
+  # Network ACL configuration (optional)
+  # network_acls = [
+  #   {
+  #     name = "custom-acl"
+  #     rules = [
+  #       {
+  #         name        = "allow-http"
+  #         action      = "allow"
+  #         direction   = "inbound"
+  #         protocol    = "tcp"
+  #         source      = "0.0.0.0/0"
+  #         destination = "10.240.0.0/16"
+  #         port_min    = 80
+  #         port_max    = 80
+  #       }
+  #     ]
+  #   }
+  # ]
+}
+
+# =============================================================================
+# COMPUTE MODULE CONFIGURATION
+# =============================================================================
+
+# Compute instance configuration
+compute_configuration = {
+  # Instance configuration
+  instance_count   = 2
+  instance_profile = "cx2-2x4"
+  base_image_name  = "ibm-ubuntu-22-04-1-minimal-amd64-1"
+  
+  # SSH configuration (leave null to generate new key)
+  ssh_key_name = null
+  
+  # Boot volume configuration
+  boot_volume = {
+    size       = 100
+    profile    = "general-purpose"
+    encryption = "provider_managed"
+  }
+  
+  # Security group rules for compute instances
+  security_group_rules = [
+    {
+      direction   = "inbound"
+      protocol    = "tcp"
+      port_min    = 22
+      port_max    = 22
+      source_type = "cidr_block"
+      source      = "0.0.0.0/0"
+    },
+    {
+      direction   = "inbound"
+      protocol    = "tcp"
+      port_min    = 80
+      port_max    = 80
+      source_type = "cidr_block"
+      source      = "0.0.0.0/0"
+    }
+  ]
+}
+
+# =============================================================================
+# FEATURE FLAGS AND TOGGLES
+# =============================================================================
+
+# Enterprise features
+enable_enterprise_features = true
+
+# Advanced networking features
+enable_advanced_networking = false
+
+# Security services integration
+enable_security_services = true
+
+# Monitoring and observability services
+enable_monitoring_services = true
+
+# Audit logging for compliance
+enable_audit_logging = true
+
+# Metrics collection
+enable_metrics = true
+
+# Alerting and notifications
+enable_alerting = false
+
+# VPC endpoints for private connectivity
+enable_vpc_endpoints = false
+
+# =============================================================================
+# SECURITY AND COMPLIANCE CONFIGURATION
+# =============================================================================
+
+# Security configuration
+security_configuration = {
+  # Encryption settings
+  encryption = {
+    enable_encryption_at_rest    = true
+    enable_encryption_in_transit = true
+    # kms_key_id                  = "your-kms-key-id"
+    # kms_instance_id             = "your-kms-instance-id"
+  }
+  
+  # Access control
+  access_control = {
+    enable_iam_integration = true
+    allowed_ip_ranges     = []
+    enable_mfa           = false
+  }
+  
+  # Compliance frameworks
+  compliance = {
+    frameworks           = ["SOC2", "ISO27001"]
+    data_classification  = "internal"
+    retention_period_days = 90
+    audit_required       = true
+  }
+}
+
+# Allowed IP ranges for security configuration
+allowed_ip_ranges = [
+  # "10.0.0.0/8",
+  # "172.16.0.0/12",
+  # "192.168.0.0/16"
+]
+
+# =============================================================================
+# LOGGING AND MONITORING CONFIGURATION
+# =============================================================================
+
+# Logging level
+log_level = "INFO"
+
+# Monitoring configuration
+monitoring_configuration = {
+  # Metrics configuration
+  metrics = {
+    collection_interval_seconds = 60
+    retention_days             = 30
+    enable_custom_metrics      = false
+  }
+  
+  # Logging configuration
+  logging = {
+    log_level              = "INFO"
+    retention_days         = 30
+    enable_structured_logs = true
+  }
+  
+  # Alerting configuration
+  alerting = {
+    enable_email_alerts = false
+    enable_slack_alerts = false
+    alert_channels     = []
+  }
+}
+
+# =============================================================================
+# TAGGING AND METADATA CONFIGURATION
+# =============================================================================
+
+# Global tags applied to all resources
+global_tags = [
+  "terraform:managed",
+  "lab:module-creation",
+  "topic:5.1",
+  "training:ibm-cloud-terraform",
+  "environment:development"
+]
+
+# Custom tags for specific use cases
+custom_tags = {
+  "department"     = "education"
+  "budget-code"    = "EDU-2024-001"
+  "backup-policy"  = "daily"
+  "monitoring"     = "enabled"
+  "compliance"     = "required"
+}
+
+# =============================================================================
+# EXAMPLE CONFIGURATIONS FOR DIFFERENT ENVIRONMENTS
+# =============================================================================
+
+# DEVELOPMENT ENVIRONMENT EXAMPLE:
+# Uncomment and modify for development environment
+# organization_config = {
+#   name        = "Development Team"
+#   division    = "Engineering"
+#   cost_center = "CC-DEV-001"
+#   environment = "development"
+#   project     = "module-development"
+#   owner       = "dev-team"
+#   contact     = "dev-team@company.com"
+# }
+# 
+# vpc_configuration = {
+#   name                  = "dev-vpc"
+#   enable_public_gateway = true
+#   subnets = [
+#     {
+#       name       = "dev-subnet-1"
+#       zone       = "us-south-1"
+#       cidr_block = "10.240.0.0/24"
+#     }
+#   ]
+# }
+# 
+# compute_configuration = {
+#   instance_count   = 1
+#   instance_profile = "cx2-2x4"
+# }
+
+# STAGING ENVIRONMENT EXAMPLE:
+# Uncomment and modify for staging environment
+# organization_config = {
+#   name        = "Staging Environment"
+#   division    = "Quality Assurance"
+#   cost_center = "CC-QA-001"
+#   environment = "staging"
+#   project     = "module-testing"
+#   owner       = "qa-team"
+#   contact     = "qa-team@company.com"
+# }
+# 
+# vpc_configuration = {
+#   name                  = "staging-vpc"
+#   enable_public_gateway = true
+#   subnets = [
+#     {
+#       name       = "staging-subnet-1"
+#       zone       = "us-south-1"
+#       cidr_block = "10.241.0.0/24"
+#     },
+#     {
+#       name       = "staging-subnet-2"
+#       zone       = "us-south-2"
+#       cidr_block = "10.241.1.0/24"
+#     }
+#   ]
+# }
+# 
+# compute_configuration = {
+#   instance_count   = 2
+#   instance_profile = "cx2-4x8"
+# }
+
+# PRODUCTION ENVIRONMENT EXAMPLE:
+# Uncomment and modify for production environment
+# organization_config = {
+#   name        = "Production Environment"
+#   division    = "Operations"
+#   cost_center = "CC-OPS-001"
+#   environment = "production"
+#   project     = "module-production"
+#   owner       = "ops-team"
+#   contact     = "ops-team@company.com"
+# }
+# 
+# vpc_configuration = {
+#   name                  = "prod-vpc"
+#   enable_public_gateway = true
+#   subnets = [
+#     {
+#       name       = "prod-subnet-1"
+#       zone       = "us-south-1"
+#       cidr_block = "10.242.0.0/24"
+#     },
+#     {
+#       name       = "prod-subnet-2"
+#       zone       = "us-south-2"
+#       cidr_block = "10.242.1.0/24"
+#     },
+#     {
+#       name       = "prod-subnet-3"
+#       zone       = "us-south-3"
+#       cidr_block = "10.242.2.0/24"
+#     }
+#   ]
+# }
+# 
+# compute_configuration = {
+#   instance_count   = 3
+#   instance_profile = "cx2-8x16"
+# }
+# 
+# enable_monitoring_services = true
+# enable_audit_logging = true
+# enable_alerting = true
+
+# =============================================================================
+# MULTI-REGION CONFIGURATION EXAMPLE
+# =============================================================================
+
+# Uncomment for multi-region deployment
+# enable_multi_region = true
+# enable_cross_region_networking = true
+# secondary_region = "eu-gb"
+# 
+# security_configuration = {
+#   encryption = {
+#     enable_encryption_at_rest    = true
+#     enable_encryption_in_transit = true
+#   }
+#   access_control = {
+#     enable_iam_integration = true
+#     allowed_ip_ranges     = ["10.0.0.0/8"]
+#   }
+#   compliance = {
+#     frameworks           = ["SOC2", "ISO27001", "GDPR"]
+#     data_classification  = "confidential"
+#     retention_period_days = 365
+#     audit_required       = true
+#   }
+# }

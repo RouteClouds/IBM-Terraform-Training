@@ -1,0 +1,591 @@
+# Git Collaboration Lab - Example Configuration
+# Copy this file to terraform.tfvars and customize for your environment
+
+# =============================================================================
+# AUTHENTICATION AND BASIC CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API key (set via environment variable: export TF_VAR_ibmcloud_api_key="your-api-key")
+# ibmcloud_api_key = "your-ibm-cloud-api-key-here"
+
+# Resource group ID (optional - uses default if not specified)
+# resource_group_id = "your-resource-group-id"
+
+# Terraform version constraint for team consistency
+terraform_version_constraint = ">= 1.5.0"
+
+# =============================================================================
+# ORGANIZATION AND TEAM CONFIGURATION
+# =============================================================================
+
+organization_config = {
+  name         = "ACME Corporation"
+  division     = "Engineering"
+  cost_center  = "CC-ENG-001"
+  environment  = "development"  # Options: development, staging, production
+  project_name = "git-collaboration-lab"
+  
+  owner_team    = "platform-team"
+  contact_email = "platform-team@acme.com"
+  manager       = "Jane Smith"
+  
+  resource_group_name = "default"
+  governance_level    = "enterprise"  # Options: basic, standard, enterprise
+  compliance_framework = "SOC2"
+  
+  default_tags = {
+    "Department"   = "Engineering"
+    "Team"        = "Platform"
+    "Project"     = "GitCollaboration"
+    "Environment" = "Development"
+    "Owner"       = "platform-team@acme.com"
+  }
+}
+
+team_configuration = {
+  teams = {
+    platform-team = {
+      name         = "Platform Team"
+      description  = "Infrastructure platform and shared services"
+      lead         = "jane.smith@acme.com"
+      members      = ["jane.smith@acme.com", "john.doe@acme.com", "alice.wilson@acme.com"]
+      repositories = ["infrastructure-core", "shared-modules", "platform-services"]
+      permissions  = ["admin", "write", "read"]
+      environments = ["development", "staging", "production"]
+    }
+    
+    web-team = {
+      name         = "Web Team"
+      description  = "Frontend applications and web services"
+      lead         = "bob.johnson@acme.com"
+      members      = ["bob.johnson@acme.com", "carol.brown@acme.com", "david.lee@acme.com"]
+      repositories = ["web-infrastructure", "frontend-services"]
+      permissions  = ["write", "read"]
+      environments = ["development", "staging"]
+    }
+    
+    api-team = {
+      name         = "API Team"
+      description  = "Backend APIs and microservices"
+      lead         = "eve.davis@acme.com"
+      members      = ["eve.davis@acme.com", "frank.miller@acme.com", "grace.taylor@acme.com"]
+      repositories = ["api-infrastructure", "backend-services"]
+      permissions  = ["write", "read"]
+      environments = ["development", "staging"]
+    }
+    
+    security-team = {
+      name         = "Security Team"
+      description  = "Security reviews and compliance"
+      lead         = "henry.clark@acme.com"
+      members      = ["henry.clark@acme.com", "iris.white@acme.com"]
+      repositories = ["*"]
+      permissions  = ["read", "security-review"]
+      environments = ["audit-only"]
+    }
+  }
+  
+  roles = {
+    infrastructure-architect = {
+      name        = "Infrastructure Architect"
+      description = "Senior infrastructure design and architecture decisions"
+      permissions = {
+        repository_access   = "admin"
+        branch_permissions  = ["main", "develop", "feature/*", "release/*", "hotfix/*"]
+        deployment_rights   = ["development", "staging", "production"]
+        review_requirements = "required-for-production"
+      }
+    }
+    
+    senior-engineer = {
+      name        = "Senior Engineer"
+      description = "Experienced engineer with elevated permissions"
+      permissions = {
+        repository_access   = "write"
+        branch_permissions  = ["develop", "feature/*", "release/*"]
+        deployment_rights   = ["development", "staging"]
+        review_requirements = "required-for-staging"
+      }
+    }
+    
+    engineer = {
+      name        = "Engineer"
+      description = "Standard engineer with basic permissions"
+      permissions = {
+        repository_access   = "write"
+        branch_permissions  = ["feature/*"]
+        deployment_rights   = ["development"]
+        review_requirements = "peer-review"
+      }
+    }
+    
+    security-reviewer = {
+      name        = "Security Reviewer"
+      description = "Security team member with review permissions"
+      permissions = {
+        repository_access   = "read"
+        branch_permissions  = ["*"]
+        deployment_rights   = []
+        review_requirements = "security-approval"
+      }
+    }
+  }
+  
+  approval_workflows = {
+    feature_branch = {
+      required_reviewers = 1
+      dismiss_stale_reviews = true
+      require_code_owner_reviews = false
+    }
+    
+    release_branch = {
+      required_reviewers = 2
+      required_teams = ["platform-team", "security-team"]
+      security_review_required = true
+    }
+    
+    production_deployment = {
+      required_reviewers = 3
+      required_teams = ["platform-team", "security-team"]
+      manual_approval_required = true
+      compliance_check_required = true
+    }
+  }
+}
+
+# =============================================================================
+# GIT WORKFLOW CONFIGURATION
+# =============================================================================
+
+git_workflow_config = {
+  workflow_pattern = "gitflow"  # Options: gitflow, github-flow, gitlab-flow, trunk-based
+  
+  branch_protection = {
+    main_branch = {
+      required_status_checks = ["terraform-validate", "security-scan", "cost-analysis", "policy-check"]
+      required_reviewers = 2
+      dismiss_stale_reviews = true
+      enforce_admins = true
+      allow_force_pushes = false
+    }
+    
+    develop_branch = {
+      required_status_checks = ["terraform-validate", "security-scan"]
+      required_reviewers = 1
+      dismiss_stale_reviews = true
+    }
+    
+    feature_branches = {
+      naming_pattern = "feature/*"
+      auto_delete_on_merge = true
+      require_linear_history = false
+    }
+  }
+  
+  merge_policies = {
+    default_merge_method = "squash"  # Options: merge, squash, rebase
+    allow_squash_merge = true
+    allow_merge_commit = false
+    allow_rebase_merge = true
+    auto_merge_enabled = false
+  }
+  
+  repository_settings = {
+    default_branch = "main"
+    visibility = "private"
+    has_issues = true
+    has_projects = true
+    has_wiki = true
+    vulnerability_alerts = true
+  }
+}
+
+# =============================================================================
+# CI/CD PIPELINE CONFIGURATION
+# =============================================================================
+
+cicd_pipeline_config = {
+  validation_stages = {
+    syntax_validation = {
+      enabled = true
+      tools = ["terraform-fmt", "terraform-validate", "tflint"]
+      fail_on_error = true
+    }
+    
+    security_scanning = {
+      enabled = true
+      tools = ["tfsec", "checkov", "terrascan"]
+      severity_threshold = "medium"
+      fail_on_high = true
+    }
+    
+    cost_analysis = {
+      enabled = true
+      tools = ["infracost"]
+      budget_threshold = 1000.00
+      alert_on_increase = true
+    }
+    
+    policy_validation = {
+      enabled = true
+      frameworks = ["opa", "conftest"]
+      fail_on_violation = true
+    }
+  }
+  
+  deployment_config = {
+    environments = ["development", "staging", "production"]
+    deployment_strategy = "rolling"  # Options: rolling, blue-green, canary, recreate
+    rollback_enabled = true
+    blue_green_enabled = false
+    canary_enabled = false
+  }
+  
+  notifications = {
+    slack_webhook = ""  # Set your Slack webhook URL
+    email_recipients = ["platform-team@acme.com", "devops@acme.com"]
+    teams_webhook = ""  # Set your Microsoft Teams webhook URL
+    notify_on_success = true
+    notify_on_failure = true
+  }
+  
+  triggers = {
+    push_to_main = true
+    push_to_develop = true
+    pull_request = true
+    scheduled_runs = "0 2 * * *"  # Daily at 2 AM
+    manual_trigger = true
+  }
+}
+
+# =============================================================================
+# SECURITY AND COMPLIANCE CONFIGURATION
+# =============================================================================
+
+security_config = {
+  policy_as_code = {
+    enabled = true
+    frameworks = ["opa", "sentinel", "conftest"]
+    custom_policies = ["naming-conventions", "security-rules", "cost-controls"]
+    enforcement_level = "enforcing"  # Options: advisory, enforcing, blocking
+  }
+  
+  secrets_management = {
+    vault_integration = true
+    environment_variables = true
+    sensitive_attributes = true
+    pre_commit_hooks = true
+    secret_scanning = true
+  }
+  
+  compliance = {
+    frameworks = ["SOC2", "ISO27001", "PCI-DSS"]
+    audit_logging = true
+    compliance_reporting = true
+    automated_remediation = false
+  }
+  
+  security_scanning = {
+    static_analysis = true
+    dependency_scanning = true
+    container_scanning = false
+    infrastructure_scanning = true
+    continuous_monitoring = true
+  }
+  
+  access_control = {
+    rbac_enabled = true
+    mfa_required = true
+    session_timeout = 3600  # 1 hour in seconds
+    audit_trail = true
+  }
+}
+
+# =============================================================================
+# REGIONAL AND ENVIRONMENT CONFIGURATION
+# =============================================================================
+
+regional_configuration = {
+  primary_region = "us-south"
+  primary_zones = ["us-south-1", "us-south-2", "us-south-3"]
+  
+  secondary_region = "us-east"
+  secondary_zones = ["us-east-1", "us-east-2", "us-east-3"]
+  
+  dr_region = "eu-gb"
+  dr_zones = ["eu-gb-1", "eu-gb-2", "eu-gb-3"]
+  
+  cross_region_replication = {
+    enabled = true
+    replication_frequency = "daily"
+    backup_retention_days = 30
+  }
+  
+  inter_region_connectivity = {
+    vpn_enabled = false
+    direct_link = false
+    transit_gateway = false
+  }
+}
+
+# =============================================================================
+# COST MANAGEMENT AND BUDGET CONFIGURATION
+# =============================================================================
+
+cost_configuration = {
+  monthly_budget_limit = 1000.00
+  cost_center = "CC-ENG-001"
+  billing_account_id = "your-billing-account-id"
+  
+  cost_allocation_tags = {
+    "CostCenter"   = "CC-ENG-001"
+    "Department"   = "Engineering"
+    "Team"        = "Platform"
+    "Project"     = "GitCollaboration"
+    "Environment" = "Development"
+  }
+  
+  department_allocation = {
+    "Engineering" = 70.0
+    "Operations"  = 20.0
+    "Security"    = 10.0
+  }
+  
+  project_allocation = {
+    "GitCollaboration" = 100.0
+  }
+  
+  cost_alerts = {
+    enabled = true
+    thresholds = [50.0, 75.0, 90.0, 100.0]
+    notification_channels = ["email", "slack"]
+    automated_actions = ["alert", "notify-manager"]
+  }
+  
+  optimization = {
+    auto_scaling_enabled = true
+    scheduled_shutdown = true
+    right_sizing_enabled = true
+    reserved_instances = false
+    spot_instances = false
+  }
+  
+  budget_enforcement = {
+    hard_limits = false
+    approval_required_above = 800.00
+    automatic_shutdown = false
+    notification_escalation = true
+  }
+}
+
+# =============================================================================
+# INFRASTRUCTURE CONFIGURATION
+# =============================================================================
+
+infrastructure_config = {
+  networking = {
+    vpc_name = "git-lab-vpc"
+    address_prefix_management = "auto"
+    enable_public_gateway = true
+
+    subnets = [
+      {
+        name = "web-tier"
+        zone = "us-south-1"
+        cidr_block = "10.240.0.0/24"
+        public_gateway_enabled = true
+      },
+      {
+        name = "app-tier"
+        zone = "us-south-2"
+        cidr_block = "10.240.1.0/24"
+        public_gateway_enabled = true
+      },
+      {
+        name = "data-tier"
+        zone = "us-south-3"
+        cidr_block = "10.240.2.0/24"
+        public_gateway_enabled = false
+      }
+    ]
+
+    security_groups = [
+      {
+        name = "web-sg"
+        description = "Security group for web tier"
+        rules = [
+          {
+            direction = "inbound"
+            protocol = "tcp"
+            port_min = 80
+            port_max = 80
+            source_type = "cidr_block"
+            source = "0.0.0.0/0"
+          },
+          {
+            direction = "inbound"
+            protocol = "tcp"
+            port_min = 443
+            port_max = 443
+            source_type = "cidr_block"
+            source = "0.0.0.0/0"
+          },
+          {
+            direction = "inbound"
+            protocol = "tcp"
+            port_min = 22
+            port_max = 22
+            source_type = "cidr_block"
+            source = "10.240.0.0/16"
+          }
+        ]
+      },
+      {
+        name = "app-sg"
+        description = "Security group for application tier"
+        rules = [
+          {
+            direction = "inbound"
+            protocol = "tcp"
+            port_min = 8080
+            port_max = 8080
+            source_type = "cidr_block"
+            source = "10.240.0.0/24"
+          },
+          {
+            direction = "inbound"
+            protocol = "tcp"
+            port_min = 22
+            port_max = 22
+            source_type = "cidr_block"
+            source = "10.240.0.0/16"
+          }
+        ]
+      }
+    ]
+  }
+
+  compute = {
+    create_instances = true
+    instance_count = 2
+    instance_profile = "bx2-2x8"
+    image_name = "ibm-ubuntu-20-04-3-minimal-amd64-2"
+
+    ssh_key = {
+      create_new = true
+      key_name = "git-lab-key"
+      public_key_file = ""  # Leave empty to generate new key
+    }
+  }
+
+  storage = {
+    create_cos_bucket = true
+    bucket_name = "git-lab-state"
+    storage_class = "standard"
+    versioning_enabled = true
+
+    backup_configuration = {
+      enabled = true
+      frequency = "daily"
+      retention_days = 30
+    }
+  }
+
+  monitoring = {
+    enable_activity_tracker = true
+    enable_log_analysis = false
+    enable_monitoring = false
+
+    log_retention_days = 30
+    metrics_retention_days = 90
+
+    alerting = {
+      enabled = true
+      notification_channels = ["email"]
+      alert_thresholds = {
+        "cpu_utilization" = 80.0
+        "memory_utilization" = 85.0
+        "disk_utilization" = 90.0
+      }
+    }
+  }
+}
+
+# =============================================================================
+# FEATURE FLAGS AND EXPERIMENTAL SETTINGS
+# =============================================================================
+
+feature_flags = {
+  enable_advanced_workflows = true
+  enable_automated_merging = false
+  enable_dependency_updates = true
+  enable_parallel_builds = true
+  enable_canary_deployments = false
+  enable_automated_rollbacks = true
+  enable_advanced_scanning = true
+  enable_policy_enforcement = true
+  enable_compliance_automation = true
+  enable_advanced_monitoring = true
+  enable_predictive_analytics = false
+  enable_automated_remediation = false
+  enable_cost_optimization = true
+  enable_resource_scheduling = true
+  enable_budget_enforcement = true
+  experimental_features = {
+    "ai_code_review" = false
+    "auto_dependency_updates" = false
+    "predictive_scaling" = false
+  }
+}
+
+# =============================================================================
+# ENVIRONMENT-SPECIFIC OVERRIDES
+# =============================================================================
+
+environment_overrides = {
+  development = {
+    instance_count_override = 1
+    instance_profile_override = "bx2-2x8"
+    security_level_override = "basic"
+    compliance_override = false
+    monitoring_level_override = "basic"
+    log_retention_override = 7
+    budget_override = 500
+    cost_alerts_override = true
+    feature_overrides = {
+      enable_advanced_scanning = false
+      enable_compliance_automation = false
+    }
+  }
+
+  staging = {
+    instance_count_override = 2
+    instance_profile_override = "bx2-4x16"
+    security_level_override = "standard"
+    compliance_override = true
+    monitoring_level_override = "standard"
+    log_retention_override = 30
+    budget_override = 2000
+    cost_alerts_override = true
+    feature_overrides = {
+      enable_advanced_scanning = true
+      enable_compliance_automation = true
+    }
+  }
+
+  production = {
+    instance_count_override = 3
+    instance_profile_override = "bx2-8x32"
+    security_level_override = "enterprise"
+    compliance_override = true
+    monitoring_level_override = "enterprise"
+    log_retention_override = 90
+    budget_override = 10000
+    cost_alerts_override = true
+    feature_overrides = {
+      enable_advanced_scanning = true
+      enable_compliance_automation = true
+      enable_automated_rollbacks = true
+    }
+  }
+}
