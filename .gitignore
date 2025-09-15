@@ -76,3 +76,9 @@ $RECYCLE.BIN/
 
 # Terraform lock files (can be regenerated)
 .terraform.lock.hcl
+
+# Exclude other training repositories
+Terraform-HandsOn-Training/
+
+# Python virtual environments (diagram environments)
+diagram-env/
