@@ -1,0 +1,15 @@
+{
+  "name": "iac-training-lab-1-1",
+  "description": "Infrastructure as Code Training - Lab 1.1: Overview of IaC",
+  "location": "us-south",
+  "resource_group": "terraform-training",
+  "template_repo": {
+    "url": "https://github.com/RouteClouds/IBM-Terraform-Training.git"
+  },
+  "template_data": [
+    {
+      "folder": "Terraform-IBM-Cloud-Training/01-IaC-Concepts-IBM-Cloud-Integration/01-Overview-of-IaC/Terraform-Code-Lab-1.1",
+      "type": "terraform_v1.5"
+    }
+  ]
+}

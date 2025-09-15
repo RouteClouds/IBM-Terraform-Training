@@ -139,8 +139,8 @@ resource "ibm_is_security_group_rule" "training_sg_rules" {
   dynamic "icmp" {
     for_each = var.security_group_rules[count.index].protocol == "icmp" ? [1] : []
     content {
-      type = -1
-      code = -1
+      type = 8
+      code = 0
     }
   }
 }
@@ -169,10 +169,8 @@ resource "ibm_is_instance" "training_vsi" {
   
   # Boot volume configuration
   boot_volume {
-    name                             = "${local.vsi_name}-boot"
-    delete_volume_on_instance_delete = var.auto_delete_volume
-    encryption_key                   = var.volume_encryption_key != "" ? var.volume_encryption_key : null
-    tags                            = local.all_tags
+    name = "${local.vsi_name}-boot"
+    tags = local.all_tags
   }
   
   # User data for initial configuration (optional)

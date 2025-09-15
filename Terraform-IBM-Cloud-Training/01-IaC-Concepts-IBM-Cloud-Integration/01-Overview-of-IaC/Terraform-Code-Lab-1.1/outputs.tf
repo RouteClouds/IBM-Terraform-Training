@@ -163,9 +163,7 @@ output "floating_ip_address" {
 output "vsi_boot_volume" {
   description = "Boot volume information of the VSI"
   value = {
-    id   = ibm_is_instance.training_vsi.boot_volume[0].id
     name = ibm_is_instance.training_vsi.boot_volume[0].name
-    size = ibm_is_instance.training_vsi.boot_volume[0].size
   }
 }
 
