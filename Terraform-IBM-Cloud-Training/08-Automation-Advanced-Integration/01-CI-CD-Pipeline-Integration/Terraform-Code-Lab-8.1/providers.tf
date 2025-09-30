@@ -164,10 +164,6 @@ data "ibm_iam_account_settings" "account_settings" {
   # Validate IBM Cloud account access
 }
 
-data "ibm_resource_group" "cicd_resource_group" {
-  name = var.resource_group_name
-}
-
 data "ibm_is_zones" "regional_zones" {
   region = var.ibm_region
 }
@@ -218,20 +214,7 @@ locals {
     tfe       = local.tfe_provider_configured ? "✅ Terraform Cloud provider configured" : "⚠️ TFE token not provided (optional)"
   }
   
-  # Common tags for all resources
-  common_tags = [
-    "terraform:managed",
-    "lab:8.1",
-    "purpose:cicd-automation",
-    "environment:${var.environment}",
-    "project:${var.project_name}",
-    "owner:${var.owner}",
-    "created-by:terraform",
-    "managed-by:cicd-pipeline"
-  ]
-  
-  # Resource naming convention
-  resource_prefix = "${var.project_name}-${var.environment}"
+  # Note: common_tags and resource_prefix are defined in main.tf to avoid duplication
   
   # Deployment metadata
   deployment_metadata = {

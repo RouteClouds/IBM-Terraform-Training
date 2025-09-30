@@ -24,6 +24,9 @@ By the end of this module, participants will be able to:
 
 ## 1. Understanding Terraform Dependencies
 
+![Dependency Types and Relationships](DaC/generated_diagrams/01_dependency_types_relationships.png)
+*Figure 4.3.1: Dependency Types and Relationships - Comprehensive visualization of implicit and explicit dependencies, dependency graph structure, and resource ordering patterns*
+
 ### 1.1 Dependency Fundamentals
 
 Terraform uses a **Directed Acyclic Graph (DAG)** to determine the order in which resources should be created, updated, or destroyed. Understanding this dependency system is crucial for building reliable and efficient infrastructure.
@@ -106,6 +109,9 @@ resource "ibm_is_instance" "app_server" {
 ---
 
 ## 2. Resource Attributes and References
+
+![Resource Attribute Flow](DaC/generated_diagrams/02_resource_attribute_flow.png)
+*Figure 4.3.2: Resource Attribute Flow - Detailed visualization of resource attribute exposure, reference patterns, and data flow between Terraform resources*
 
 ### 2.1 Understanding Resource Attributes
 
@@ -201,6 +207,9 @@ resource "ibm_is_security_group_rule" "lb_access" {
 ---
 
 ## 3. Data Sources: Dynamic Infrastructure Discovery
+
+![Data Source Integration](DaC/generated_diagrams/03_data_source_integration.png)
+*Figure 4.3.3: Data Source Integration - Comprehensive data source patterns for dynamic infrastructure discovery, external system integration, and configuration adaptation*
 
 ### 3.1 Data Source Fundamentals
 
@@ -455,6 +464,9 @@ resource "ibm_is_instance" "optimized_instances" {
 ---
 
 ## 5. Enterprise Dependency Management Patterns
+
+![Multi-Tier Dependencies](DaC/generated_diagrams/04_multi_tier_dependencies.png)
+*Figure 4.3.4: Multi-Tier Dependencies - Enterprise architecture dependency patterns for complex multi-tier applications, cross-environment coordination, and scalable infrastructure design*
 
 ### 5.1 Multi-Tier Architecture Dependencies
 
@@ -923,6 +935,9 @@ resource "ibm_is_instance" "application_server" {
 ---
 
 ## 9. Advanced Patterns and Best Practices
+
+![Dependency Optimization](DaC/generated_diagrams/05_dependency_optimization.png)
+*Figure 4.3.5: Dependency Optimization - Advanced optimization strategies for dependency management, performance tuning, and enterprise-scale infrastructure automation*
 
 ### 9.1 Module Dependencies
 

@@ -17,6 +17,9 @@ By the end of this topic, you will be able to:
 
 ## 🎯 **Enterprise Git Workflow Fundamentals**
 
+![Git Workflow Patterns](DaC/generated_diagrams/11_git_workflow_patterns.png)
+*Figure 5.3.1: Git Workflow Patterns - Comprehensive visualization of enterprise Git workflows for Terraform projects, including GitFlow, environment-based branching, and team collaboration strategies*
+
 ### **Version Control Strategy Overview**
 
 Enterprise Terraform projects require sophisticated version control strategies that balance development velocity with operational stability. The choice of workflow directly impacts team productivity, deployment reliability, and infrastructure governance.
@@ -83,6 +86,9 @@ main (production)
 
 ### **Multi-Team Collaboration Patterns**
 
+![Multi-Team Branching](DaC/generated_diagrams/12_multi_team_branching.png)
+*Figure 5.3.2: Multi-Team Branching - Advanced branching strategies for multi-team environments, including team-based organization, conflict resolution, and collaborative development patterns*
+
 **Team-Based Branch Organization**:
 ```
 main
@@ -105,6 +111,9 @@ main
 ---
 
 ## 🔄 **Automated CI/CD Pipeline Integration**
+
+![CI/CD Pipeline Architecture](DaC/generated_diagrams/13_cicd_pipeline_architecture.png)
+*Figure 5.3.3: CI/CD Pipeline Architecture - Comprehensive CI/CD pipeline design for Terraform projects, including validation stages, deployment automation, and integration patterns*
 
 ### **Continuous Integration Workflows**
 
@@ -196,6 +205,9 @@ terraform {
 ---
 
 ## 👥 **Team Collaboration and Governance**
+
+![Team Collaboration Workflow](DaC/generated_diagrams/14_team_collaboration_workflow.png)
+*Figure 5.3.4: Team Collaboration Workflow - Enterprise team collaboration patterns including role-based access control, code review processes, and governance frameworks*
 
 ### **Role-Based Access Control (RBAC)**
 
@@ -313,6 +325,9 @@ approval_rules:
 ---
 
 ## 🔒 **Security and Compliance Integration**
+
+![Security Compliance Integration](DaC/generated_diagrams/15_security_compliance_integration.png)
+*Figure 5.3.5: Security Compliance Integration - Comprehensive security and compliance framework for Git-based Terraform workflows, including policy as code, secrets management, and audit trails*
 
 ### **Policy as Code Implementation**
 

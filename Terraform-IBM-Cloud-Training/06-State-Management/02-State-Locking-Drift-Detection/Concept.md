@@ -26,6 +26,9 @@ By the end of this subtopic, you will be able to:
 
 ## 🔒 **State Locking Fundamentals**
 
+![State Locking Mechanism](DaC/generated_diagrams/figure_6_2_1_state_locking_mechanism.png)
+*Figure 6.2.1: State Locking Mechanism - Comprehensive visualization of Terraform state locking architecture, lock acquisition process, and concurrent operation prevention*
+
 ### **What is State Locking?**
 
 State locking is a mechanism that prevents multiple Terraform operations from running simultaneously against the same state file, ensuring data consistency and preventing corruption.
@@ -177,6 +180,9 @@ For DynamoDB-compatible locking, the lock table requires:
 
 ## 🔍 **Drift Detection Concepts**
 
+![Drift Detection Architecture](DaC/generated_diagrams/figure_6_2_2_drift_detection_architecture.png)
+*Figure 6.2.2: Drift Detection Architecture - Comprehensive drift detection system showing monitoring workflows, change identification, and automated response mechanisms*
+
 ### **What is Infrastructure Drift?**
 
 Infrastructure drift occurs when the actual state of resources differs from what Terraform expects based on its state file.
@@ -296,6 +302,9 @@ resource "ibm_monitoring_alert_policy" "drift_detection" {
 
 ### **3. State Validation Workflows**
 
+![Conflict Resolution Workflow](DaC/generated_diagrams/figure_6_2_3_conflict_resolution_workflow.png)
+*Figure 6.2.3: Conflict Resolution Workflow - Detailed conflict resolution process for state locking conflicts, including detection, analysis, and resolution strategies*
+
 ```yaml
 # GitHub Actions workflow for drift detection
 name: Terraform Drift Detection
@@ -351,6 +360,9 @@ module "drift_detection" {
 ```
 
 ### **Automated Remediation Workflows**
+
+![Automated Remediation](DaC/generated_diagrams/figure_6_2_4_automated_remediation.png)
+*Figure 6.2.4: Automated Remediation - Comprehensive automated remediation system for drift detection, including workflow automation, approval processes, and rollback mechanisms*
 
 ```hcl
 # Automated drift remediation configuration
@@ -548,6 +560,9 @@ resource "ibm_function_action" "drift_check" {
 ---
 
 ## 🎯 **Business Value and ROI**
+
+![Enterprise Monitoring](DaC/generated_diagrams/figure_6_2_5_enterprise_monitoring.png)
+*Figure 6.2.5: Enterprise Monitoring - Enterprise-scale monitoring dashboard for state management, drift detection, and operational visibility with business value metrics*
 
 ### **Quantified Benefits**
 

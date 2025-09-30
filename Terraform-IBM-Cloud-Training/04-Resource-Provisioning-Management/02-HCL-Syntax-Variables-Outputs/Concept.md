@@ -22,6 +22,9 @@ By the end of this topic, you will be able to:
 
 ## 📚 **HCL Language Fundamentals**
 
+![HCL Syntax Overview](DaC/generated_diagrams/hcl_syntax_overview.png)
+*Figure 4.2.1: HCL Syntax Overview - Comprehensive visualization of HCL language structure, syntax elements, and core concepts for enterprise Terraform configurations*
+
 ### **What is HCL (HashiCorp Configuration Language)?**
 
 HCL (HashiCorp Configuration Language) is a structured configuration language designed to be both human-readable and machine-parseable. It serves as the foundation for Terraform configurations, providing a declarative syntax for defining infrastructure resources and their relationships.
@@ -92,6 +95,9 @@ resource "ibm_is_vpc" "main_vpc" {
 ---
 
 ## 🔧 **Variables: Input Parameters and Configuration**
+
+![Variable Patterns](DaC/generated_diagrams/variable_patterns.png)
+*Figure 4.2.2: Variable Patterns - Advanced variable design patterns including type constraints, validation rules, and enterprise configuration strategies*
 
 ### **Variable Declaration and Types**
 
@@ -254,6 +260,9 @@ enable_monitoring = true
 
 ## 📤 **Outputs: Exposing Configuration Results**
 
+![Output Strategies](DaC/generated_diagrams/output_strategies.png)
+*Figure 4.2.3: Output Strategies - Comprehensive output design patterns for module integration, sensitive data handling, and cross-configuration references*
+
 ### **Output Declaration and Usage**
 
 Outputs expose information about your infrastructure for use by other configurations, automation tools, or for display to users.
@@ -357,6 +366,9 @@ resource "ibm_is_instance" "app_servers" {
 ---
 
 ## 🏗️ **Advanced HCL Patterns and Best Practices**
+
+![Local Values Optimization](DaC/generated_diagrams/local_values_optimization.png)
+*Figure 4.2.4: Local Values Optimization - Advanced local value patterns for code reuse, performance optimization, and maintainable configuration design*
 
 ### **Local Values and Computed Expressions**
 
@@ -1235,6 +1247,9 @@ variable "network_configuration" {
 ---
 
 ## 🏢 **Enterprise Patterns and Governance**
+
+![Enterprise HCL Governance](DaC/generated_diagrams/enterprise_hcl_governance.png)
+*Figure 4.2.5: Enterprise HCL Governance - Comprehensive governance framework for HCL standardization, policy enforcement, and enterprise-scale configuration management*
 
 ### **Configuration Standardization**
 
