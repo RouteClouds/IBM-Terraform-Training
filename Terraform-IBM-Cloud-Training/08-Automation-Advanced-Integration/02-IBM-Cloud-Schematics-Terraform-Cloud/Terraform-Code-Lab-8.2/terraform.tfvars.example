@@ -1,0 +1,226 @@
+# IBM Cloud Schematics & Terraform Cloud Integration - Example Variables
+# Topic 8.2: Advanced Integration Lab Environment
+# Version: 1.0.0
+#
+# INSTRUCTIONS:
+# 1. Copy this file to terraform.tfvars
+# 2. Update the values according to your environment
+# 3. Ensure sensitive values are properly secured
+# 4. Review all configurations before applying
+
+# =============================================================================
+# AUTHENTICATION AND PROVIDER CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API Key (REQUIRED)
+# Obtain from: https://cloud.ibm.com/iam/apikeys
+# Can also be set via environment variable: IBMCLOUD_API_KEY
+ibmcloud_api_key = "your-ibm-cloud-api-key-here"
+
+# Terraform Cloud API Token (REQUIRED for TF Cloud integration)
+# Obtain from: https://app.terraform.io/app/settings/tokens
+# Can also be set via environment variable: TFE_TOKEN
+terraform_cloud_token = "your-terraform-cloud-token-here"
+
+# Terraform Cloud Configuration
+terraform_cloud_hostname     = "app.terraform.io"
+terraform_cloud_organization = "your-terraform-cloud-organization"
+
+# =============================================================================
+# IBM CLOUD CONFIGURATION
+# =============================================================================
+
+# IBM Cloud Region
+# Available regions: us-south, us-east, eu-gb, eu-de, jp-tok, au-syd, ca-tor
+ibm_region = "us-south"
+
+# Resource Group Name
+# Use existing resource group or "default"
+resource_group_name = "default"
+
+# =============================================================================
+# PROJECT AND ENVIRONMENT CONFIGURATION
+# =============================================================================
+
+# Project Information
+project_name = "schematics-tf-cloud-lab"
+environment  = "dev"
+
+# Contact and Ownership Information
+owner_email = "your-email@company.com"
+
+# Cost and Compliance Configuration
+cost_center      = "IT-Infrastructure"
+compliance_level = "standard"
+
+# =============================================================================
+# SCHEMATICS WORKSPACE CONFIGURATION
+# =============================================================================
+
+# Workspace Description
+workspace_description = "IBM Cloud Schematics workspace with Terraform Cloud integration for enterprise automation"
+
+# Git Repository Configuration
+workspace_template_repo   = "https://github.com/IBM-Cloud/terraform-ibm-examples"
+workspace_template_branch = "main"
+workspace_template_folder = "examples/vpc"
+
+# =============================================================================
+# ACCESS CONTROL AND TEAM COLLABORATION
+# =============================================================================
+
+# IAM Access Group Configuration
+access_group_name = "schematics-users"
+
+# Team Members (email addresses)
+# Add team member email addresses for automatic access group assignment
+team_members = [
+  "team-member-1@company.com",
+  "team-member-2@company.com",
+  "team-member-3@company.com"
+]
+
+# Workspace Access Level
+# Options: viewer, operator, manager
+workspace_access_level = "operator"
+
+# =============================================================================
+# COST TRACKING AND BUDGET MANAGEMENT
+# =============================================================================
+
+# Budget Configuration
+budget_limit           = 500    # Monthly budget limit in USD
+budget_alert_threshold = 80     # Alert when 80% of budget is reached
+
+# Automatic Cleanup Schedule (Cron format)
+# Examples:
+# "0 2 * * 0"    = Every Sunday at 2 AM
+# "0 18 * * 5"   = Every Friday at 6 PM
+# ""             = Disabled (recommended for production)
+auto_destroy_schedule = ""
+
+# =============================================================================
+# INTEGRATION AND FEATURE FLAGS
+# =============================================================================
+
+# Feature Enablement
+enable_terraform_cloud_integration = true
+enable_cost_tracking              = true
+enable_audit_logging              = true
+
+# =============================================================================
+# MONITORING AND NOTIFICATIONS
+# =============================================================================
+
+# Notification Configuration
+notification_email = "alerts@company.com"
+
+# Monitoring Settings
+monitoring_enabled   = true
+log_retention_days   = 90
+
+# Deployment Scheduling
+deployment_delay_hours = 0  # Deploy immediately
+
+# =============================================================================
+# DEVELOPMENT ENVIRONMENT EXAMPLE
+# =============================================================================
+
+# Uncomment and modify for development environment
+# project_name = "schematics-dev"
+# environment  = "development"
+# budget_limit = 100
+# compliance_level = "standard"
+# team_members = ["developer@company.com"]
+# workspace_access_level = "manager"
+# auto_destroy_schedule = "0 18 * * 5"  # Cleanup every Friday
+
+# =============================================================================
+# STAGING ENVIRONMENT EXAMPLE
+# =============================================================================
+
+# Uncomment and modify for staging environment
+# project_name = "schematics-staging"
+# environment  = "staging"
+# budget_limit = 300
+# compliance_level = "high"
+# team_members = [
+#   "developer@company.com",
+#   "qa-engineer@company.com",
+#   "devops@company.com"
+# ]
+# workspace_access_level = "operator"
+# auto_destroy_schedule = ""  # No automatic cleanup
+
+# =============================================================================
+# PRODUCTION ENVIRONMENT EXAMPLE
+# =============================================================================
+
+# Uncomment and modify for production environment
+# project_name = "schematics-prod"
+# environment  = "production"
+# ibm_region   = "us-east"  # Different region for production
+# budget_limit = 1000
+# budget_alert_threshold = 90
+# compliance_level = "critical"
+# team_members = [
+#   "devops@company.com",
+#   "sre@company.com",
+#   "manager@company.com"
+# ]
+# workspace_access_level = "operator"
+# auto_destroy_schedule = ""  # Never auto-destroy production
+# log_retention_days = 365    # Longer retention for production
+
+# =============================================================================
+# ADVANCED CONFIGURATION EXAMPLES
+# =============================================================================
+
+# Multi-Region Deployment Example
+# ibm_region = "eu-gb"
+# resource_group_name = "europe-resources"
+# terraform_cloud_organization = "company-europe"
+
+# High-Security Environment Example
+# compliance_level = "critical"
+# enable_audit_logging = true
+# log_retention_days = 365
+# workspace_access_level = "viewer"  # Restricted access
+# budget_alert_threshold = 95        # Strict budget monitoring
+
+# Cost-Optimized Environment Example
+# budget_limit = 50
+# budget_alert_threshold = 70
+# auto_destroy_schedule = "0 20 * * *"  # Daily cleanup
+# enable_cost_tracking = true
+
+# =============================================================================
+# TROUBLESHOOTING NOTES
+# =============================================================================
+
+# Common Issues and Solutions:
+#
+# 1. Authentication Errors:
+#    - Verify IBM Cloud API key has correct permissions
+#    - Ensure Terraform Cloud token is valid and has organization access
+#    - Check resource group exists and is accessible
+#
+# 2. Permission Errors:
+#    - Verify API key has Schematics service access
+#    - Check resource group permissions
+#    - Ensure IAM policies allow workspace creation
+#
+# 3. Resource Conflicts:
+#    - Use unique project names to avoid naming conflicts
+#    - Check if access group names already exist
+#    - Verify workspace names are unique within the region
+#
+# 4. Cost and Budget Issues:
+#    - Monitor actual costs vs. budget limits
+#    - Review resource usage and optimization opportunities
+#    - Adjust budget limits based on actual requirements
+#
+# 5. Integration Issues:
+#    - Verify Terraform Cloud organization exists
+#    - Check network connectivity to Terraform Cloud
+#    - Ensure workspace naming follows TF Cloud conventions

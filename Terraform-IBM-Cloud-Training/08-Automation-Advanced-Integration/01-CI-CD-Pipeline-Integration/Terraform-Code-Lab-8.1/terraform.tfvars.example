@@ -1,0 +1,318 @@
+# Example Terraform Variables for IBM Cloud CI/CD Pipeline Integration Lab 8.1
+# Copy this file to terraform.tfvars and update with your actual values
+
+# =============================================================================
+# IBM Cloud Authentication and Configuration
+# =============================================================================
+
+# IBM Cloud API key for authentication (REQUIRED)
+# Get your API key from: https://cloud.ibm.com/iam/apikeys
+ibmcloud_api_key = "your-ibm-cloud-api-key-here"
+
+# IBM Cloud region for resource deployment
+ibm_region = "us-south"
+
+# IBM Cloud resource group name
+resource_group_name = "default"
+
+# =============================================================================
+# Project and Environment Configuration
+# =============================================================================
+
+# Project name for resource organization and naming
+project_name = "cicd-automation"
+
+# Environment name (dev, staging, prod, test, lab, demo)
+environment = "lab"
+
+# Owner of the CI/CD resources
+owner = "platform-engineering-team"
+
+# Cost center for billing tracking
+cost_center = "engineering"
+
+# Business unit responsible for the infrastructure
+business_unit = "platform-engineering"
+
+# =============================================================================
+# GitLab CI/CD Configuration (Optional)
+# =============================================================================
+
+# GitLab personal access token (leave empty if not using GitLab)
+# Create token at: https://gitlab.com/-/profile/personal_access_tokens
+# Required scopes: api, read_user, read_repository, write_repository
+gitlab_token = ""
+
+# GitLab base URL (default for GitLab.com, change for self-hosted)
+gitlab_base_url = "https://gitlab.com/api/v4/"
+
+# Existing GitLab project ID (leave empty to create new project)
+gitlab_project_id = ""
+
+# Name for new GitLab project (used if gitlab_project_id is empty)
+gitlab_project_name = "terraform-cicd-automation"
+
+# =============================================================================
+# GitHub Actions Configuration (Optional)
+# =============================================================================
+
+# GitHub personal access token (leave empty if not using GitHub)
+# Create token at: https://github.com/settings/tokens
+# Required scopes: repo, workflow, admin:repo_hook
+github_token = ""
+
+# GitHub organization or username
+github_organization = "your-github-org"
+
+# Existing GitHub repository name (leave empty to create new repository)
+github_repository_name = ""
+
+# GitHub base URL (default for GitHub.com, change for GitHub Enterprise)
+github_base_url = "https://api.github.com/"
+
+# =============================================================================
+# Terraform Cloud/Enterprise Configuration (Optional)
+# =============================================================================
+
+# Terraform Cloud/Enterprise hostname
+tfe_hostname = "app.terraform.io"
+
+# Terraform Cloud/Enterprise API token (leave empty if not using TFE)
+# Create token at: https://app.terraform.io/app/settings/tokens
+tfe_token = ""
+
+# Terraform Cloud/Enterprise organization name
+tfe_organization = "your-tfe-organization"
+
+# Existing Terraform Cloud workspace name (leave empty to create new)
+tfe_workspace_name = ""
+
+# Skip SSL verification for self-hosted Terraform Enterprise
+tfe_ssl_skip_verify = false
+
+# =============================================================================
+# IBM Cloud Schematics Configuration
+# =============================================================================
+
+# Name for IBM Cloud Schematics workspace (leave empty to skip creation)
+schematics_workspace_name = "cicd-automation-workspace"
+
+# Description for Schematics workspace
+schematics_workspace_description = "CI/CD Pipeline Automation Workspace for Lab 8.1"
+
+# Source type for Schematics template
+schematics_template_source_type = "git_hub"
+
+# Repository URL for Schematics template source
+schematics_template_repo_url = "https://github.com/your-org/terraform-cicd-lab.git"
+
+# Repository branch for Schematics template
+schematics_template_repo_branch = "main"
+
+# =============================================================================
+# CI/CD Pipeline Configuration
+# =============================================================================
+
+# Events that trigger the CI/CD pipeline
+pipeline_trigger_events = ["push", "merge_request", "tag"]
+
+# Environments for multi-stage deployment
+pipeline_environments = ["dev", "staging", "prod"]
+
+# Enable security scanning in CI/CD pipeline
+enable_security_scanning = true
+
+# Enable compliance policy checks
+enable_compliance_checks = true
+
+# Enable cost estimation in pipeline
+enable_cost_estimation = true
+
+# Enable infrastructure drift detection
+enable_drift_detection = true
+
+# =============================================================================
+# Notification Configuration
+# =============================================================================
+
+# Notification channels configuration
+notification_channels = {
+  slack_webhook_url             = ""  # Slack webhook URL for notifications
+  teams_webhook_url             = ""  # Microsoft Teams webhook URL
+  email_recipients              = []  # List of email addresses for notifications
+  enable_success_notifications  = false
+  enable_failure_notifications  = true
+}
+
+# =============================================================================
+# Security and Compliance Configuration
+# =============================================================================
+
+# Security scanning tools to integrate
+security_scanning_tools = ["tfsec", "checkov", "terrascan"]
+
+# Compliance frameworks to validate against
+compliance_frameworks = ["cis", "nist", "pci"]
+
+# =============================================================================
+# Performance and Optimization Configuration
+# =============================================================================
+
+# Maximum pipeline execution timeout (minutes)
+pipeline_timeout_minutes = 60
+
+# Maximum parallel pipeline executions
+parallel_execution_limit = 3
+
+# Pipeline caching configuration
+cache_configuration = {
+  enable_terraform_cache  = true
+  enable_docker_cache     = true
+  enable_dependency_cache = true
+  cache_ttl_hours        = 24
+}
+
+# =============================================================================
+# Monitoring and Observability Configuration
+# =============================================================================
+
+# Enable comprehensive monitoring
+enable_monitoring = true
+
+# Enable centralized logging
+enable_logging = true
+
+# Log retention period (days)
+log_retention_days = 30
+
+# Monitoring alert thresholds
+monitoring_alert_thresholds = {
+  pipeline_failure_rate_percent = 10
+  pipeline_duration_minutes     = 45
+  resource_utilization_percent  = 80
+  cost_variance_percent         = 20
+}
+
+# =============================================================================
+# Resource Tagging and Organization
+# =============================================================================
+
+# Additional tags for resources
+additional_tags = {
+  "department"    = "engineering"
+  "team"          = "platform"
+  "contact"       = "platform-team@company.com"
+  "backup"        = "daily"
+  "monitoring"    = "enabled"
+  "compliance"    = "required"
+}
+
+# =============================================================================
+# Example Configurations for Different Scenarios
+# =============================================================================
+
+# Scenario 1: GitLab CI Only
+# Uncomment and configure the following for GitLab-only setup:
+# gitlab_token = "glpat-xxxxxxxxxxxxxxxxxxxx"
+# gitlab_project_name = "my-terraform-project"
+# github_token = ""
+# tfe_token = ""
+
+# Scenario 2: GitHub Actions Only
+# Uncomment and configure the following for GitHub-only setup:
+# github_token = "ghp_xxxxxxxxxxxxxxxxxxxx"
+# github_organization = "my-github-org"
+# gitlab_token = ""
+# tfe_token = ""
+
+# Scenario 3: Terraform Cloud Integration
+# Uncomment and configure the following for TFE integration:
+# tfe_token = "xxxxxxxxxxxxxxxx.atlasv1.xxxxxxxxxxxxxxxx"
+# tfe_organization = "my-tfe-org"
+# tfe_workspace_name = "cicd-automation-workspace"
+
+# Scenario 4: Multi-Platform Setup
+# Configure tokens for multiple platforms to enable cross-platform CI/CD:
+# gitlab_token = "glpat-xxxxxxxxxxxxxxxxxxxx"
+# github_token = "ghp_xxxxxxxxxxxxxxxxxxxx"
+# tfe_token = "xxxxxxxxxxxxxxxx.atlasv1.xxxxxxxxxxxxxxxx"
+
+# Scenario 5: Production Environment
+# Example configuration for production deployment:
+# environment = "prod"
+# pipeline_environments = ["staging", "prod"]
+# enable_security_scanning = true
+# enable_compliance_checks = true
+# enable_monitoring = true
+# enable_logging = true
+# log_retention_days = 90
+# pipeline_timeout_minutes = 120
+# parallel_execution_limit = 1
+
+# Scenario 6: Development Environment
+# Example configuration for development/testing:
+# environment = "dev"
+# pipeline_environments = ["dev"]
+# enable_security_scanning = false
+# enable_compliance_checks = false
+# enable_monitoring = false
+# enable_logging = false
+# pipeline_timeout_minutes = 30
+# parallel_execution_limit = 5
+
+# =============================================================================
+# Security Best Practices
+# =============================================================================
+
+# IMPORTANT SECURITY NOTES:
+# 1. Never commit actual API keys or tokens to version control
+# 2. Use environment variables or secure secret management for sensitive values
+# 3. Regularly rotate API keys and tokens
+# 4. Use least-privilege access principles for all service accounts
+# 5. Enable audit logging for all CI/CD activities
+# 6. Implement proper branch protection and approval workflows
+# 7. Use encrypted storage for all artifacts and state files
+# 8. Regularly scan for security vulnerabilities in dependencies
+
+# Environment Variable Examples:
+# export TF_VAR_ibmcloud_api_key="your-api-key"
+# export TF_VAR_gitlab_token="your-gitlab-token"
+# export TF_VAR_github_token="your-github-token"
+# export TF_VAR_tfe_token="your-tfe-token"
+
+# =============================================================================
+# Cost Optimization Tips
+# =============================================================================
+
+# 1. Use appropriate service plans (lite/standard) based on requirements
+# 2. Implement lifecycle policies for object storage
+# 3. Set up cost alerts and monitoring
+# 4. Use resource tagging for cost allocation
+# 5. Regularly review and cleanup unused resources
+# 6. Consider using scheduled pipelines for non-critical environments
+# 7. Implement auto-scaling for Code Engine applications
+# 8. Use caching to reduce build times and costs
+
+# =============================================================================
+# Troubleshooting Common Issues
+# =============================================================================
+
+# Issue 1: Authentication Failures
+# - Verify API keys have correct permissions
+# - Check resource group access
+# - Ensure tokens are not expired
+
+# Issue 2: Resource Creation Failures
+# - Verify region availability for services
+# - Check quota limits for your account
+# - Ensure unique naming for global resources
+
+# Issue 3: Pipeline Failures
+# - Check webhook configurations
+# - Verify environment variables in CI/CD platform
+# - Review security scanning tool configurations
+
+# Issue 4: Networking Issues
+# - Verify VPC and subnet configurations
+# - Check security group rules
+# - Ensure proper DNS resolution
