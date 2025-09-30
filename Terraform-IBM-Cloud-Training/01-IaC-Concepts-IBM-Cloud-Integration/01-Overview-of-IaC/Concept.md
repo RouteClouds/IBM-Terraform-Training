@@ -14,12 +14,14 @@ By the end of this module, you will be able to:
 *Figure 1.1: Side-by-side comparison of traditional infrastructure management versus Infrastructure as Code approach, highlighting workflow differences and automation benefits*
 
 ### Definition
-Infrastructure as Code (IaC) is the practice of managing and provisioning computing infrastructure through machine-readable definition files, rather than through physical hardware configuration or interactive configuration tools.
+Infrastructure as Code (IaC) is the practice of managing and provisioning computing infrastructure through machine-readable definition files, rather than through physical hardware configuration or interactive configuration tools. As illustrated in Figure 1.1, this approach fundamentally transforms how organizations manage their cloud infrastructure.
 
 ### Core Principles
 
 ![IaC Core Principles](DaC/generated_diagrams/iac_principles.png)
 *Figure 1.2: Central hub diagram illustrating the fundamental principles of Infrastructure as Code and their interconnected relationships*
+
+Infrastructure as Code is built on several foundational principles that ensure reliable, scalable, and maintainable infrastructure management. As shown in Figure 1.2, these principles work together to create a comprehensive framework:
 
 #### 1. **Declarative Configuration**
 - Define the desired end state of infrastructure
@@ -150,10 +152,15 @@ resource "ibm_is_vpc" "training_vpc" {
 
 ## 5. Terraform Workflow Lifecycle
 
+![IaC Workflow](DaC/generated_diagrams/iac_workflow.png)
+*Figure 1.5: Complete Terraform workflow lifecycle showing the four core phases (init, plan, apply, destroy) with decision points, validation steps, and best practices for enterprise IBM Cloud deployments*
+
 ### Overview
 Terraform follows a well-defined workflow lifecycle that ensures consistent and reliable infrastructure management. Understanding each phase of this lifecycle is crucial for successful IaC implementation, especially in IBM Cloud environments where proper resource management directly impacts costs and security.
 
 ### The Four Core Commands
+
+Terraform's workflow revolves around four essential commands that form the foundation of infrastructure lifecycle management. Figure 1.5 illustrates how these commands interact within the complete workflow lifecycle:
 
 #### 1. terraform init - Initialization Phase
 

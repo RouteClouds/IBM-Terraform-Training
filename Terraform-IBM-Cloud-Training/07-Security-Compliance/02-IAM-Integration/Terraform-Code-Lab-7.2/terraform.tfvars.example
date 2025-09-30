@@ -1,0 +1,326 @@
+# IBM Cloud IAM Integration - Terraform Variables Example
+# Topic 7.2: Identity and Access Management (IAM) Integration
+# Lab 7.2: Enterprise Identity and Access Management Implementation
+
+# Copy this file to terraform.tfvars and customize the values for your environment
+# Sensitive values should be set via environment variables or secure variable files
+
+# =============================================================================
+# PROJECT CONFIGURATION
+# =============================================================================
+
+# Project name - used as prefix for all resources
+project_name = "iam-integration-lab72"
+
+# Environment designation
+environment = "dev"
+
+# IBM Cloud region for deployment
+region = "us-south"
+
+# Resource group name (must exist in your IBM Cloud account)
+resource_group_name = "default"
+
+# =============================================================================
+# IDENTITY PROVIDER CONFIGURATION
+# =============================================================================
+
+# SAML Federation Settings
+enable_saml_federation = true
+saml_entity_id        = "https://enterprise.company.com/saml"
+saml_sign_in_url      = "https://enterprise.company.com/saml/sso"
+# saml_certificate    = "LS0tLS1CRUdJTi..." # Set via environment variable SAML_CERTIFICATE
+
+# OIDC Federation Settings
+enable_oidc_federation = true
+oidc_issuer           = "https://auth.company.com"
+oidc_client_id        = "enterprise-app-client"
+# oidc_client_secret  = "your-client-secret" # Set via environment variable OIDC_CLIENT_SECRET
+
+# =============================================================================
+# MULTI-FACTOR AUTHENTICATION CONFIGURATION
+# =============================================================================
+
+# MFA enforcement settings
+enforce_mfa = true
+mfa_type    = "TOTP"  # Options: TOTP, SMS, EMAIL
+
+# Session management
+session_timeout_hours             = 8
+session_inactivity_timeout_minutes = 30
+
+# =============================================================================
+# ACCESS CONTROL CONFIGURATION
+# =============================================================================
+
+# Corporate IP ranges for access control
+corporate_ip_ranges = [
+  "10.0.0.0/8",      # Internal corporate network
+  "172.16.0.0/12",   # VPN network range
+  "192.168.0.0/16",  # Office network range
+  "203.0.113.0/24"   # External office location
+]
+
+# Login security settings
+max_login_attempts = 3
+
+# Conditional access settings
+enable_conditional_access = true
+risk_score_threshold     = 75
+
+# =============================================================================
+# ENTERPRISE USER CONFIGURATION
+# =============================================================================
+
+# Enterprise users for testing and demonstration
+enterprise_users = {
+  john_doe = {
+    email         = "john.doe@company.com"
+    first_name    = "John"
+    last_name     = "Doe"
+    employee_id   = "EMP001"
+    department    = "Engineering"
+    cost_center   = "CC-ENG-001"
+    manager_email = "jane.smith@company.com"
+    role          = "Senior Engineer"
+    access_level  = "standard"
+  }
+  jane_smith = {
+    email         = "jane.smith@company.com"
+    first_name    = "Jane"
+    last_name     = "Smith"
+    employee_id   = "EMP002"
+    department    = "Engineering"
+    cost_center   = "CC-ENG-001"
+    manager_email = "bob.johnson@company.com"
+    role          = "Engineering Manager"
+    access_level  = "elevated"
+  }
+  alice_johnson = {
+    email         = "alice.johnson@company.com"
+    first_name    = "Alice"
+    last_name     = "Johnson"
+    employee_id   = "EMP003"
+    department    = "Finance"
+    cost_center   = "CC-FIN-001"
+    manager_email = "bob.wilson@company.com"
+    role          = "Financial Analyst"
+    access_level  = "standard"
+  }
+  bob_wilson = {
+    email         = "bob.wilson@company.com"
+    first_name    = "Bob"
+    last_name     = "Wilson"
+    employee_id   = "EMP004"
+    department    = "Finance"
+    cost_center   = "CC-FIN-001"
+    manager_email = "charlie.brown@company.com"
+    role          = "Finance Manager"
+    access_level  = "elevated"
+  }
+  charlie_brown = {
+    email         = "charlie.brown@company.com"
+    first_name    = "Charlie"
+    last_name     = "Brown"
+    employee_id   = "EMP005"
+    department    = "Operations"
+    cost_center   = "CC-OPS-001"
+    manager_email = "diana.prince@company.com"
+    role          = "Operations Engineer"
+    access_level  = "standard"
+  }
+  diana_prince = {
+    email         = "diana.prince@company.com"
+    first_name    = "Diana"
+    last_name     = "Prince"
+    employee_id   = "EMP006"
+    department    = "Security"
+    cost_center   = "CC-SEC-001"
+    manager_email = "bruce.wayne@company.com"
+    role          = "Security Analyst"
+    access_level  = "elevated"
+  }
+}
+
+# =============================================================================
+# DEPARTMENT ACCESS MAPPINGS
+# =============================================================================
+
+# Access control mappings for different departments
+department_access_mappings = {
+  Engineering = {
+    access_groups = [
+      "developers",
+      "code-repository-access",
+      "development-environment",
+      "ci-cd-pipeline"
+    ]
+    default_permissions  = ["read", "write", "deploy"]
+    elevated_permissions = ["admin", "debug", "production-deploy"]
+    approval_required    = false
+  }
+  Finance = {
+    access_groups = [
+      "financial-systems",
+      "reporting-tools",
+      "audit-access",
+      "compliance-tools"
+    ]
+    default_permissions  = ["read", "report"]
+    elevated_permissions = ["write", "approve", "audit"]
+    approval_required    = true
+  }
+  Operations = {
+    access_groups = [
+      "infrastructure-monitoring",
+      "incident-response",
+      "production-access",
+      "backup-systems"
+    ]
+    default_permissions  = ["read", "monitor", "alert"]
+    elevated_permissions = ["admin", "emergency", "maintenance"]
+    approval_required    = true
+  }
+  Security = {
+    access_groups = [
+      "security-tools",
+      "audit-logs",
+      "compliance-systems",
+      "incident-investigation"
+    ]
+    default_permissions  = ["read", "investigate", "monitor"]
+    elevated_permissions = ["admin", "forensics", "emergency-response"]
+    approval_required    = false
+  }
+}
+
+# =============================================================================
+# PRIVILEGED ACCESS MANAGEMENT
+# =============================================================================
+
+# JIT access configuration
+enable_jit_access                   = true
+jit_max_duration_hours             = 4
+privileged_access_approval_required = true
+
+# =============================================================================
+# COMPLIANCE AND GOVERNANCE
+# =============================================================================
+
+# Compliance frameworks to implement
+compliance_frameworks = ["SOC2", "ISO27001", "GDPR"]
+
+# Audit log retention (7 years for compliance)
+audit_log_retention_days = 2555
+
+# Automated compliance reporting
+enable_automated_compliance_reporting = true
+
+# =============================================================================
+# INTEGRATION CONFIGURATION
+# =============================================================================
+
+# SIEM integration settings
+siem_integration_enabled = true
+siem_endpoint           = "https://siem.company.com/api/events"
+
+# HR system integration
+hr_system_integration_enabled = true
+# hr_webhook_token            = "your-webhook-token" # Set via environment variable HR_WEBHOOK_TOKEN
+
+# =============================================================================
+# NOTIFICATION CONFIGURATION
+# =============================================================================
+
+# Notification channels for alerts and notifications
+notification_channels = [
+  "email:security-team@company.com",
+  "email:compliance-team@company.com",
+  "slack:security-alerts",
+  "slack:compliance-notifications",
+  "pagerduty:security-incidents",
+  "webhook:https://company.com/api/notifications"
+]
+
+# Real-time alerting
+enable_real_time_alerts = true
+
+# =============================================================================
+# TAGGING AND METADATA
+# =============================================================================
+
+# Default tags applied to all resources
+default_tags = [
+  "project:iam-integration",
+  "topic:7.2",
+  "lab:enterprise-identity",
+  "terraform:managed",
+  "environment:dev"
+]
+
+# Additional tags for resource customization
+additional_tags = {
+  "cost-center"    = "security"
+  "owner"          = "security-team"
+  "backup"         = "required"
+  "monitoring"     = "enabled"
+  "compliance"     = "required"
+  "data-class"     = "confidential"
+  "retention"      = "7-years"
+  "encryption"     = "required"
+}
+
+# =============================================================================
+# ENVIRONMENT-SPECIFIC OVERRIDES
+# =============================================================================
+
+# Development Environment Settings
+# Uncomment and modify for development environment
+# session_timeout_hours = 4
+# max_login_attempts = 5
+# risk_score_threshold = 50
+
+# Staging Environment Settings
+# Uncomment and modify for staging environment
+# session_timeout_hours = 6
+# max_login_attempts = 4
+# risk_score_threshold = 65
+
+# Production Environment Settings
+# Uncomment and modify for production environment
+# session_timeout_hours = 8
+# max_login_attempts = 3
+# risk_score_threshold = 75
+# audit_log_retention_days = 2555
+
+# =============================================================================
+# SECURITY NOTES
+# =============================================================================
+
+# IMPORTANT SECURITY CONSIDERATIONS:
+# 
+# 1. SENSITIVE VALUES:
+#    - Never commit sensitive values like certificates, secrets, or tokens to version control
+#    - Use environment variables or secure variable files for sensitive data
+#    - Example: export TF_VAR_saml_certificate="your-certificate-here"
+#
+# 2. ENVIRONMENT VARIABLES:
+#    - IBMCLOUD_API_KEY: Your IBM Cloud API key
+#    - TF_VAR_saml_certificate: Base64 encoded SAML certificate
+#    - TF_VAR_oidc_client_secret: OIDC client secret
+#    - TF_VAR_hr_webhook_token: HR system webhook token
+#
+# 3. NETWORK SECURITY:
+#    - Update corporate_ip_ranges with your actual network ranges
+#    - Consider using more restrictive IP ranges for production
+#    - Implement network segmentation for sensitive operations
+#
+# 4. ACCESS CONTROL:
+#    - Review and customize department_access_mappings for your organization
+#    - Implement principle of least privilege
+#    - Regularly review and update access permissions
+#
+# 5. COMPLIANCE:
+#    - Ensure audit_log_retention_days meets your compliance requirements
+#    - Configure appropriate notification channels for your organization
+#    - Implement regular compliance assessments and reviews

@@ -36,8 +36,8 @@ Terraform state is the cornerstone of Infrastructure as Code implementation, ser
 - **Change Detection**: Enables Terraform to determine what changes need to be made
 - **Performance Optimization**: Caches resource information to reduce API calls
 
-**Figure 6.1.1**: *Complete Terraform State Lifecycle Overview*
-*[Professional diagram showing state creation, operations, persistence, and validation phases with IBM Cloud service integration points]*
+![Complete Terraform State Lifecycle Overview](DaC/generated_diagrams/figure_6_1_1_state_lifecycle.png)
+*Figure 6.1.1: Complete Terraform State Lifecycle Overview showing state creation, operations, persistence, and validation phases with IBM Cloud service integration points*
 
 ### **State File Structure and Components**
 
@@ -116,8 +116,8 @@ Terraform state is the cornerstone of Infrastructure as Code implementation, ser
 - **Access Control**: No granular access controls
 - **Audit Trail**: No centralized audit logging
 
-**Figure 6.1.2**: *Local vs Remote State Architecture Comparison*
-*[Side-by-side architectural comparison showing scalability, security, and collaboration benefits of IBM Cloud Object Storage backend]*
+![Local vs Remote State Architecture Comparison](DaC/generated_diagrams/figure_6_1_2_local_vs_remote.png)
+*Figure 6.1.2: Local vs Remote State Architecture Comparison showing scalability, security, and collaboration benefits of IBM Cloud Object Storage backend*
 
 ### **Local State Best Practices**
 
@@ -210,8 +210,8 @@ terraform {
 - **Regional Placement**: Cost-effective regional deployment
 - **Usage Monitoring**: Detailed cost tracking and optimization
 
-**Figure 6.1.3**: *IBM Cloud Object Storage Backend Architecture*
-*[Detailed technical implementation showing COS infrastructure, S3-compatible API, enterprise security features, and integration with Activity Tracker and Key Protect]*
+![IBM Cloud Object Storage Backend Architecture](DaC/generated_diagrams/figure_6_1_3_cos_backend.png)
+*Figure 6.1.3: IBM Cloud Object Storage Backend Architecture showing COS infrastructure, S3-compatible API, enterprise security features, and integration with Activity Tracker and Key Protect*
 
 ### **Backend Configuration Best Practices**
 
@@ -268,8 +268,8 @@ Following the workflow patterns from **Topic 3.1**, state migration requires car
 4. **Team Coordination**: Coordinate with team members and stakeholders
 5. **Rollback Planning**: Prepare rollback procedures and validation
 
-**Figure 6.1.4**: *State Migration Workflow Process*
-*[Step-by-step migration process from local to IBM Cloud Object Storage backend with validation checkpoints and risk mitigation procedures]*
+![State Migration Workflow Process](DaC/generated_diagrams/figure_6_1_4_migration_workflow.png)
+*Figure 6.1.4: State Migration Workflow Process showing step-by-step migration from local to IBM Cloud Object Storage backend with validation checkpoints and risk mitigation procedures*
 
 ### **Migration Implementation**
 
@@ -336,8 +336,8 @@ Building on the collaboration patterns from **Topic 5.3**, state management enab
 - **Project Segmentation**: Isolated state for different projects and applications
 - **Workflow Integration**: State management within Git workflows and CI/CD pipelines
 
-**Figure 6.1.5**: *Team Collaboration and Access Control Model*
-*[Enterprise team collaboration model showing role-based access control, workflow integration, and governance frameworks for shared state management]*
+![Team Collaboration and Access Control Model](DaC/generated_diagrams/figure_6_1_5_team_collaboration.png)
+*Figure 6.1.5: Team Collaboration and Access Control Model showing role-based access control, workflow integration, and governance frameworks for shared state management*
 
 ### **Access Control Implementation**
 

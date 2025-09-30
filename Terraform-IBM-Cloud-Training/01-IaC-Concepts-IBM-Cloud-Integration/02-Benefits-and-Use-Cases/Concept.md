@@ -73,6 +73,9 @@ resource "ibm_is_instance" "compliant_vsi" {
 
 ### 1.3 Cost Optimization and Financial Management
 
+![Cost Optimization](DaC/generated_diagrams/cost_optimization.png)
+*Figure 2.2: Comprehensive cost optimization strategies and automated financial management workflows for IBM Cloud Infrastructure as Code implementations*
+
 #### Automated Cost Controls
 - **Resource Lifecycle Management**: Automatic scaling and deprovisioning
 - **Reserved Instance Automation**: Programmatic reserved capacity management
@@ -80,9 +83,10 @@ resource "ibm_is_instance" "compliant_vsi" {
 - **Budget Alerts**: Infrastructure-triggered budget notifications
 
 ![ROI Comparison](DaC/generated_diagrams/roi_comparison.png)
-*Figure 2.2: Return on Investment analysis comparing traditional infrastructure management versus Infrastructure as Code implementation with quantified benefits*
+*Figure 2.3: Return on Investment analysis comparing traditional infrastructure management versus Infrastructure as Code implementation with quantified benefits*
 
 #### Financial Benefits Quantification
+IBM Cloud IaC implementations typically achieve the quantified benefits shown in Figure 2.3:
 - **Infrastructure Provisioning Speed**: 95% reduction in deployment time
 - **Human Error Reduction**: 80% decrease in configuration-related incidents
 - **Resource Utilization**: 30-40% improvement through automated scaling
@@ -362,6 +366,9 @@ resource "ibm_quantum_backend" "research" {
 
 ## 5. Implementation Strategies for Different Scenarios
 
+![Use Case Timeline](DaC/generated_diagrams/use_case_timeline.png)
+*Figure 2.4: Progressive Infrastructure as Code adoption timeline showing implementation phases, milestones, and organizational maturity progression from startup to enterprise scale*
+
 ### 5.1 Startup to Enterprise Growth
 
 #### Phase 1: Startup (MVP Infrastructure)
@@ -432,7 +439,7 @@ module "enterprise_infrastructure" {
 ### 5.2 Industry-Specific Use Cases
 
 ![Industry Use Cases](DaC/generated_diagrams/industry_use_cases.png)
-*Figure 2.3: Industry-specific Infrastructure as Code use cases demonstrating tailored approaches for different regulatory and business environments*
+*Figure 2.5: Industry-specific Infrastructure as Code use cases demonstrating tailored approaches for different regulatory and business environments*
 
 #### Financial Services
 - **Regulatory Compliance**: Automated SOX, PCI-DSS compliance

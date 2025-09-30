@@ -1,0 +1,14 @@
+# IBM Cloud IAM Integration - Diagram as Code (DaC) Requirements
+# Topic 7.2: Identity and Access Management (IAM) Integration
+
+# Core plotting and visualization libraries
+matplotlib>=3.7.0
+seaborn>=0.12.0
+numpy>=1.24.0
+
+# Additional visualization enhancements
+pillow>=10.0.0
+scipy>=1.10.0
+
+# Color and styling libraries
+colorama>=0.4.6

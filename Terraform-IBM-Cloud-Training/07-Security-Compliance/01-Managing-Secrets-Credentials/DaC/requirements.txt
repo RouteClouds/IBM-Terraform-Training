@@ -1,0 +1,39 @@
+# IBM Cloud Terraform Training - Topic 7.1: Managing Secrets and Credentials
+# Diagram as Code (DaC) Requirements
+# 
+# This file specifies the Python dependencies required for generating
+# professional security diagrams for the secrets management training module.
+
+# Core plotting and visualization libraries
+matplotlib>=3.7.0
+seaborn>=0.12.0
+numpy>=1.24.0
+
+# Additional visualization enhancements
+plotly>=5.15.0
+kaleido>=0.2.1
+
+# Image processing and enhancement
+Pillow>=10.0.0
+
+# Data manipulation and analysis
+pandas>=2.0.0
+
+# Color palette and styling
+colorcet>=3.0.0
+
+# Font management for IBM Plex Sans
+fonttools>=4.40.0
+
+# Optional: Interactive diagram capabilities
+ipywidgets>=8.0.0
+jupyter>=1.0.0
+
+# Development and testing dependencies
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.0.0
+
+# Documentation generation
+sphinx>=7.0.0
+sphinx-rtd-theme>=1.3.0

@@ -1,0 +1,275 @@
+# IBM Cloud Terraform Training - Topic 7.1: Managing Secrets and Credentials
+# Terraform Code Lab 7.1 - Example Variables Configuration
+#
+# Copy this file to terraform.tfvars and customize the values for your environment.
+# This file provides example configurations for development, staging, and production.
+#
+# Author: IBM Cloud Terraform Training Team
+# Version: 1.0.0
+# Last Updated: 2024-09-15
+
+# =============================================================================
+# CORE PROJECT CONFIGURATION
+# =============================================================================
+
+# Project name for resource naming and tagging
+project_name = "security-lab"
+
+# Environment: development, staging, or production
+environment = "development"
+
+# Team email for notifications and resource ownership
+team_email = "security-team@company.com"
+
+# =============================================================================
+# IBM CLOUD CONFIGURATION
+# =============================================================================
+
+# IBM Cloud API key for authentication
+# Set this via environment variable: export IBMCLOUD_API_KEY="your-api-key"
+# ibmcloud_api_key = "your-ibm-cloud-api-key-here"
+
+# Primary IBM Cloud region for resource deployment
+primary_region = "us-south"
+
+# Secondary region for disaster recovery (optional)
+secondary_region = "us-east"
+
+# IBM Cloud resource group name
+resource_group_name = "security-training"
+
+# =============================================================================
+# SECURITY CONFIGURATION
+# =============================================================================
+
+# Key rotation interval in days (7-365)
+key_rotation_interval_days = 30
+
+# Secret rotation interval in days (1-90)
+secret_rotation_interval_days = 30
+
+# Session timeout in hours (1-24)
+session_timeout_hours = 8
+
+# Multi-factor authentication requirement
+mfa_required = true
+
+# Dual authorization for critical operations (recommended for production)
+dual_auth_required = false
+
+# =============================================================================
+# NETWORK SECURITY
+# =============================================================================
+
+# Allowed IP ranges for access control
+# Development: Allow all (use with caution)
+allowed_ip_ranges = ["0.0.0.0/0"]
+
+# Development environment IP ranges
+development_ip_ranges = ["0.0.0.0/0"]
+
+# Production environment IP ranges (restrict to corporate networks)
+# production_ip_ranges = ["10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"]
+
+# =============================================================================
+# COMPLIANCE CONFIGURATION
+# =============================================================================
+
+# SOC2 compliance requirement
+soc2_compliance_required = true
+
+# ISO27001 compliance requirement
+iso27001_compliance_required = true
+
+# GDPR compliance requirement (set to true for EU operations)
+gdpr_compliance_required = false
+
+# HIPAA compliance requirement (set to true for healthcare)
+hipaa_compliance_required = false
+
+# Audit log retention in days (30-2555 for 7 years)
+audit_retention_days = 90
+
+# =============================================================================
+# APPLICATION CONFIGURATION
+# =============================================================================
+
+# Application name using the secrets
+application_name = "demo-app"
+
+# Database username for application credentials
+database_username = "app_user"
+
+# Database password (leave null for auto-generation)
+# database_password = "your-secure-password-here"
+
+# =============================================================================
+# MONITORING AND ALERTING
+# =============================================================================
+
+# Enable security monitoring and alerting
+enable_monitoring = true
+
+# Security team email for notifications
+security_team_email = "security-alerts@company.com"
+
+# Slack webhook URL for notifications (optional)
+# slack_webhook_url = "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+
+# Failed login attempts threshold for alerts
+alert_threshold_failed_logins = 5
+
+# =============================================================================
+# COST OPTIMIZATION
+# =============================================================================
+
+# Enable cost optimization features
+enable_cost_optimization = true
+
+# Auto-delete unused secrets (use with caution)
+auto_delete_unused_secrets = false
+
+# Secret retention days before deletion
+secret_retention_days = 90
+
+# =============================================================================
+# ADVANCED CONFIGURATION
+# =============================================================================
+
+# Enable cross-region replication for disaster recovery
+enable_cross_region_replication = false
+
+# Enable automated security testing
+enable_automated_testing = true
+
+# Custom security policies (JSON format)
+# custom_policies = {
+#   "password_policy" = "{\"min_length\": 12, \"require_special\": true}"
+#   "access_policy"   = "{\"max_sessions\": 3, \"timeout_minutes\": 30}"
+# }
+
+# Webhook endpoints for secret rotation notifications
+# webhook_endpoints = {
+#   pre_rotation_webhook  = "https://your-app.com/webhooks/pre-rotation"
+#   post_rotation_webhook = "https://your-app.com/webhooks/post-rotation"
+# }
+
+# =============================================================================
+# FEATURE FLAGS
+# =============================================================================
+
+# Enable IBM Cloud Key Protect
+enable_key_protect = true
+
+# Enable IBM Cloud Secrets Manager
+enable_secrets_manager = true
+
+# Enable IBM Cloud Activity Tracker
+enable_activity_tracker = true
+
+# Enable IAM access policies
+enable_iam_policies = true
+
+# Enable automated incident response
+enable_incident_response = false
+
+# =============================================================================
+# ENVIRONMENT-SPECIFIC EXAMPLES
+# =============================================================================
+
+# DEVELOPMENT ENVIRONMENT EXAMPLE:
+# project_name = "security-lab-dev"
+# environment = "development"
+# key_rotation_interval_days = 90
+# secret_rotation_interval_days = 30
+# session_timeout_hours = 8
+# mfa_required = false
+# dual_auth_required = false
+# allowed_ip_ranges = ["0.0.0.0/0"]
+# audit_retention_days = 30
+
+# STAGING ENVIRONMENT EXAMPLE:
+# project_name = "security-lab-staging"
+# environment = "staging"
+# key_rotation_interval_days = 30
+# secret_rotation_interval_days = 15
+# session_timeout_hours = 4
+# mfa_required = true
+# dual_auth_required = false
+# allowed_ip_ranges = ["10.0.0.0/8", "172.16.0.0/12"]
+# audit_retention_days = 90
+
+# PRODUCTION ENVIRONMENT EXAMPLE:
+# project_name = "security-lab-prod"
+# environment = "production"
+# key_rotation_interval_days = 7
+# secret_rotation_interval_days = 7
+# session_timeout_hours = 1
+# mfa_required = true
+# dual_auth_required = true
+# allowed_ip_ranges = ["10.0.0.0/8"]
+# audit_retention_days = 2555  # 7 years
+# soc2_compliance_required = true
+# iso27001_compliance_required = true
+# gdpr_compliance_required = true
+
+# =============================================================================
+# SECURITY BEST PRACTICES
+# =============================================================================
+
+# 1. NEVER commit terraform.tfvars to version control
+# 2. Use environment variables for sensitive values like API keys
+# 3. Implement least privilege access principles
+# 4. Enable MFA for all production environments
+# 5. Use private endpoints for production workloads
+# 6. Regularly rotate all credentials and keys
+# 7. Monitor and audit all security events
+# 8. Implement automated compliance validation
+# 9. Use separate environments for development, staging, and production
+# 10. Regularly review and update security policies
+
+# =============================================================================
+# GETTING STARTED
+# =============================================================================
+
+# 1. Copy this file to terraform.tfvars:
+#    cp terraform.tfvars.example terraform.tfvars
+
+# 2. Set your IBM Cloud API key:
+#    export IBMCLOUD_API_KEY="your-api-key"
+
+# 3. Customize the variables for your environment
+
+# 4. Initialize Terraform:
+#    terraform init
+
+# 5. Plan the deployment:
+#    terraform plan
+
+# 6. Apply the configuration:
+#    terraform apply
+
+# 7. Verify the deployment in IBM Cloud console
+
+# =============================================================================
+# TROUBLESHOOTING
+# =============================================================================
+
+# Common issues and solutions:
+
+# Issue: "Resource group not found"
+# Solution: Verify resource_group_name exists and you have access
+
+# Issue: "Region not available"
+# Solution: Check primary_region is a valid IBM Cloud region
+
+# Issue: "Insufficient permissions"
+# Solution: Verify your API key has required IAM permissions
+
+# Issue: "Key Protect instance creation failed"
+# Solution: Check region supports Key Protect service
+
+# Issue: "Secrets Manager integration failed"
+# Solution: Ensure Key Protect instance is created first
+
+# For more help, refer to the README.md file or IBM Cloud documentation.
